@@ -1,0 +1,413 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CS Crash Course 笔记 | 浮泛之舟</title><meta name="author" content="浮舟子-pigKiller"><meta name="copyright" content="浮舟子-pigKiller"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CS Crash Course的笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS Crash Course 笔记">
+<meta property="og:url" content="https://pigkillermaster.github.io/2023/07/14/CS-Crash-Course-%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="浮泛之舟">
+<meta property="og:description" content="CS Crash Course的笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307110812599.jpg">
+<meta property="article:published_time" content="2023-07-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-07-14T06:52:02.887Z">
+<meta property="article:author" content="浮舟子-pigKiller">
+<meta property="article:tag" content="CS">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307110812599.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://pigkillermaster.github.io/2023/07/14/CS-Crash-Course-%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CS Crash Course 笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2023-07-14 14:52:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102227559.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307110812599.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="浮泛之舟"><span class="site-name">浮泛之舟</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CS Crash Course 笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-07-13T16:00:00.000Z" title="发表于 2023-07-14 00:00:00">2023-07-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-14T06:52:02.887Z" title="更新于 2023-07-14 14:52:02">2023-07-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CS Crash Course 笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>本文是B站上的视频<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1EW411u7thf">计算机科学速成课</a>的学习笔记，在极短的时间内能有一个对CS的概览</p>
+</blockquote>
+<h1>1.计算机早期历史</h1>
+<p>信息时代：大规模使用计算机</p>
+<h2 id="计算设备历史">计算设备历史</h2>
+<ul>
+<li>算盘</li>
+<li>步进计算机（一连串的齿轮驱动）
+<ul>
+<li>加法、减法（将乘除分解为连续的加减进行）</li>
+</ul>
+</li>
+<li>差分机（对多项式进行计算）</li>
+<li>分析机：自动进行连续的任务（计算机的雏形）</li>
+<li>美国人口普查的打孔卡片</li>
+</ul>
+<h1>2.电子计算机</h1>
+<p>继电器：用电控制的机械开关（通电时导通），有质量因而无法迅速开关，限制了速率</p>
+<p>真空管：通过电子控制电路的导通，从机电到电子</p>
+<p>降低成本和大小，提高速度和可靠性：晶体管</p>
+<h2 id="晶体管">晶体管</h2>
+<p>半导体物理，控制导通或否</p>
+<p>如今计算机中的晶体管小于50nm</p>
+<h1>3.布尔逻辑与逻辑门</h1>
+<p>二进制：只用真假/01代表信息</p>
+<p>状态越多，越难区分信号</p>
+<p>布尔代数：and、not、or</p>
+<p>基础的逻辑元件（完全集）：与门、非门</p>
+<h1>4.二进制</h1>
+<p>1字节=8位</p>
+<h1>5.算术逻辑单元</h1>
+<p>ALU：算术逻辑单元（算数：Arithmetic，逻辑：Logic）</p>
+<ul>
+<li>算数单元</li>
+<li>逻辑单元</li>
+</ul>
+<h2 id="算数单元">算数单元</h2>
+<p>逻辑门：and、or、not、xor</p>
+<h3 id="加法单元">加法单元</h3>
+<p>由两个逻辑单元组成：xor和and</p>
+<p>在不进位的条件下，<code>0+0=0,1+0=1,0+1=1</code>，与xor的运算机制一致</p>
+<p>考虑进位，当两个输入都是1时，可以用and表示进位</p>
+<p>不考虑进位：半加器</p>
+<p>考虑进位：全加器</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307131443987.png" alt="image-20230713144307696"></p>
+<h2 id="8种基本ALU">8种基本ALU</h2>
+<ol>
+<li>加法</li>
+<li>戴进位的加法</li>
+<li>带借位的减法</li>
+<li>相反树</li>
+<li>增量+1</li>
+<li>减量-1</li>
+<li>不改变</li>
+</ol>
+<h2 id="基本组成">基本组成</h2>
+<ol>
+<li>输入A</li>
+<li>输入B</li>
+<li>操作码</li>
+<li>状态（是否进行）</li>
+</ol>
+<h1>6.寄存器&amp;内存</h1>
+<p>RAM：随机存储器</p>
+<p>Memory：持久存储</p>
+<h2 id="存储一位的元件">存储一位的元件</h2>
+<ul>
+<li>AND可以用来存储0</li>
+<li>OR可以用来存储1</li>
+<li>通过将输出连回输入（反馈），达到了储存特定信号的效果</li>
+<li><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307141045086.png" alt="image-20230714104551951"></li>
+</ul>
+<p><strong>结合AND和OR可以做出能够储存一位的<code>AND-OR锁存器</code></strong>：当设置和复位都是1，能够输出最后输入的信息</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307141048881.png" alt="image-20230714104820709"></p>
+<h2 id="门锁">门锁</h2>
+<p>存储器的抽象结果，有数据输入和允许写入线</p>
+<p><strong>寄存器</strong>：一组锁存器称为寄存器，只能存放一个数字，数字的位数叫做<strong>位宽</strong></p>
+<p>减少寄存器中的导线及复杂度：使用矩阵结构进行构造</p>
+<p><strong>多路复用器</strong>：处理存储信息的地址（16位只要4位就能存储地址）</p>
+<p><strong>矩阵层层嵌套，来储存大量信息</strong></p>
+<h1>7.中央处理器（CPU）</h1>
+<p>CPU负责执行程序：指令（前4位表示操作，后4位表示地址）</p>
+<p>CPU的组成：<strong>寄存器、ALU、指令地址寄存器（存当前指令的地址）、指令寄存器（存当前的指令）</strong></p>
+<h2 id="指令表">指令表</h2>
+<p>为了让CPU进行对应操作，会有对应的指令，为四位操作码，后4为表示数据从哪里来</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307141349383.png" alt="image-20230714134946252"></p>
+<h2 id="工作流程">工作流程</h2>
+<p>基本的流程为：<strong>取指令-&gt;解码-&gt;执行</strong></p>
+<ol>
+<li>取指令
+<ol>
+<li>从指令地址寄存器中取出当前指令的地址</li>
+<li>访问RAM中对应的地址，将指令存入指令寄存器中</li>
+</ol>
+</li>
+<li>解码
+<ul>
+<li>指令为8位，前4位位操作码，后四位为地址（RAM的地址）：</li>
+<li><code>00101110</code>为传入的地址，则操作码为<code>0010</code>，解码为<code>LOAD A</code>，地址为<code>1110</code>，即为14，为RAM中位置为14处的地址</li>
+<li>如果指令为ADD操作，如<code>10000100</code>，<code>1000</code>表示ADD，<code>0100</code>代表了两个地址（两位可以表示4个值），表示将<code>01</code>的值加到<code>00</code>中（将寄存器B的值加到寄存器A中）
+<ul>
+<li>由ALU进相加</li>
+<li>控制单元需要传入ALU的操作指令</li>
+<li>将值暂存在控制单元内部的寄存器中，再存入寄存器A中</li>
+</ul>
+</li>
+<li>解码操作由控制单元进行解码</li>
+</ul>
+</li>
+<li>执行
+<ol>
+<li>打开RAM的允许读取线，传入地址14，读取到值3</li>
+<li>打开寄存器A的允许写入线，写入对应值3</li>
+<li>将指令地址寄存器的地址+1</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307141359305.png" alt="image-20230714135957054"></p>
+<h2 id="时钟">时钟</h2>
+<p>时钟以精准的周期，触发电信号，控制单元以这个电信号，推动CPU工作的进行。</p>
+<p>CPU的时钟速度：<strong>“取指令、解码、执行”的速度</strong>。单位为Hz（1s进行几个周期）</p>
+<p>CPU可以适当地超频和降频</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307141403182.png" alt="image-20230714140352928"></p>
+<h1>8.指令和程序</h1>
+<p>CPU是可编程的</p>
+<p><strong>Jump指令</strong>：覆写指令地址寄存器中的地址，从而改变进行的指令的顺序</p>
+<p><strong>Halt指令</strong>：控制程序停止</p>
+<p>通过不同指令的组合，实现程序功能</p>
+<h2 id="指令的数量">指令的数量</h2>
+<p>8位指令操作有4位，最多16条操作，同样最多16个地址，远远不够</p>
+<p>现代CPU增加指令数的方法：</p>
+<ol>
+<li>增加位数（指令长度）</li>
+<li>可变指令长度（有的地址位不需要用到）</li>
+</ol>
+<h1>9.高级CPU设计</h1>
+<p>提高计算机速度：复杂度VS速度</p>
+<p>现代CPU有专门的电路来进行特定操作，如果用标准操作实现，需要多个时钟周期。</p>
+<p>额外电路进行特定操作</p>
+<h2 id="缓存：快速传数据给CPU">缓存：快速传数据给CPU</h2>
+<p><strong>总线（BUS）</strong>：CPU和RAM之间传输数据的线</p>
+<p><strong>缓存（CACHE）</strong>：给CPU增加RAM。</p>
+<p>可以由RAM一次传一批数据到CPU中，存在缓存中</p>
+<ul>
+<li>从缓存中取数据的速度极快，CPU不用空等</li>
+<li>CACHE HIT：想要的数据已经在缓存中</li>
+<li>CACHE MISS：不在缓存中</li>
+</ul>
+<p>缓存和内存中的数据可能不同，存在特殊位置，后续同步</p>
+<h2 id="指令流水线">指令流水线</h2>
+<p>用并行处理，充分利用闲置：<strong>取指令、解码、执行使用的是CPU的不同部分，可以进行并行处理</strong>，用上CPU的所有部分</p>
+<p>弊端：</p>
+<ol>
+<li>上一步的解码可能在修改这一步读取的数据，流水线操作造成冲突，必要时需要停止流水线</li>
+<li>条件Jump指令会改变程序的执行流造成空等
+<ul>
+<li>高级CPU进行分支预测提前执行可能的Jump后的指令</li>
+<li>Jump指令可以视作分支路，预测分支后的结果</li>
+</ul>
+</li>
+</ol>
+<h3 id="超标量流水线">超标量流水线</h3>
+<p>一次性进行多条指令：增加几个相同的电路进行高频操作</p>
+<h2 id="多核处理器">多核处理器</h2>
+<p>一个CPU中有多个处理单元，共享一些单元如缓存</p>
+<h1>10.早期的编程方式</h1>
+<p>最初的编程为插线板编程，通过接线编写不同的程序</p>
+<p><strong>冯诺依曼结构</strong>：（程序和数据都存在一个地方）</p>
+<ul>
+<li>1个处理器（有ALU）</li>
+<li>数据寄存器</li>
+<li>指令寄存器</li>
+<li>指令地址寄存器</li>
+<li>内存（存储数据和指令）</li>
+</ul>
+<p>面板编程：开关，和打孔的效果等价，但体积更小</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io">浮舟子-pigKiller</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io/2023/07/14/CS-Crash-Course-%E7%AC%94%E8%AE%B0/">https://pigkillermaster.github.io/2023/07/14/CS-Crash-Course-%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://pigkillermaster.github.io" target="_blank">浮泛之舟</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CS/">CS</a><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div><div class="post_share"><div class="social-share" data-image="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307110812599.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2023/07/13/%E5%A4%8D%E5%8F%98%C2%B7%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="复变·第一章"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307110812594.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">复变·第一章</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/07/13/%E5%A4%8D%E5%8F%98%C2%B7%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="复变·第一章"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307110812594.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-13</div><div class="title">复变·第一章</div></div></a></div><div><a href="/2023/07/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/" title="数据结构笔记"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102220987.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-09</div><div class="title">数据结构笔记</div></div></a></div><div><a href="/2023/07/08/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AC%94%E8%AE%B0/" title="程序设计笔记"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307110812601.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-08</div><div class="title">程序设计笔记</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102227559.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">浮舟子-pigKiller</div><div class="author-info__description">不教一日闲度</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/pigKillerMaster"><i class="fab fa-github"></i><span>不教一日闲度</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/pigKillerMaster" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/22373017@buaa.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">1.计算机早期历史</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E8%AE%BE%E5%A4%87%E5%8E%86%E5%8F%B2"><span class="toc-number">1.1.</span> <span class="toc-text">计算设备历史</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">2.电子计算机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%B6%E4%BD%93%E7%AE%A1"><span class="toc-number">2.1.</span> <span class="toc-text">晶体管</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">3.布尔逻辑与逻辑门</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">4.二进制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">5.算术逻辑单元</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E5%8D%95%E5%85%83"><span class="toc-number">5.1.</span> <span class="toc-text">算数单元</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E6%B3%95%E5%8D%95%E5%85%83"><span class="toc-number">5.1.1.</span> <span class="toc-text">加法单元</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E7%A7%8D%E5%9F%BA%E6%9C%ACALU"><span class="toc-number">5.2.</span> <span class="toc-text">8种基本ALU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%84%E6%88%90"><span class="toc-number">5.3.</span> <span class="toc-text">基本组成</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">6.寄存器&amp;内存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E4%B8%80%E4%BD%8D%E7%9A%84%E5%85%83%E4%BB%B6"><span class="toc-number">6.1.</span> <span class="toc-text">存储一位的元件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%A8%E9%94%81"><span class="toc-number">6.2.</span> <span class="toc-text">门锁</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">7.中央处理器（CPU）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E8%A1%A8"><span class="toc-number">7.1.</span> <span class="toc-text">指令表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">7.2.</span> <span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%92%9F"><span class="toc-number">7.3.</span> <span class="toc-text">时钟</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">8.</span> <span class="toc-text">8.指令和程序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E6%95%B0%E9%87%8F"><span class="toc-number">8.1.</span> <span class="toc-text">指令的数量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">9.</span> <span class="toc-text">9.高级CPU设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%EF%BC%9A%E5%BF%AB%E9%80%9F%E4%BC%A0%E6%95%B0%E6%8D%AE%E7%BB%99CPU"><span class="toc-number">9.1.</span> <span class="toc-text">缓存：快速传数据给CPU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="toc-number">9.2.</span> <span class="toc-text">指令流水线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%85%E6%A0%87%E9%87%8F%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="toc-number">9.2.1.</span> <span class="toc-text">超标量流水线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%A0%B8%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">9.3.</span> <span class="toc-text">多核处理器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">10.</span> <span class="toc-text">10.早期的编程方式</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/07/14/CS-Crash-Course-%E7%AC%94%E8%AE%B0/" title="CS Crash Course 笔记"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307110812599.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CS Crash Course 笔记"/></a><div class="content"><a class="title" href="/2023/07/14/CS-Crash-Course-%E7%AC%94%E8%AE%B0/" title="CS Crash Course 笔记">CS Crash Course 笔记</a><time datetime="2023-07-13T16:00:00.000Z" title="发表于 2023-07-14 00:00:00">2023-07-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/13/%E5%A4%8D%E5%8F%98%C2%B7%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="复变·第一章"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307110812594.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="复变·第一章"/></a><div class="content"><a class="title" href="/2023/07/13/%E5%A4%8D%E5%8F%98%C2%B7%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="复变·第一章">复变·第一章</a><time datetime="2023-07-12T16:00:00.000Z" title="发表于 2023-07-13 00:00:00">2023-07-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/" title="数据结构笔记"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102220987.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构笔记"/></a><div class="content"><a class="title" href="/2023/07/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/" title="数据结构笔记">数据结构笔记</a><time datetime="2023-07-08T16:00:00.000Z" title="发表于 2023-07-09 00:00:00">2023-07-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/08/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AC%94%E8%AE%B0/" title="程序设计笔记"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307110812601.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="程序设计笔记"/></a><div class="content"><a class="title" href="/2023/07/08/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AC%94%E8%AE%B0/" title="程序设计笔记">程序设计笔记</a><time datetime="2023-07-07T16:00:00.000Z" title="发表于 2023-07-08 00:00:00">2023-07-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/07/%E5%88%9D%E7%94%9F/" title="建站初尝试"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102209310.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="建站初尝试"/></a><div class="content"><a class="title" href="/2023/07/07/%E5%88%9D%E7%94%9F/" title="建站初尝试">建站初尝试</a><time datetime="2023-07-06T16:00:00.000Z" title="发表于 2023-07-07 00:00:00">2023-07-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By 浮舟子-pigKiller</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">按照星光调整你的航向，而非每艘过往船只的灯光。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
