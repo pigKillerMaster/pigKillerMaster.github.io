@@ -1,0 +1,398 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><script>((function() {var callbacks = [],timeLimit = 50,open = false;setInterval(loop, 1);return {addListener: function(fn) {callbacks.push(fn);},cancleListenr: function(fn) {callbacks = callbacks.filter(function(v) {return v !== fn;});}}
+function loop() {var startTime = new Date();debugger;if (new Date() - startTime > timeLimit) {if (!open) {callbacks.forEach(function(fn) {fn.call(null);});}open = true;window.stop();alert('你真坏，请关闭控制台！');document.body.innerHTML = "";} else {open = false;}}})()).addListener(function() {window.location.reload();});</script><script>function toDevtools(){
+  let num = 0; 
+  let devtools = new Date();
+  devtools.toString = function() {
+    num++;
+    if (num > 1) {
+        alert('你真坏，请关闭控制台！')
+        window.location.href = "about:blank"
+        blast();
+    }
+  }
+  console.log('', devtools);
+}
+toDevtools();</script><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>社会计算 | 浮泛之舟</title><meta name="author" content="pigKiller"><meta name="copyright" content="pigKiller"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="课程概述 不同类型的网络的依存：  互联网：物理的、技术的网络：服务器的关系 万维网：基于互联网的信息网络：网页的关系  技术的发展对网络有多种作用：  催化了各种网络的发展：  规模变大，范围变广 新型网络的涌现   使得分析和理解大规模网络的行为成为可能：  行为数据与网络运行伴生 海量数据分析的能力：计算设施、算法工具    讨论网络的语言：图论+博弈论 图论 网络的结果分析：需要使用图论来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="社会计算">
+<meta property="og:url" content="https://pigkillermaster.github.io/2024/03/25/%E7%A4%BE%E4%BC%9A%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:site_name" content="浮泛之舟">
+<meta property="og:description" content="课程概述 不同类型的网络的依存：  互联网：物理的、技术的网络：服务器的关系 万维网：基于互联网的信息网络：网页的关系  技术的发展对网络有多种作用：  催化了各种网络的发展：  规模变大，范围变广 新型网络的涌现   使得分析和理解大规模网络的行为成为可能：  行为数据与网络运行伴生 海量数据分析的能力：计算设施、算法工具    讨论网络的语言：图论+博弈论 图论 网络的结果分析：需要使用图论来">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403252015327.png">
+<meta property="article:published_time" content="2024-03-25T12:08:52.000Z">
+<meta property="article:modified_time" content="2024-03-25T12:15:36.892Z">
+<meta property="article:author" content="pigKiller">
+<meta property="article:tag" content="社会计算">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403252015327.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://pigkillermaster.github.io/2024/03/25/%E7%A4%BE%E4%BC%9A%E8%AE%A1%E7%AE%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '社会计算',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-03-25 20:15:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102227559.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">35</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403252015327.png')"><nav id="nav"><span id="blog-info"><a href="/" title="浮泛之舟"><span class="site-name">浮泛之舟</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">社会计算</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-25T12:08:52.000Z" title="发表于 2024-03-25 20:08:52">2024-03-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-25T12:15:36.892Z" title="更新于 2024-03-25 20:15:36">2024-03-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A4%BE%E4%BC%9A%E8%AE%A1%E7%AE%97/">社会计算</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="社会计算"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>课程概述</h1>
+<p>不同类型的网络的依存：</p>
+<ul>
+<li>互联网：物理的、技术的网络：服务器的关系</li>
+<li>万维网：基于互联网的信息网络：网页的关系</li>
+</ul>
+<p>技术的发展对网络有多种作用：</p>
+<ol>
+<li>催化了各种网络的发展：
+<ol>
+<li>规模变大，范围变广</li>
+<li>新型网络的涌现</li>
+</ol>
+</li>
+<li>使得分析和理解大规模网络的行为成为可能：
+<ol>
+<li>行为数据与网络运行伴生</li>
+<li>海量数据分析的能力：计算设施、算法工具</li>
+</ol>
+</li>
+</ol>
+<p>讨论网络的语言：图论+博弈论</p>
+<h1>图论</h1>
+<p>网络的结果分析：需要使用图论来建立相应的模型</p>
+<ul>
+<li>边的成因：为什么节点会形成关系</li>
+<li>边的意义：不同位置的边的不同作用：关系的强度</li>
+<li>节点的重要性：由结构特点带来的节点的权力/权重</li>
+<li>结构的划分、结构的平衡</li>
+</ul>
+<p>连通性分为结构（连接本事）层面和行为（个体行动对系统中其他个体的可能影响）层面</p>
+<p>桥：删除后两个端点不再联通</p>
+<p>捷径：删除后两个端点的<strong>距离至少为3</strong>。定义捷径的跨度为删除捷径后两点的距离</p>
+<h1>强联系与弱联系</h1>
+<p>网络在现代社会有重要的作用。如何衡量关系的强弱？</p>
+<h2 id="三元闭包原则">三元闭包原则</h2>
+<p>社交网络中的不是好朋友的两个人：</p>
+<ul>
+<li>两个人的共同朋友越多，越有可能成为朋友：量的考虑</li>
+<li>两个人与共同好朋友的关系越密切，越有可能成为好朋友：质的考虑</li>
+</ul>
+<p>定义<strong>三元闭包</strong>：若两个不临接的节点都与某节点临接，则这两个节点在<strong>未来临接</strong>的概率就会提高</p>
+<ul>
+<li>关注了网络的演化特性</li>
+</ul>
+<p>衡量网络中三元闭包的强度：<strong>聚集系数</strong>：A的任意两个节点临接的比例：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mfrac><mrow><mi>A</mi><mtext>为顶点的三角数</mtext></mrow><mrow><mi>A</mi><mtext>的边数</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">C=\frac{A为顶点的三角数}{A的边数}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2173em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord cjk_fallback mtight">的边数</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord cjk_fallback mtight">为顶点的三角数</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p>大部分网络有较强的聚集系数</p>
+<h2 id="强三元闭包">强三元闭包</h2>
+<p>强三元闭包原理（假设）：如果A-B和A-C之间的关系为<strong>强关系</strong>，那么B-C之间也有关系（可以是强关系也可以是弱关系）的可能性较高。</p>
+<p>若A符合强三元闭包，且至少有两个强关系凝聚，则与A相联的<strong>任何捷径</strong>必定为<strong>弱关系</strong></p>
+<ul>
+<li>捷径意味着<strong>没有共同朋友</strong>，强度为弱</li>
+<li>捷径是全局的结构概念，关系的强弱是局部的概念</li>
+<li>推论：共同朋友占总朋友比例越高，则关系强度越高</li>
+</ul>
+<p>桥提供了两个网络联通的机会</p>
+<h3 id="邻里重合度">邻里重合度</h3>
+<p>边的邻里重合度：与A和B相邻的节点数/与A或B相邻的节点数（不包括AB本身）</p>
+<ul>
+<li>捷径是邻里重合度为0的边</li>
+</ul>
+<p>寻找邻里重合度与边的强度的关系</p>
+<p>弱关系在网络中提供了更加关键的连接结构，删除一定的弱关系会导致超大连通分量迅速缩小</p>
+<h2 id="闭包与结构洞">闭包与结构洞</h2>
+<p>边的嵌入性：AB的共同临接节点数</p>
+<p>若两点由嵌入度较高的边相联，则往往交往会更加信任：负面信息在共同朋友之间的传递</p>
+<p>结构洞：大量捷径的末端，联通了多个网络</p>
+<ul>
+<li>更早地获取了多个网络中的不同信息</li>
+<li>维持联系的精力有限，积极联系不同群体更有效投入自身的精力</li>
+</ul>
+<h2 id="图划分法">图划分法</h2>
+<p>将网络分隔后得到的部分成为区域</p>
+<p>介数：一条边承载的一种“流量”</p>
+<ul>
+<li>
+<p>对于两个节点AB，假设有k条途径，其中m条经过该边，则该边流过m/k</p>
+<ul>
+<li>从A开始坐BFS，将节点分层</li>
+<li>确定A到B的最短路径数</li>
+<li>沿最短路径，将边的值加一，对所有节点进行该操作，再将值除2</li>
+</ul>
+</li>
+<li>
+<p>考虑所有节点对得到一条边的和即为该边的介数</p>
+</li>
+<li>
+<p>依次去除介数最高的边可以分隔网络的不同部分</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403151719717.png" alt="image-20240315171912532"></p>
+</li>
+</ul>
+<p>按照介数，利用<strong>聚集法</strong>来分隔网络为不同区域</p>
+<h1>网络及其存在的环境</h1>
+<h2 id="同质性">同质性</h2>
+<p>基本问题：因为相似所以选择成为朋友，还是变成朋友以后相似</p>
+<p>内在因素和外部环境对网络中的边的形成的影响是交叉混合的，并发作用在一个网络上</p>
+<h3 id="测度：对同质性的量化">测度：对同质性的量化</h3>
+<p>如果没有因为相似所以选择成为朋友，那么理论上朋友中不同类型（无论自己是否属于该类）的比例应该和人群中总体中比例相当，这样才能说明没有根据某种属性（背后的相似性）来选择成为朋友。</p>
+<p>因此，对于一种简单情况，某种属性只有AB两种取值情况，假设A在整体网络中的概率为p，B的概率为q，那么一条AA边的概率为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">p^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0085em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>，BB边的概率为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">q^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0085em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>，跨属性边AB边的概率为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>p</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">2pq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">pq</span></span></span></span>，则可以统计边的分布是否服从这种点的分布的关系。</p>
+<p>如果跨属性边的概率显著低于2pq，则称有<strong>同质性现象</strong>。显著高于则称为<strong>逆同质性</strong>。</p>
+<p>可以扩展为多个属性的情况，核心思想就是边的整体概率分布是否服从点的相应分布。</p>
+<h2 id="选择与社会影响">选择与社会影响</h2>
+<p>人无法摆脱自身的社会性，无法避免地需要参与到社会环境中去。个体可变的特征，如行为、活动、信仰和关联等，在个体和网络连接中存在反馈效应，网络的连接会变得复杂。</p>
+<p>社会化/社会影响：人因为需要和朋友保持一致而改变了自身的行为。</p>
+<ul>
+<li>在选择中，个体的特征主导网络连接的形成</li>
+<li>在社会影响中，<strong>已存在的社会网络连接会改变人的（可变）特征</strong></li>
+</ul>
+<h2 id="归属">归属</h2>
+<p>考虑背景在网络形成中的作用，可以建立一种特殊的网络：将情景也作为一种节点，利用三元闭包关系来表示环境在联系之间的影响。</p>
+<p>定义<strong>社团</strong>：社会交往的焦点，包括社会的、心理的、法律的或物理的实体，围绕其组织的各种社会活动。</p>
+<h3 id="归属网络">归属网络</h3>
+<p>个体和场景的连接：表示参与活动</p>
+<p>归属网络不关注个体与个体之间的连接，是一种<strong>二部图</strong>，用于研究个体参与活动的模式。</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403251913169.png" alt="归属网络"></p>
+<h3 id="社会网络与归属网络的协同">社会网络与归属网络的协同</h3>
+<p>社会网络和归属网络都随着时间在演化发展，具有<strong>协同演化</strong>：</p>
+<ul>
+<li>参加同一活动为成为朋友提供了机会</li>
+<li>如果两人是朋友，会影响彼此参加对方的社团</li>
+</ul>
+<p>将两种网络融合，成为<strong>社会归属网络</strong>，显示人民的友谊和与社会团体的归属关系。将<strong>两种网络的协同</strong>可以视为社会归属网络中的<strong>闭包形成过程</strong>。</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403251922053.png" alt="三种闭包"></p>
+<h2 id="我会成为你的朋友吗？">我会成为你的朋友吗？</h2>
+<p>如何衡量演变的可能性。</p>
+<h3 id="闭包的作用">闭包的作用</h3>
+<p>如果两个个体有多个朋友，那么建立友谊的概率是多少：</p>
+<ol>
+<li>选取两次不同时间的网络快照</li>
+<li>对于所有k，在第一次快照中找出所有恰好有k个朋友、但没有边的节点对</li>
+<li>定义T(k)为第二次快照中这些节点对建立关系的比例</li>
+</ol>
+<p>T(0)表示没有朋友下建立友谊的概率，T(k)可以看出相应共同朋友的力量。</p>
+<p>一种解释：</p>
+<ol>
+<li>每个朋友以概率p促进两人成为朋友</li>
+<li>在有k个共同朋友的基础上，未能建立友谊的概率为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><msup><mo stretchy="false">)</mo><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">(1-p)^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0991em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span></li>
+<li>因而建立友谊的概率为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>1</mn><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><msup><mo stretchy="false">)</mo><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">P=1-(1-p)^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0991em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span></li>
+</ol>
+<p>社团闭包、会员闭包可以用类似的方法研究。</p>
+<h3 id="衡量行为的相似性">衡量行为的相似性</h3>
+<p>可以使用这样的一种测度：都做过的事/至少一人做过的事</p>
+<h2 id="隔离的一种空间模型">隔离的一种空间模型</h2>
+<p>谢林模型：描述同质性对空间隔离的影响和作用。</p>
+<ol>
+<li>定义代理：假设有一群个体，每个具有不可改变的属性X或O，认为每个代理总是喜欢和同类居住在一起</li>
+<li>如果代理的同类代理邻居数量低于阈值t，则有动力前往不同的区域。阈值反映了代理对与同类居住的偏好程度</li>
+<li>经过多轮后，达到每个代理都满意的状态（同类邻居数量大于t），发现自动出现了隔离现象</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io">pigKiller</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io/2024/03/25/%E7%A4%BE%E4%BC%9A%E8%AE%A1%E7%AE%97/">https://pigkillermaster.github.io/2024/03/25/%E7%A4%BE%E4%BC%9A%E8%AE%A1%E7%AE%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://pigkillermaster.github.io" target="_blank">浮泛之舟</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%A4%BE%E4%BC%9A%E8%AE%A1%E7%AE%97/">社会计算</a></div><div class="post_share"><div class="social-share" data-image="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403252015327.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/10/%E8%AE%A1%E7%BB%84-%E5%AE%9E%E9%AA%8C-P7/" title="计组-实验-P7"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307251641570.jpg" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">计组-实验-P7</div></div></a></div><div class="next-post pull-right"><a href="/2024/03/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%90%86%E8%AE%BA-%E5%BC%95%E8%AE%BA/" title="操作系统-理论-引论"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403252018445.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">操作系统-理论-引论</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">课程概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">图论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">强联系与弱联系</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E5%85%83%E9%97%AD%E5%8C%85%E5%8E%9F%E5%88%99"><span class="toc-number">3.1.</span> <span class="toc-text">三元闭包原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E4%B8%89%E5%85%83%E9%97%AD%E5%8C%85"><span class="toc-number">3.2.</span> <span class="toc-text">强三元闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%BB%E9%87%8C%E9%87%8D%E5%90%88%E5%BA%A6"><span class="toc-number">3.2.1.</span> <span class="toc-text">邻里重合度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E5%8C%85%E4%B8%8E%E7%BB%93%E6%9E%84%E6%B4%9E"><span class="toc-number">3.3.</span> <span class="toc-text">闭包与结构洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%88%92%E5%88%86%E6%B3%95"><span class="toc-number">3.4.</span> <span class="toc-text">图划分法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">网络及其存在的环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E8%B4%A8%E6%80%A7"><span class="toc-number">4.1.</span> <span class="toc-text">同质性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E5%BA%A6%EF%BC%9A%E5%AF%B9%E5%90%8C%E8%B4%A8%E6%80%A7%E7%9A%84%E9%87%8F%E5%8C%96"><span class="toc-number">4.1.1.</span> <span class="toc-text">测度：对同质性的量化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E4%B8%8E%E7%A4%BE%E4%BC%9A%E5%BD%B1%E5%93%8D"><span class="toc-number">4.2.</span> <span class="toc-text">选择与社会影响</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%92%E5%B1%9E"><span class="toc-number">4.3.</span> <span class="toc-text">归属</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E5%B1%9E%E7%BD%91%E7%BB%9C"><span class="toc-number">4.3.1.</span> <span class="toc-text">归属网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BE%E4%BC%9A%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%BD%92%E5%B1%9E%E7%BD%91%E7%BB%9C%E7%9A%84%E5%8D%8F%E5%90%8C"><span class="toc-number">4.3.2.</span> <span class="toc-text">社会网络与归属网络的协同</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E4%BC%9A%E6%88%90%E4%B8%BA%E4%BD%A0%E7%9A%84%E6%9C%8B%E5%8F%8B%E5%90%97%EF%BC%9F"><span class="toc-number">4.4.</span> <span class="toc-text">我会成为你的朋友吗？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">4.4.1.</span> <span class="toc-text">闭包的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A1%E9%87%8F%E8%A1%8C%E4%B8%BA%E7%9A%84%E7%9B%B8%E4%BC%BC%E6%80%A7"><span class="toc-number">4.4.2.</span> <span class="toc-text">衡量行为的相似性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%94%E7%A6%BB%E7%9A%84%E4%B8%80%E7%A7%8D%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.5.</span> <span class="toc-text">隔离的一种空间模型</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By pigKiller</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">你终会看到，你的歌声和旗帜在飘扬</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script src="f12.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
