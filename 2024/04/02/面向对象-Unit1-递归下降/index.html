@@ -1,0 +1,382 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><script>((function() {var callbacks = [],timeLimit = 50,open = false;setInterval(loop, 1);return {addListener: function(fn) {callbacks.push(fn);},cancleListenr: function(fn) {callbacks = callbacks.filter(function(v) {return v !== fn;});}}
+function loop() {var startTime = new Date();debugger;if (new Date() - startTime > timeLimit) {if (!open) {callbacks.forEach(function(fn) {fn.call(null);});}open = true;window.stop();alert('你真坏，请关闭控制台！');document.body.innerHTML = "";} else {open = false;}}})()).addListener(function() {window.location.reload();});</script><script>function toDevtools(){
+  let num = 0; 
+  let devtools = new Date();
+  devtools.toString = function() {
+    num++;
+    if (num > 1) {
+        alert('你真坏，请关闭控制台！')
+        window.location.href = "about:blank"
+        blast();
+    }
+  }
+  console.log('', devtools);
+}
+toDevtools();</script><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>面向对象-Unit1-递归下降 | 浮泛之舟</title><meta name="author" content="pigKiller"><meta name="copyright" content="pigKiller"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="递归下降 d文法 文法是对语言结构的定义和描述，也就是通过形式化的表述来规定语言结构的规则。 文法，是语言的规则。文法讨论的范围较宽，此处仅关注词法和语法。 词法 词法是指语言中的词汇及其属性和含义的规则。它规定了一个语言中的&quot;词&quot;是如何构成的。 例如有一个语法单元：变量名，定义其为由大于0个小写字母组成的字符串,那么就可以写成   尖括号内表示一个语法成分 右箭头表示左侧的部">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象-Unit1-递归下降">
+<meta property="og:url" content="https://pigkillermaster.github.io/2024/04/02/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit1-%E9%80%92%E5%BD%92%E4%B8%8B%E9%99%8D/index.html">
+<meta property="og:site_name" content="浮泛之舟">
+<meta property="og:description" content="递归下降 d文法 文法是对语言结构的定义和描述，也就是通过形式化的表述来规定语言结构的规则。 文法，是语言的规则。文法讨论的范围较宽，此处仅关注词法和语法。 词法 词法是指语言中的词汇及其属性和含义的规则。它规定了一个语言中的&quot;词&quot;是如何构成的。 例如有一个语法单元：变量名，定义其为由大于0个小写字母组成的字符串,那么就可以写成   尖括号内表示一个语法成分 右箭头表示左侧的部">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png">
+<meta property="article:published_time" content="2024-04-02T15:48:12.000Z">
+<meta property="article:modified_time" content="2024-04-02T15:52:02.948Z">
+<meta property="article:author" content="pigKiller">
+<meta property="article:tag" content="递归下降">
+<meta property="article:tag" content="OO补充">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://pigkillermaster.github.io/2024/04/02/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit1-%E9%80%92%E5%BD%92%E4%B8%8B%E9%99%8D/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面向对象-Unit1-递归下降',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-04-02 23:52:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102227559.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png')"><nav id="nav"><span id="blog-info"><a href="/" title="浮泛之舟"><span class="site-name">浮泛之舟</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">面向对象-Unit1-递归下降</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-02T15:48:12.000Z" title="发表于 2024-04-02 23:48:12">2024-04-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-02T15:52:02.948Z" title="更新于 2024-04-02 23:52:02">2024-04-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="面向对象-Unit1-递归下降"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>递归下降</h1>
+<h2 id="d文法">d文法</h2>
+<p><strong>文法</strong>是对<strong>语言结构的定义和描述</strong>，也就是通过形式化的表述来规定语言结构的规则。</p>
+<p>文法，是语言的规则。文法讨论的范围较宽，此处仅关注<strong>词法</strong>和<strong>语法</strong>。</p>
+<h3 id="词法">词法</h3>
+<p>词法是指语言中的词汇及其属性和含义的规则。它规定了一个语言中的&quot;词&quot;是如何构成的。</p>
+<p>例如有一个语法单元：变量名，定义其为由大于0个小写字母组成的字符串,那么就可以写成</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261623879.png" alt="词法"></p>
+<ol>
+<li>尖括号内表示一个语法成分</li>
+<li>右箭头表示左侧的部分由右侧的部分组成</li>
+<li>竖线 “|” 表示可以选择右边的规则可以选取竖线两侧的任一种情况。
+<ol>
+<li>这种表示方式赋予了词法的递归性质，即可以不断定义更长的词法</li>
+</ol>
+</li>
+</ol>
+<p>由此就可以得到变量名的构成规则。</p>
+<h3 id="语法">语法</h3>
+<p>语法是指描述语言中句子结构和组织方式的规则。它规定了一个语言中的&quot;句&quot;是如何构成的。</p>
+<p>例如下面的例子：</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261629276.png" alt="语法"></p>
+<p>通过这个规则我们知道,句子是一个主语加上一个谓语连在一起构成的。其中主语可能是i也可能是<em>you</em>，谓语可能是<em>smile</em>，可能是<em>laugh</em>。</p>
+<h2 id="字符串解析">字符串解析</h2>
+<p>程序做的绝大多数事情都是在解析字符串，有了词法和语法后，有了解析的规则。那么，该如何使用合适的结构和方法来降低复杂性呢？</p>
+<h3 id="Token">Token</h3>
+<p>有了词法和语法的定义后，自然地想要对字符串进行解析。</p>
+<p>一个自然的思路是：</p>
+<ol>
+<li>认为字符串是一个句，按照语法规则将句拆分为词</li>
+<li>按照词法规则再对词进行字符解析</li>
+</ol>
+<p>在计算机领域，<strong>token</strong>常常用来表示文本的最小语法单位。可以以token来存储字符串经过词法分析得到的一个个单元。不妨假设用一个<strong>list来存储分析得到的token</strong>，那么每识别出一个token，就可以向这个列表中加上它。这样，经过一遍扫描，我们就可以将一个字符串的信息整合转化成一个token的列表。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//str: iloveyou</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;str.size();i++)&#123;</span><br><span class="line">  <span class="keyword">if</span>(str.charAt(i)==<span class="string">&#x27;i&#x27;</span>)&#123;</span><br><span class="line">    tokenList.add(<span class="keyword">new</span> <span class="title class_">Token</span>(<span class="string">&quot;i&quot;</span>,<span class="string">&quot;主语&quot;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(str.charAt(i)==<span class="string">&#x27;y&#x27;</span>)&#123;</span><br><span class="line">    i=i+<span class="number">2</span>;</span><br><span class="line">    tokenList.add(<span class="keyword">new</span> <span class="title class_">Token</span>(<span class="string">&quot;you&quot;</span>,<span class="string">&quot;主语&quot;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(str.charAt(i)==<span class="string">&#x27;s&#x27;</span>)&#123;</span><br><span class="line">    i=i+<span class="number">4</span>;</span><br><span class="line">    tokenList.add(<span class="keyword">new</span> <span class="title class_">Token</span>(<span class="string">&quot;smile&quot;</span>,<span class="string">&quot;谓语&quot;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">    i=i+<span class="number">4</span>;</span><br><span class="line">    tokenList.add(<span class="keyword">new</span> <span class="title class_">Token</span>(<span class="string">&quot;laugh&quot;</span>,<span class="string">&quot;谓语&quot;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="语法分析">语法分析</h3>
+<p>利用词法规则可以将字符串转换为由token组成的token列表，可以进行下一步的语法分析</p>
+<p>从代码设计的角度上来看，通过将字符串经过词法分析转化为 “token” 列表，词法分析这一道工序将半成品<code>tokenList</code>传入到下一道工序：语法分析，而不是直接在语法分析阶段调用词法的解析，能够很好的减少这两个不同级别处理之间的耦合。</p>
+<p>为了说明如何进行语法分析，这里引入一个规则，该规则阐释了一个表达式的语法结构：</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261633980.png" alt="图片"></p>
+<p>事实上，我们可以很容易看出，在这个结构中：</p>
+<ul>
+<li><strong>表达式 = 项+项…+项</strong></li>
+<li><strong>项 = 因子*因子*因子</strong></li>
+<li>因子<strong>用一个字母i表示</strong>，不可再分。</li>
+</ul>
+<p>最外层是表达式，表达式可以被看作是几个项的和，项可以被看作是几个因子的乘积。一个表达式的结构很明显的分成了三层。</p>
+<h3 id="表达式层次分析">表达式层次分析</h3>
+<p>表达式的“三层”，用图像来表示的话应当是下面的样子。</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261636558.png" alt="图片"></p>
+<p>语法分析的目的就是生成一个这样的树，它用节点之间的联系来表达原本表达式的语法结构。这种树一般被称为<strong>语法树（Syntax Tree）或抽象语法树（Abstract Syntax Tree，AST）</strong></p>
+<p>可以用类来构建一下这个语法树的几个节点类,其中表达式用<strong>Expr</strong>表示，项用<strong>Term</strong>表示，因子用<strong>Factor</strong>表示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Expr</span>&#123;</span><br><span class="line">  <span class="keyword">private</span> ArrayList&lt;Term&gt;terms;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Term</span>&#123;</span><br><span class="line">  <span class="keyword">private</span> ArrayList&lt;Factor&gt;factors;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Factor</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="下降">下降</h3>
+<p>如果从全局的视角来看，综合考虑所有的规则，就会得到上面图中的语法树。它的大小，宽度和深度随着规则的扩张而不断增加，规则条数越多，树越复杂，要从全局的视角来处理也就越困难，可以想象一下添加若干将因子再拆成更低层的组成部分的情况：<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261639481.png" alt="图片" style="zoom:33%;" /></p>
+<p>那么从全局来看，语法树将会变得十分的庞大和复杂，解析它的程序也会变得复杂起来。</p>
+<p>但是实际上，一个节点有关的语法结构，是不随其所在的位置变化的：某个Term无论是Expr的第几个Term，它的构成规则也不会改变，都是由若干个因子和若干个&quot;*&quot;按次序排布构成。这个局部的性质，不随其在全局的位置和周围的状态改变。所以，不妨<strong>把全局的视角，&quot;短视地&quot;移动到局部</strong>，那么就能从语法树中提取出这样的的一个结构：</p>
+<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261640599.png" alt="图片" style="zoom:33%;" />
+<p>这个结构揭示了这样一个事实：不用管项从哪里来，<strong>只需要知道项往哪里去</strong>，就能够处理好<strong>项的解析</strong>。如果仅仅将这一部分的逻辑抽象出来写一段程序，想必比之前写整个树的程序轻松不少。再往上的另一条规则，也可以被单独抽象出来：</p>
+<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261640605.png" alt="图片" style="zoom:33%;" />
+<p>一个表达式，就是几个项而已。<strong>如果我们能够在这里屏蔽项的解析过程，而直接返回项的解析结果，那么就可以将表达式的解析过程化简为一次简单的下降。</strong></p>
+<blockquote>
+<p>这个观点非常重要，请同学们细细品味。可能在以往的代码编写中，同学们习惯将解决一个局部问题的具体过程嵌入到更高层次代码的编写中(例如在这俩将解析项的具体过程直接写到解析表达式的过程中)。</p>
+<p>但事实上，让逻辑变简单的一个方法是，在高层次的代码编写中忽视局部问题的解决过程，假设其已经被某个方法解决，从而直接调用该方法即可。</p>
+<p>选择合适的局部视角，合理的屏蔽细节，将具体的实现封装，是让代码高效且清晰的重要手段。</p>
+</blockquote>
+<p>这样的逻辑实际上就是<strong>封装</strong>，使用不同层次的处理方法，上层不用关注下层的处理规则，认为下层能够返回相应的结果。</p>
+<p>可以给出相应的伪代码示意：</p>
+<ol>
+<li>
+<p>对表达式的处理<code>parserExpr</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">parserExpr:</span><br><span class="line">  新建一个Term的容器T</span><br><span class="line">  调用parserTerm获得一个项t</span><br><span class="line">  T中加上parserTerm返回的项t</span><br><span class="line">  while 当前token是+:</span><br><span class="line">    跳过当前token(+)</span><br><span class="line">    调用parserTerm获得一个项t</span><br><span class="line">    T中加上parserTerm返回的项t</span><br><span class="line">  利用T生成一个新的Expr e</span><br><span class="line">  返回e</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>对项的处理<code>parserTerm</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">parserTerm:</span><br><span class="line">  新建一个Factor的容器F</span><br><span class="line">  调用parserFactor获得一个因子f</span><br><span class="line">  F中加上parserFactor返回的因子f</span><br><span class="line">  while 当前token是*:</span><br><span class="line">    跳过当前token(*)</span><br><span class="line">    调用parserFactor获得一个因子f</span><br><span class="line">    F中加上parserFactor返回的因子f</span><br><span class="line">  利用F生成一个新的Term t</span><br><span class="line">  返回t</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>对因子的处理<code>parserFactor</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">parserFactor:</span><br><span class="line">  检查当前的token是否是i</span><br><span class="line">  跳过当前的token(i)</span><br><span class="line">  利用i生成一个新的Factor f</span><br><span class="line">  返回f</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="递归">递归</h3>
+<p>必须指出的是，如果我们不曾听说过或者学习过类似的观点，也可以用一个多层的循环来简单地解决这个问题。这是因为我们上面题面给出的语法结构所形成的树，<strong>具有固定的层数</strong>，我们可以清楚的知道这个树的终结就在子节点的<em><strong>factor</strong></em> 处。</p>
+<p>为了更好地说明递归下降法地意义，可以修改一下上述因子的语法规则：<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261645538.png" alt="图片" style="zoom: 25%;" /></p>
+<p>这么做的话，语法树就不是简单的三层了。甚至并不知道它的层数，因为<strong>任何一个因子都可以通过解析为表达式的方式来不断的向下扩张</strong>，这无疑给了我们很大的复杂性。我们的解析流程，可能会呈现：**&lt;表达式&gt;-&lt;项&gt;-&lt;因子&gt;-&lt;表达式&gt;**的递归调用过程。如果再从全局的视角来看，这个语法树的宽度和深度等性质不再可知，它已经变得不可捉摸了。</p>
+<p>但是我们从局部的视角来看，会发现表达式的语法规则没有变，项的也没有变，<strong>唯一变的是因子</strong>，所以我们只需要修改上面的<code>parseFactor</code>过程就好。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">parserFactor:</span><br><span class="line">  检查当前的token是否是i</span><br><span class="line">  if 真:</span><br><span class="line">    跳过当前的token(i)</span><br><span class="line">    利用i生成一个新的Factor f</span><br><span class="line">    返回f</span><br><span class="line">  if 假，说明是(表达式):</span><br><span class="line">    跳过当前token(()</span><br><span class="line">    调用parserExpr()获得一个表达式e</span><br><span class="line">    利用e生成因子f</span><br><span class="line">    跳过当前token())</span><br><span class="line">    返回f</span><br></pre></td></tr></table></figure>
+<h3 id="具体的递归下降">具体的递归下降</h3>
+<p>这里我们需要总结一下：</p>
+<ol>
+<li>递归下降分析方法的主要做法是，<strong>对文法每条规则</strong>的<strong>左部符号</strong>（ ‘→’ 左侧的符号），<strong>建立一个解析子程序</strong>，用以完成该符号所代表成分的分析和识别。</li>
+<li>对于每个符号的<strong>分析子程序</strong>的功能则是，用该符号<strong>对应文法</strong>中的规则来匹配输入的<strong>token流</strong>。</li>
+</ol>
+<p>根据我们上面的例子可以看到，递归下降算法的思想严格依照文法来编写，甚至可以理解为文法的一种“<strong>翻译</strong>”，递归下降正是依托于文法保证了该算法的正确性。</p>
+<p>递归下降分析法作为自顶向下的分析过程，其<strong>一级一级的向下分配任务</strong>，通过检测当前符号和预期符号 （文法中的规则） 的相符性来选择&quot;分支&quot;进行解析，进而建立结构。</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261650030.png" alt="图片"></p>
+<p>对于上述表达式规则，做法通常为：</p>
+<ol>
+<li>
+<p>建类</p>
+<p>在→左面的部分都是我们需要进行分析的<strong>语法成分</strong>，因此需要对其进行建类，并且构造解析方法。</p>
+<ol>
+<li>表达式类 → Expr</li>
+<li>项类 → Term</li>
+<li>因子类 → Factor ← Number &amp; Expr</li>
+</ol>
+<p>这里考虑到有两种因子，我们应当分开来处理。</p>
+<ul>
+<li><strong>表达式因子</strong>：实质就是表达式加括号，而括号本质上是为了<strong>区分优先级</strong>，但优先级可以由我们的语法树结构来体现，因此为了减少类，可以将这二者统一，都使用表达式Expr来存储信息。</li>
+<li><strong>常数因子</strong>：可以单独用Number来存。</li>
+</ul>
+<p>Expr和Number都属于因子,因此可以利用面向对象的知识，<strong>创造一个Factor接口(Interface)，然后让Expr和Number实现这个接口。</strong></p>
+</li>
+<li>
+<p>实现<code>Lexer</code>，解析出<code>token</code></p>
+<p>通常将<strong>词法分析部分所用的类</strong>叫做<code>Lexer</code>，它实现了词法分析功能，并且将分析得到的信息存储到**<code>token</code>流中**。</p>
+<p>梳理一下我们需要的token类型：<strong>+ - * ( ) NUM</strong>，可以分别对这几个类型的词法单元建立<code>token</code>的标识符，建立一个<code>token</code>类来实现这个操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Token</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">Type</span> &#123; ADD, SUB, MUL, LPAREN, RPAREN, NUM &#125;;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Type type;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String content;</span><br><span class="line">  <span class="comment">//....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时，在词法分析部分，<code>lexer</code>需要识别不同的token，注意到，这几个类型的词法单元的<strong>开头字符必然不同</strong>，因此我们利用这一点来实现词法分析。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Lexer</span><span class="params">(String input)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">pos</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (pos &lt; input.length()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (input.charAt(pos) == <span class="string">&#x27;(&#x27;</span>) &#123;</span><br><span class="line">            tokens.add(<span class="keyword">new</span> <span class="title class_">Token</span>(Token.Type.LPAREN, <span class="string">&quot;(&quot;</span>));</span><br><span class="line">            pos++;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (input.charAt(pos) == <span class="string">&#x27;)&#x27;</span>) &#123;</span><br><span class="line">            tokens.add(<span class="keyword">new</span> <span class="title class_">Token</span>(Token.Type.RPAREN, <span class="string">&quot;)&quot;</span>));</span><br><span class="line">            pos++;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (input.charAt(pos) == <span class="string">&#x27;+&#x27;</span>) &#123;</span><br><span class="line">            tokens.add(<span class="keyword">new</span> <span class="title class_">Token</span>(Token.Type.ADD, <span class="string">&quot;+&quot;</span>));</span><br><span class="line">            pos++;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (input.charAt(pos) == <span class="string">&#x27;-&#x27;</span>) &#123;</span><br><span class="line">            tokens.add(<span class="keyword">new</span> <span class="title class_">Token</span>(Token.Type.SUB, <span class="string">&quot;-&quot;</span>));</span><br><span class="line">            pos++;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (input.charAt(pos) == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">            tokens.add(<span class="keyword">new</span> <span class="title class_">Token</span>(Token.Type.MUL, <span class="string">&quot;*&quot;</span>));</span><br><span class="line">            pos++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">now</span> <span class="operator">=</span> input.charAt(pos);</span><br><span class="line">            <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">            <span class="keyword">while</span> (now &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; now &lt;= <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">                sb.append(now);</span><br><span class="line">                pos++;</span><br><span class="line">                <span class="keyword">if</span> (pos &gt;= input.length()) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                now = input.charAt(pos);</span><br><span class="line">            &#125;</span><br><span class="line">            tokens.add(<span class="keyword">new</span> <span class="title class_">Token</span>(Token.Type.NUM, sb.toString()));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，就获得了一个经过了词法分析的token流，便可以从中逐一地拿出token方便我们进行语法分析了。</p>
+</li>
+<li>
+<p>Parser</p>
+<p>首先关注给出的文法，由于表达式的解析中存在表达式的嵌套，并不能直接的使用递归下降法：<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261659843.png" alt="图片" style="zoom: 50%;" />否则会陷入无穷递归的情景。</p>
+<p>事实上，在编译原理中就有类似规则的文法叫做<strong>左递归文法</strong>，它是不能用递归下降法解决的。幸运的是，可以通过<strong>改写文法</strong>来消除左递归：<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261701561.png" alt="图片" style="zoom:50%;" /></p>
+<p>这里，花括号代表可以有<strong>0个或多个该部分</strong>，这样的改写与我们对原本规则的理解一致，因此是<strong>等价</strong>的。类似的，我们对其他的规则也进行改写：<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202402261701558.png" alt="图片" style="zoom: 33%;" /></p>
+<p>至此，parser部分的关键，则是如何用获得的token判断应当如何调用解析的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Expr <span class="title function_">parserExpr</span><span class="params">()</span> &#123;</span><br><span class="line">  ArrayList&lt;Term&gt; terms = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">  ArrayList&lt;Token&gt; ops = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">  </span><br><span class="line">  terms.add(parserTerm());</span><br><span class="line">  <span class="comment">//遇到+-则为项的终止</span></span><br><span class="line">  <span class="keyword">while</span> (lexer.notEnd() &amp;&amp; </span><br><span class="line">        (lexer.now().getType() == Token.Type.ADD </span><br><span class="line">         || lexer.now().getType() == Token.Type.SUB )) &#123;</span><br><span class="line">    ops.add(lexer.now());</span><br><span class="line">    lexer.move();</span><br><span class="line">    terms.add(parserTerm());</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Expr</span>(terms, ops);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Term <span class="title function_">parserTerm</span><span class="params">()</span> &#123;</span><br><span class="line">  ArrayList&lt;Factor&gt; factors = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">  </span><br><span class="line">  factors.add(parserFactor());</span><br><span class="line">  <span class="comment">//遇到*为因子的终止</span></span><br><span class="line">  <span class="keyword">while</span> (lexer.notEnd() &amp;&amp; </span><br><span class="line">         lexer.now().getType() == Token.Type.MUL) &#123;</span><br><span class="line">    lexer.move();</span><br><span class="line">    factors.add(parserFactor());</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Term</span>(factors);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Factor <span class="title function_">parserFactor</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (lexer.now().getType() == Token.Type.NUM) &#123;</span><br><span class="line">    <span class="type">Num</span> <span class="variable">num</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Num</span>(lexer.now().getContent());</span><br><span class="line">    lexer.move();</span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   <span class="comment">// 这里调用move之前lexer.now()是(    </span></span><br><span class="line">   lexer.move();    </span><br><span class="line">   <span class="type">Expr</span> <span class="variable">expr</span> <span class="operator">=</span> parserExpr();   </span><br><span class="line">   <span class="comment">// 这里调用move之前lexer.now()是)    </span></span><br><span class="line">   lexer.move();   </span><br><span class="line">   <span class="comment">// 调用上面的move之后刚好保证表达式因子的全部成分被跳过。    </span></span><br><span class="line">   <span class="keyword">return</span> expr;  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其中，<code>lexer.now()</code>获取当前分析的token，<code>lexer.move()</code>则可以移动到下一个token。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io">pigKiller</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io/2024/04/02/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit1-%E9%80%92%E5%BD%92%E4%B8%8B%E9%99%8D/">https://pigkillermaster.github.io/2024/04/02/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit1-%E9%80%92%E5%BD%92%E4%B8%8B%E9%99%8D/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://pigkillermaster.github.io" target="_blank">浮泛之舟</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%80%92%E5%BD%92%E4%B8%8B%E9%99%8D/">递归下降</a><a class="post-meta__tags" href="/tags/OO%E8%A1%A5%E5%85%85/">OO补充</a></div><div class="post_share"><div class="social-share" data-image="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/03/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%90%86%E8%AE%BA-%E5%86%85%E5%AD%98/" title="操作系统-理论-内存"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403252018445.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">操作系统-理论-内存</div></div></a></div><div class="next-post pull-right"><a href="/2024/04/02/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit2-Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="面向对象-Unit2-Java多线程"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">面向对象-Unit2-Java多线程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/04/02/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit2-Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="面向对象-Unit2-Java多线程"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-02</div><div class="title">面向对象-Unit2-Java多线程</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">递归下降</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#d%E6%96%87%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">d文法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%8D%E6%B3%95"><span class="toc-number">1.1.1.</span> <span class="toc-text">词法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">1.1.2.</span> <span class="toc-text">语法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">字符串解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Token"><span class="toc-number">1.2.1.</span> <span class="toc-text">Token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">1.2.2.</span> <span class="toc-text">语法分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%B1%82%E6%AC%A1%E5%88%86%E6%9E%90"><span class="toc-number">1.2.3.</span> <span class="toc-text">表达式层次分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E9%99%8D"><span class="toc-number">1.2.4.</span> <span class="toc-text">下降</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92"><span class="toc-number">1.2.5.</span> <span class="toc-text">递归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E7%9A%84%E9%80%92%E5%BD%92%E4%B8%8B%E9%99%8D"><span class="toc-number">1.2.6.</span> <span class="toc-text">具体的递归下降</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By pigKiller</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">你终会看到，你的歌声和旗帜在飘扬</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script src="f12.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
