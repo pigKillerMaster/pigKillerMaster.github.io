@@ -1,0 +1,630 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><script>((function() {var callbacks = [],timeLimit = 50,open = false;setInterval(loop, 1);return {addListener: function(fn) {callbacks.push(fn);},cancleListenr: function(fn) {callbacks = callbacks.filter(function(v) {return v !== fn;});}}
+function loop() {var startTime = new Date();debugger;if (new Date() - startTime > timeLimit) {if (!open) {callbacks.forEach(function(fn) {fn.call(null);});}open = true;window.stop();alert('你真坏，请关闭控制台！');document.body.innerHTML = "";} else {open = false;}}})()).addListener(function() {window.location.reload();});</script><script>function toDevtools(){
+  let num = 0; 
+  let devtools = new Date();
+  devtools.toString = function() {
+    num++;
+    if (num > 1) {
+        alert('你真坏，请关闭控制台！')
+        window.location.href = "about:blank"
+        blast();
+    }
+  }
+  console.log('', devtools);
+}
+toDevtools();</script><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>面向对象-Unit3-JML | 浮泛之舟</title><meta name="author" content="pigKiller"><meta name="copyright" content="pigKiller"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="JML荣耀！  JML基本语法 JML(Java Modeling Language)是用于对Java程序进行规格化设计的一种表示语言，是一种行为接口规格 语言，提供了对方法和类型的规格定义手段。所谓接口即一个方法或类型外部可见的内容。 一般而言，JML有三种主要的用法：  开展规格化设计。这样交给代码实现人员的将不是可能带有内在模糊性的自然语言描述，而是逻辑严格的规格。 针对已有的代码实现，书">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象-Unit3-JML">
+<meta property="og:url" content="https://pigkillermaster.github.io/2024/06/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit3-JML/index.html">
+<meta property="og:site_name" content="浮泛之舟">
+<meta property="og:description" content="JML荣耀！  JML基本语法 JML(Java Modeling Language)是用于对Java程序进行规格化设计的一种表示语言，是一种行为接口规格 语言，提供了对方法和类型的规格定义手段。所谓接口即一个方法或类型外部可见的内容。 一般而言，JML有三种主要的用法：  开展规格化设计。这样交给代码实现人员的将不是可能带有内在模糊性的自然语言描述，而是逻辑严格的规格。 针对已有的代码实现，书">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png">
+<meta property="article:published_time" content="2024-06-25T07:00:20.000Z">
+<meta property="article:modified_time" content="2024-06-25T07:00:53.469Z">
+<meta property="article:author" content="pigKiller">
+<meta property="article:tag" content="OO补充">
+<meta property="article:tag" content="JML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://pigkillermaster.github.io/2024/06/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit3-JML/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面向对象-Unit3-JML',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-06-25 15:00:53'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102227559.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png')"><nav id="nav"><span id="blog-info"><a href="/" title="浮泛之舟"><span class="site-name">浮泛之舟</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">面向对象-Unit3-JML</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-25T07:00:20.000Z" title="发表于 2024-06-25 15:00:20">2024-06-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-25T07:00:53.469Z" title="更新于 2024-06-25 15:00:53">2024-06-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>23分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="面向对象-Unit3-JML"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>JML荣耀！</p>
+</blockquote>
+<h1>JML基本语法</h1>
+<p>JML(Java Modeling Language)是用于对Java程序进行规格化设计的一种表示语言，是一种行为接口规格<br>
+语言，提供了对方法和类型的规格定义手段。所谓接口即一个方法或类型外部可见的内容。</p>
+<p>一般而言，JML有三种主要的用法：</p>
+<ol>
+<li>开展规格化设计。这样交给代码实现人员的将不是<strong>可能带有内在模糊性的自然语言描述</strong>，而是逻辑严格的规格。</li>
+<li>针对已有的代码实现，书写其对应的规格，从而提高代码的可维护性。这在遗留代码的维护方面具有特别重要的意义。</li>
+<li>基于规格和源代码实现，设计覆盖性更好的自动化测试，能够自动对测试执行结果进行判断，形成测试预言(test oracle)。</li>
+</ol>
+<h2 id="注释结构">注释结构</h2>
+<p>JML使用<strong>javadoc风格的注释</strong>来表达规格，这些注释通常以’@'符号开始。有两种注释方式，行注释和块注释。其中行注释的表示方式为<code>//@annotation</code>，块注释的方式为<code>/* @ annotation @*/ </code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//@ public model non_null int [] elements</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*@ contents</span></span><br><span class="line"><span class="comment">  @</span></span><br><span class="line"><span class="comment">  @*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="关键词">关键词</h2>
+<ol>
+<li><code>pure</code>：方法的执行不会有任何副作用</li>
+<li><code>model</code>：规格</li>
+<li><code>non_null</code>：数组引用对象不能为<code>null</code></li>
+</ol>
+<h2 id="JML表达式">JML表达式</h2>
+<h3 id="原子表达式">原子表达式</h3>
+<p>原子表达式是指不能再分解为更小的表达式的基本表达式。它们通常用于描述程序的状态或行为。JML中的原子表达式包括：</p>
+<ol>
+<li>
+<p><code>\result</code>：非<code>void</code>类型的方法执行所获得的结果，即方法执行后的返回值。</p>
+</li>
+<li>
+<p><code>\old(expr)</code>：表示一个表达式<code>expr</code>在相应方法执行前的取值。其<strong>遵循Java引用规则</strong>。</p>
+<p>针对一个对象引用，<strong>只判断引用本身是否变化</strong>（是否指向了另一个对象），不判断引用指向的对象实体的内容是否发生变化。</p>
+</li>
+<li>
+<p><code>\not_assigned(x,y,...)</code>：表示括号中的变量在方法执行过程中<strong>是否被赋值</strong>。</p>
+<p>如果没有被赋值，返回<code>true</code>，否则返回<code>false</code>。</p>
+<p>一般该表达式被用于后置条件的约束表示上，用来限制一个方法的实现不能对列表中的变量赋值。</p>
+</li>
+<li>
+<p><code>\not_modified(x,y,...)</code>：与<code>\not_assigned()</code>类似，限制括号中的变量在方法执行期间的取值不发生变化。</p>
+</li>
+<li>
+<p><code>\nonnullelements(container)</code>：表示<code>container</code>对象中存储的对象不会有<code>null</code>，等价于如下断言：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">container != <span class="literal">null</span> &amp;&amp;</span><br><span class="line">(\forall <span class="type">int</span> i; <span class="number">0</span> &lt;= i &amp;&amp; i &lt; container.length;container[i] != <span class="literal">null</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>\type(type)</code>：返回<strong>类型</strong><code>type</code>对应的类型。</p>
+</li>
+<li>
+<p><code>\typeof(expr)</code>：返回<strong>对象</strong><code>expr</code>对应的准确类型。</p>
+</li>
+</ol>
+<h3 id="量化表达式">量化表达式</h3>
+<p>量化表达式是JML中的一种表达式，<strong>用于描述某个条件对于一组对象是否成立</strong>。JML中的量化表达式包括：</p>
+<ol>
+<li>
+<p><code>\forall</code>：<strong>全称量词</strong>修饰的表达式，表示对应给定范围内的元素，每个元素<strong>都</strong>满足对应的约束。</p>
+<p><code>\forall</code>的语法为<code>量词对象-对象的限制-值为布尔类型的式子</code>，最后返回一个布尔值。<code>\forall</code>语法可以进行嵌套。</p>
+<p>举例而言，对于<code>(\forall int i,j; 0 &lt;= i &amp;&amp; i &lt;= j&amp;&amp; j &lt; 10;a[i] &lt; a[j])</code>的意思为，对于任意<code>0&lt;=i&lt;j&lt;=10</code>，<code>a[i]&lt;a[j]</code>。</p>
+</li>
+<li>
+<p><code>\exists</code>：<strong>存在量词</strong>修饰表达式，表示对于给定范围内的元素，<strong>存在</strong>某个元素满足对应的约束。</p>
+</li>
+<li>
+<p><code>\sum</code>：求和表达式，返回给定范围内的表达式的和。</p>
+<p><code>(\sum int i; 0&lt;= i &amp;&amp; i &lt; 5;i)</code>。值得注意的是，<code>0 &lt;= i &amp;&amp; i &lt; 5</code>是对<code>i</code>的范围的限制，而<strong>求和表达式</strong>是最后的那个<code>i</code>。</p>
+</li>
+<li>
+<p><code>\product</code>：返回给定范围内的表达式的连乘结果。</p>
+</li>
+<li>
+<p><code>\max</code>：返回给定范围内的表达式的最大值。</p>
+</li>
+<li>
+<p><code>\min</code>：返回给定范围内的表达式的最小值，用法类似<code>\max</code></p>
+</li>
+<li>
+<p><code>\num_of()</code>：返回指定变量中满足相应条件的<strong>取值个数</strong>。</p>
+<p><code>(\num_of int x; 0 &lt; x &amp;&amp; x &lt;= 20;x % 2 == 0)</code>，这个表达式给出<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>20</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">(0,20]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">20</span><span class="mclose">]</span></span></span></span>中可以被2整除的整数的个数，即10。</p>
+<p>一般而言，对于<code>(\num_of T x; R(x); P(x)</code>，<code>T</code>为变量 <code>x</code>的类型，<code>R(x)</code>为<code>x</code>的取值范围，<code>P(x)</code>定义<code>x</code>需要满足的约束条件。从逻辑等价角度看，事实上相当于<code>(\num_of T x; R(x) &amp;&amp; P(x);1)</code></p>
+</li>
+</ol>
+<h3 id="集合表达式">集合表达式</h3>
+<p>可以在JML规格中构造一个局部的集合（容器），明确集合中包含的元素。</p>
+<p><code>new JMLObjectSet &#123;Integer i | s.contains(i) &amp;&amp; 0 &lt; i.intValue()&#125;</code>表示构造一个JMLObjecti对象，包含的元素类型为Integer，集合中的所有元素都在容器集合<code>s</code>中出现（该容器集合指的是Java程序中构建的容器，比如<code>ArrayList()</code>），且整数值大于<code>0</code>。</p>
+<p>集合构造表达式的一般形式为<code>new ST&#123;T x | R(x) &amp;&amp; P(x)&#125;</code>，其中的<code>R(x)</code>对应集合中<code>x</code>的范围，通常是来自于<strong>某个既有集合中的元素</strong>，如<code>s.has(x)</code>，<code>P(x)</code>对应<code>x</code>取值的约束。</p>
+<h3 id="操作符">操作符</h3>
+<p>除了可以正常使用Java定义的操作符如算术操作符、逻辑运算操作符等，JML还定义了下面四类操作符：</p>
+<h4 id="子类型关系操作符">子类型关系操作符<code>&lt;:</code></h4>
+<p><code>E1&lt;:E2</code>，如果<code>E1</code>是类型<code>E2</code>的<strong>子类型</strong>(sub type)或<code>E1</code>和<code>E2</code>是<strong>相同的类型</strong>，那么表达式的结果为真，否则为假。</p>
+<p>举例而言，<code>Integer.TYPE &lt;: Integer.TYPE</code>为真；<code>Integer.TYPE &lt;: ArrayList.TYPE</code>为假。</p>
+<p>值得注意的是，对于任何类<code>X</code>，都满足<code>X.TYPE &lt;: Object.TYPE</code>，因为任何类都是<code>Object</code>的子类。</p>
+<h4 id="等价关系操作符-与">等价关系操作符<code>&lt;==&gt;</code>与<code>&lt;=!=&gt;</code></h4>
+<p><code>b_expr1&lt;==&gt;b_expr2</code>或者<code>b_expr1&lt;=!=&gt;b_expr2</code>，其中<code>b_expr1</code>和<code>b_expr2</code>是布尔表达式，意为<code>b_expr1 == b_expr2</code>或者<code>b_expr1 != b_expr2</code>。</p>
+<p>可以看出这两个操作符和Java中的<code>==</code>与<code>!=</code>效果相同，但是按照JML的定义，<code>&lt;==&gt;</code>的优先级低于<code>==</code>，<code>&lt;=!=&gt;</code>低于<code>!=</code>。</p>
+<h4 id="推理操作符-与">推理操作符<code>==&gt;</code>与<code>&lt;==</code></h4>
+<p>类似于离散中的蕴含操作，对于表达式<code>b_expr1==&gt;b_expr2</code>或者<code>b_expr2&lt;==b_expr1</code>，当<code>b_expr1==false</code>或者<code>b_expr1==true</code>且<code>b_expr2==true</code>时，整个表达式的值为<code>true</code>。</p>
+<h4 id="变量引用操作符">变量引用操作符</h4>
+<ul>
+<li><code>\nothing</code>指示一个空集</li>
+<li><code>\everything</code>指示一个全集，即，包括当前作用域下能够访问的所有变量</li>
+</ul>
+<p>变量引用操作符经常在<code>assignable</code>句子中使用，如<code>assignable \nothing</code>表示当前作用域下的每个变量<strong>都不可以</strong>在方法执行过程中被赋值。</p>
+<h2 id="方法规格">方法规格</h2>
+<p>方法规格的核心内容包括三方面：前置条件、后置条件和副作用约定。</p>
+<ul>
+<li>前置条件：对<strong>方法输入参数</strong>的限制，如果不满足前置条件，那么方法执行结果不可预测，不保证方法执行结果的正确性</li>
+<li>后置条件：对方法<strong>执行结果</strong>的限制，如果方法执行后的结果满足后置条件，则表明方法<strong>执行正确</strong>，否则错误</li>
+<li>副作用：指方法在执行过程中对<strong>输入对象</strong>或**<code>this</code>对象**进行了修改（对成员变量赋值，或调用其修改方法）</li>
+</ul>
+<p>两类方法：全部过程和局部过程。</p>
+<ul>
+<li>全部过程：对应前置条件恒为真，即，可以适应任何调用场景</li>
+<li>局部过程：提供非恒真的前置条件，要求调用者必须确保调用时满足相应的前置条件</li>
+</ul>
+<p>从设计角度看，我们的软件应当能够处理用户得到所有可能输入，因此，需要对不符合前置条件的输入进行处理，这一般意味着异常处理。</p>
+<p>从规格角度，JML区分两种场景，对应正常行为规格（normal_behavior）和异常行为规格（exceptional_behavior）。</p>
+<h3 id="前置条件：requires">前置条件：requires</h3>
+<p>前置条件通过<code>requires</code>子句表示：<code>requires P;</code>。表达的意思是”<strong>要求调用者确保P为真</strong>“。</p>
+<p>方法规格中可以有<strong>多个</strong><code>requires</code>子句，为<strong>并列关系</strong>，调用者必须同时满足所有的并列子句要求。</p>
+<p>如果设计者想表达<strong>或</strong>的逻辑，则应当使用一个<code>requires</code>子句，在其中的谓词<code>P</code>中使用逻辑或操作符表达相应的约束，如<code>requires P1 || P2;</code>。</p>
+<h3 id="后置条件：ensures">后置条件：ensures</h3>
+<p>后置条件通过<code>ensures</code>子句表示：<code>ensures Q;</code>。表达的意思是”方法实现者确保<strong>方法执行返回的结果</strong>一定满足谓词Q的要求，即，确保Q为真“。</p>
+<p>类似地，多个<code>ensures</code>子句是被允许的且为并列关系即须同时满足。类似地，<strong>或</strong>的表达应当在一个<code>ensures</code>子句中用逻辑或约束。</p>
+<h3 id="副作用范围限定：assignable-modifiable">副作用范围限定：assignable/modifiable</h3>
+<p>副作用指方法在执行过程中会修改对象的属性数据或者类的静态成员数据，从而给后续方法的执行造成影响。</p>
+<p>从方法规格的角度看，必须要给出明确的副作用范围。JML提供了副作用范围子句，使用关键词<code>assignable</code>或者<code>modifiable</code>。<code>assignable</code>表示可赋值，<code>modifiable</code>表示可修改。二者有一定差异，但是在大部分情况可以交换使用。</p>
+<p>从语法上看，副作用约束子句有两种形态：</p>
+<ul>
+<li>不指明具体的变量，而是用JML关键词（如<code>\nothing,\everything</code>）来概括
+<ul>
+<li><code>\nothing</code>表示当前作用域内所有可见类成员变量和方法输入对象都不可以赋值或者修改；</li>
+<li><code>\everything</code>表示当前作用域内可见的所有类成员变量和方法输入对象都可以赋值或者修改。</li>
+</ul>
+</li>
+<li>指明具体的变量列表
+<ul>
+<li>一个或多个变量，多个的时候需要用逗号分隔，如<code>@assignable elements, max, min</code></li>
+</ul>
+</li>
+</ul>
+<p>例子为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IntegerSet</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="comment">/*@spec_public@*/</span> ArrayList&lt;Integer&gt; elements;</span><br><span class="line">	<span class="keyword">private</span> <span class="comment">/*@spec_public@*/</span> Integer max;</span><br><span class="line">	<span class="keyword">private</span> <span class="comment">/*@spec_public@*/</span> Integer min;</span><br><span class="line">	<span class="comment">/*@</span></span><br><span class="line"><span class="comment">	  @ assignable \nothing;</span></span><br><span class="line"><span class="comment">	  @ assignable \everything;</span></span><br><span class="line"><span class="comment">	  @ modifiable \nothing;</span></span><br><span class="line"><span class="comment">	  @ modifiable \everthing;</span></span><br><span class="line"><span class="comment">	  @ assignable elements;</span></span><br><span class="line"><span class="comment">	  @ modifiable elements;</span></span><br><span class="line"><span class="comment">	  @ assignable elements, max, min;</span></span><br><span class="line"><span class="comment">	  @ modifiable elements, max, min;</span></span><br><span class="line"><span class="comment">	  @*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>JML<strong>不允许</strong>在<strong>副作用约束子句中指定规格声明的变量数据</strong>，因为规格虽然描述了一种这样的数据，但是实现是多样的，甚至可以不需要显式地实现特定的数据结构。因而，如果在副作用约束子句中限定了不允许对规格中定义的变量数据进行修改，这是不合理的。</p>
+<p>默认情况下，方法的规格对调用者可见，但是方法所在类的成员变量一般都声明为<code>private</code>，对调用者不可见。有时方法规格<strong>不得不使用类的成员变量来限制方法的行为</strong>，比如上面例子中的副作用范围限定，这就和类对相应成员变量的私有化保护产生了冲突。为了解决这个问题，JML提供了<code>/*@spec_public@*/</code>来注释一个类的私有成员变量，表示在规格中可以直接使用，从而调用者可见。</p>
+<h3 id="纯粹性访问">纯粹性访问</h3>
+<p>设计中会出现某些纯粹访问性的方法，<strong>不会对对象的状态进行任何改变，也不需要提供输入参数</strong>。</p>
+<p>这样的方法<strong>无需描述前置条件，也没有任何副作用</strong>，执行也一定会正常结束。对于这样的方法，可以使用简单的方式描述其规格，即使用<code>pure</code>关键词。</p>
+<p>但可以对其后置条件进行约束。有些前置条件也可以引用<code>pure</code>方法返回的结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="comment">/*@ pure @ */</span> String <span class="title function_">getName</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//@ ensures \result == bachelor || \result == master;</span></span><br><span class="line"><span class="keyword">public</span> <span class="comment">/*@ pure @*/</span> <span class="type">int</span> <span class="title function_">getStatus</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//@ ensures \result &gt;= 0;</span></span><br><span class="line"><span class="keyword">public</span> <span class="comment">/*@ pure @*/</span> <span class="type">int</span> <span class="title function_">getCredits</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*@ requires c &gt;= 0;</span></span><br><span class="line"><span class="comment">  @ ensures getCredits() == \old(getCredits()) + c;</span></span><br><span class="line"><span class="comment">  @*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addCredits</span><span class="params">(<span class="type">int</span> c)</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>getName</code>没有做任何限定，是一个极简的场景；</li>
+<li><code>getStatus()</code>限定了返回值<code>\result</code>只能为<code>bachelor</code>和<code>master</code>中的一个；</li>
+<li><code>getCredits()</code>的例子休闲南定了返回值必须大于等于<code>0</code>：<code>\result &gt;= 0</code>。</li>
+</ul>
+<h3 id="区分机制">区分机制</h3>
+<p>如前所述，为了有效区分方法的正常功能行为和异常行为，JML提供了这两类行为的区分机制，可以明确按照这两类行为来描述方法的规格。</p>
+<ul>
+<li>正常功能，一般指输入或方法关联<code>this</code>对象的状态在正常范围内时所指向的功能</li>
+<li>异常功能，即如下<code>public exceptional_behavior</code>所定义的规格。</li>
+<li><code>public</code>指相应的规格在所在包范围内的所有其他规格处都可见。</li>
+<li>如果一个方法没有异常处理行为，那么无需区分正常功能规格和异常功能规格。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*@ public normal_behavior</span></span><br><span class="line"><span class="comment">  @ requires z &gt;= 0;</span></span><br><span class="line"><span class="comment">  @ assignable \nothing;</span></span><br><span class="line"><span class="comment">  @ ensures \result &gt; z;</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment">  @ also</span></span><br><span class="line"><span class="comment">  @ public exceptional_behavior</span></span><br><span class="line"><span class="comment">  @ requires z &lt; 0;</span></span><br><span class="line"><span class="comment">  @ assignable \nothing;</span></span><br><span class="line"><span class="comment">  @ signals (IllegalArgumentException e) true;</span></span><br><span class="line"><span class="comment">  @*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">cantBeSatisfied</span><span class="params">(<span class="type">int</span> z)</span> <span class="keyword">throws</span> IllegalArgumentException；</span><br></pre></td></tr></table></figure>
+<p>其中<code>public normal_behavior</code>表示接下来的部分对<code>cantBeSatisfied(int z)</code>方法的<strong>正常功能</strong>给出规格。</p>
+<p>上述代码有一个关键词<code>also</code>，意为除了正常功能规格外<strong>还有一个异常功能规格</strong>。</p>
+<p>在JML中，有两种使用<code>also</code>的场景：</p>
+<ul>
+<li>父类中对相应方法定义了规格，子类重写了该方法，需要<strong>补充规格</strong>，这时应该在补充的规格之前使用<code>also</code></li>
+<li>一个方法规格中设计了多个功能规格描述，<strong>正常功能规格或者异常功能规格</strong>，需要使用<code>also</code>来分隔</li>
+</ul>
+<p>在上面的例子中，我们还可以看出，不管是正常功能规格还是异常功能规格，都包括了前置条件、后置条件和副作用声明。但不同的是，异常功能规格中，后置条件常表示为抛出异常，使用<code>signals</code>子句表示。</p>
+<h4 id="signals子句"><code>signals</code>子句</h4>
+<p><code>signals</code>子句结构为<code>signals (Exception e) b_expr</code>，意思是当<code>b_expr</code>为<code>true</code>时，方法会抛出括号中给出的相应异常<code>e</code>。抛出的异常既可以是Java预定义的异常类型，也可以是用户自定义的异常类型。</p>
+<p>如果一个方法在运行时抛出异常，<strong>一定</strong>要在方法声明中明确指出（使用Java的<code>throws</code>表达式），并且保证<code>signals</code>子句中给出的异常类型一定等同于方法声明中给出的异常类型，或者是后者的子类型。</p>
+<p>还有一个简化的<code>signals</code>子句，即<code>signals_only</code>子句，其后跟着一个异常类型。<code>signals</code>子句强调在对象状态满足某个条件的时候抛出符合相应类型的异常。而<code>signals_only</code>则不强调对象状态条件，强调满足前置条件时抛出相应的异常。</p>
+<p>有时，为了更明显地区分异常，会针对输入参数的取值范围抛出不同的异常，从而提醒调用者进行不同的处理。这时可以使用多个<code>exceptional_behavior</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">	<span class="comment">//@ public model non_null int[] credits;</span></span><br><span class="line">	<span class="comment">/*@ normal_behavior</span></span><br><span class="line"><span class="comment">	  @ requires z &gt;=0 &amp;&amp; z &lt;= 100;</span></span><br><span class="line"><span class="comment">	  @ assignable \nothing;</span></span><br><span class="line"><span class="comment">	  @ ensures \result == credits.length;</span></span><br><span class="line"><span class="comment">	  </span></span><br><span class="line"><span class="comment">	  @ also</span></span><br><span class="line"><span class="comment">	  @ exceptional_behavior</span></span><br><span class="line"><span class="comment">	  @ requires z &lt; 0;</span></span><br><span class="line"><span class="comment">	  @ assignable \nothing;</span></span><br><span class="line"><span class="comment">	  @ signals_only IllegalArgumentException;</span></span><br><span class="line"><span class="comment">	  </span></span><br><span class="line"><span class="comment">	  @ also</span></span><br><span class="line"><span class="comment">	  @ exceptional_behavior</span></span><br><span class="line"><span class="comment">	  @ requires z &gt; 100;</span></span><br><span class="line"><span class="comment">	  @ assignable \nothing;</span></span><br><span class="line"><span class="comment">	  @ signals_only OverFlowException;</span></span><br><span class="line"><span class="comment">	  @*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">recordCredit</span><span class="params">(<span class="type">int</span> z)</span> <span class="keyword">throws</span> IllegalArgumentException,</span><br><span class="line">OverFlowException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子针对<code>Student</code>类的<code>recordCredit(int z)</code>方法，从规格角度定义了一个规格数据<code>int[] credits</code>，并提供了三个功能规格，使用了两个<code>also</code>分隔。</p>
+<p>三个功能的<code>requires</code>子句合在一起覆盖了方法输入参数的所有取值范围，并且没有交叉，这是功能规格设计的基本要求。其中，两个异常功能规格使用<code>signals_only</code>子句分别抛出相应的异常。</p>
+<p>值得注意的是，在异常功能规格中，除了抛出异常，也一样可以正常使用<code>ensures</code>子句来描述方法执行的其他结果。</p>
+<h2 id="类型规格">类型规格</h2>
+<p>类型规格是针对Java程序中<strong>定义的数据类型所设计的限制规则</strong>。一般而言，就是针对类或接口所设计的约束规则。</p>
+<p>从面向对象角度来看，类或接口包含数据成员和方法成员的声明及（或）实现。不失一般性，一个类型的成员要么是静态成员（static member），要么是实例成员（instance member）。一个类的静态方法不可以访问这个类的非静态成员变量（即实例变量）。静态成员可以直接通过类型引用，而实例成员只能通过实例化对象来引用。因此，在设计和表示类型规格时需要加以区分。</p>
+<p>JML针对类型规格定义了多种限制规则，本课程中主要涉及两类：不变式限制（invariant）和约束限制（constraints）。无论哪一种，类型规格都是针对类型中定义的数据成员所定义的显示规则，一旦违反限制规则，就称相应的状态有错。</p>
+<h3 id="不变式invariant">不变式invariant</h3>
+<p>不变式（invariant）是要求在<strong>所有可见状态下都必须满足的特性</strong>，语法上定义为<code>invariant P</code>，其中<code>invariant</code>是关键词，<code>P</code>是谓词。一个不严谨的表述是：一个<strong>写方法</strong>的<strong>执行前后</strong>，必须满足条件P。</p>
+<p>对于类型规格，<strong>可见状态</strong>是一个重要概念，一般指特定时刻下对一个对象状态的观察。这里的可见不是一般意义上的是否可以见到，而是带有<strong>完整可见</strong>的含义。在会修改状态的方法的执行期间，对象状态不稳定，对视可能会被修改，因此在这样的方法执行期间，对象和的不变式有可能不满足。</p>
+<p>以下是几种常见的可见状态：</p>
+<ul>
+<li>对象的有状态构造方法（用来初始化对象）的执行<strong>结束</strong>时刻</li>
+<li>在调用一个对象回收方法来释放相关资源的<strong>开始</strong>时刻</li>
+<li>在调用对象的<strong>非静态、有状态</strong>方法的<strong>开始和结束</strong>时刻</li>
+<li>在调用对象的对应的<strong>类或父类</strong>的<strong>静态、有状态</strong>方法的<strong>开始和结束</strong>时刻</li>
+<li>在未处于对象的对应类或者父类的<strong>静态方法</strong>被调用过程中的任意时刻</li>
+</ul>
+<p>凡是会<strong>修改成员变量</strong>的方法执行期间，对象的状态都是不可见状态，其本质原因是对象的状态修改未完成，此时观察到的状态可能不完整。</p>
+<p>类型规格强调在<strong>任意可见状态下</strong>（状态稳定的修改完成阶段）都要满足不变式。</p>
+<p>一个类可以包括多个不变式，相互独立。如果一个对象的可见状态不满足不变式，那么称该对象的状态有错。不变式中可以直接引用<code>pure</code>状态方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Path</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="comment">/*@spec_public@*/</span> ArrayList &lt;Integer&gt; seq_nodes;</span><br><span class="line">	<span class="keyword">private</span> <span class="comment">/*@spec_public@*/</span> Integer start_node;</span><br><span class="line">	<span class="keyword">private</span> <span class="comment">/*@spec_public@*/</span> Integer end_node;</span><br><span class="line">	<span class="comment">/*@ invariant seq_nodes != null &amp;&amp;</span></span><br><span class="line"><span class="comment">	  @ seq_nodes[0] == start_node &amp;&amp;</span></span><br><span class="line"><span class="comment">	  @ seq_nodes[seq_nodes.legnth-1] == end_node &amp;&amp;</span></span><br><span class="line"><span class="comment">	  @ seq_nodes.length &gt;=2;</span></span><br><span class="line"><span class="comment">	  @*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子中，<code>Path</code>类的不变式定义了<code>seq_nodes</code>不能为<code>null</code>，且任何一个<code>Path</code>对象至少包含两个节点，一个起始节点<code>start_node</code>和一个终止节点<code>end_node</code>。</p>
+<p>对应类成员变量有静态和非静态之分，JML也区分两类不变式，静态不变式（static invarient）和实例不变式（instance invarient）。</p>
+<ul>
+<li>静态不变式只针对类中的静态成员变量取值进行约束</li>
+<li>实例不变式则可以针对静态成员变量和非静态成员变量的取值进行约束。</li>
+<li>可以在不变式定义中明确使用<code>instance invarient</code>或者<code>static invarient</code>来表示不变式的类别。</li>
+</ul>
+<h3 id="状态变化约束constraint">状态变化约束constraint</h3>
+<p>对象的状态在变化时往往也满足一些约束，这种约束本质上也是一种不变式。JML为了简化使用规则，规定<code>invarient</code>只针对可见状态（即当下可见状态）的取值进行约束，而是用<code>constraint</code>来对<strong>前序可见状态</strong>和<strong>当前可见状态</strong>的关系进行约束，如下例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServiceCounter</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="comment">/*@spec_public@*/</span> <span class="type">long</span> counter;</span><br><span class="line">	<span class="comment">//@ invariant counter &gt;= 0;</span></span><br><span class="line">	<span class="comment">//@ constraint counter == \old(counter)+1;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类<code>ServiceCounter</code>拥有一个成员变量<code>counter</code>，包含<strong>一个不变式和一个状态约束变化</strong>。</p>
+<ul>
+<li>不变式指出<code>counter &gt;= 0</code>，</li>
+<li><code>constraint</code>不同，<strong>约束每一次修改<code>counter</code>只能加<code>1</code></strong>。</li>
+</ul>
+<p>虽然这个约束可以在对<code>counter</code>进行修改的方法中通过后置条件来表示，但是每个可能修改<code>counter</code>的方法都需要加上这样的后置条件，远不如<code>constraint</code>这样的表示来得方便。</p>
+<p><strong><code>invariant</code>和<code>constraint</code>可以直接被子类继承获得。</strong></p>
+<p>和不变式一样，JML也根据类的静态成员变量区分了两类约束：<code>static constraint</code>和<code>instance constraint</code>。</p>
+<ul>
+<li><code>static constraint</code>指涉及类的静态成员变量</li>
+<li><code>instance constraint</code>则可以涉及类的静态成员变量和非静态成员变量。</li>
+<li>同样，也可以在规格中通过关键词来明确区分：<code>static constraint P</code>和<code>instance constraint P</code>。</li>
+</ul>
+<h3 id="方法与类型规格的关系">方法与类型规格的关系</h3>
+<p>如果一个类是不可变类，就没必要定义其不变式，只需要<strong>在构造方法中明确其初始状态应该满足的后置条件</strong>。</p>
+<p>当然，也可以反过来，定义不变式，而不定义构造方法的后置条件。</p>
+<p>事实上，在大部分情况下，一个类有几种不同类别的方法：</p>
+<ul>
+<li>静态初始化（不是方法，但也是一种行为）</li>
+<li>有状态静态方法</li>
+<li>有状态构造方法</li>
+<li>有状态非静态方法。</li>
+</ul>
+<p>以下展示两类不变式和方法的关系：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">静态成员初始化</th>
+<th style="text-align:left">有状态静态方法</th>
+<th style="text-align:left">有状态构造方法</th>
+<th style="text-align:left">有状态非静态方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">static invarient</td>
+<td style="text-align:left">建立</td>
+<td style="text-align:left">保持</td>
+<td style="text-align:left">保持</td>
+<td style="text-align:left">保持</td>
+</tr>
+<tr>
+<td style="text-align:left">instance invarient</td>
+<td style="text-align:left">（无关）</td>
+<td style="text-align:left">（无关）</td>
+<td style="text-align:left">建立</td>
+<td style="text-align:left">保持，除非是finalizer方法</td>
+</tr>
+</tbody>
+</table>
+<p>同理，JML也对constraint与方法之间的关系进行了约定：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">静态成员初始化</th>
+<th style="text-align:left">有状态静态方法</th>
+<th style="text-align:left">有状态构造方法</th>
+<th style="text-align:left">有状态非静态方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">static constraint</td>
+<td style="text-align:left">（无关）</td>
+<td style="text-align:left">遵从</td>
+<td style="text-align:left">遵从</td>
+<td style="text-align:left">遵从</td>
+</tr>
+<tr>
+<td style="text-align:left">instance constraint</td>
+<td style="text-align:left">（无关）</td>
+<td style="text-align:left">（无关）</td>
+<td style="text-align:left">（无关）</td>
+<td style="text-align:left">遵从</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>“建立”的含义是静态成员建立了满足相应不变式的类或对象状态。</li>
+<li>“保持”的含义是如果方法执行前不变式满足，执行后还应该满足相应的不变式。</li>
+<li>“遵从”的含义是成员变量的当前取值和上一个取值之间的关系满足constraint的规定，即“遵从规定”。</li>
+</ul>
+<h1>Java异常处理</h1>
+<p>异常处理是一种重要的编程概念，用于处理程序执行过程中可能出现的错误或异常情况。</p>
+<h2 id="基本概念">基本概念</h2>
+<p>Thorwable类（表示<strong>可抛出</strong>）是所有异常和错误的超类，两个直接子类为Error和Exception，分别表示错误和异常。</p>
+<p>其中异常类Exception又分为运行时异常（RuntimeException）和非运行时异常， 这两种异常有很大的区别。Error类及其子类也是非检查异常。</p>
+<ul>
+<li>检查异常/编译时异常：编译器在编译期间检查的那些异常。除了RuntimeException之外，所有直接继承 Exception 的异常都是检查异常。</li>
+<li>非检查异常/运行时异常：编译器不会检查运行时异常，在抛出运行时异常时编译器不会报错，当<strong>运行程序的时候才可能抛出该异常</strong>。Error及其子类和RuntimeException 及其子类都是非检查异常。</li>
+</ul>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404221909727.jpeg" alt="Throwaable"></p>
+<p>下面的列表是 Throwable 类的主要方法:</p>
+<ol>
+<li><code>public String getMessage()</code>：返回关于发生的异常的详细信息。这个消息在Throwable 类的构造函数中初始化了。</li>
+<li><code>public Throwable getCause()</code>：返回一个 Throwable 对象代表异常原因</li>
+<li><code>public String toString()</code>：返回此 Throwable 的简短描述</li>
+<li><code>public void printStackTrace()</code>：将此 Throwable 及其回溯打印到标准错误流</li>
+<li><code>public StackTraceElement [] getStackTrace()</code>：返回一个包含堆栈层次的数组。下标为0的元素代表栈顶，最后一个元素代表方法调用堆栈的栈底</li>
+<li><code>public Throwable fillInStackTrace()</code>：用当前的调用栈层次填充Throwable 对象栈层次，添加到栈层次任何先前信息中</li>
+</ol>
+<h2 id="捕获异常">捕获异常</h2>
+<p>使用<code>try/catch</code>关键字可以捕获异常。<code>try/catch</code>代码块放在异常可能发生的地方。<code>try/catch</code>代码块中的代码称为保护代码。</p>
+<p><code>catch</code>语句包含要捕获异常类型的声明。当保护代码块中发生一个异常时，<code>try</code>后面的<code>catch</code>块就会被检查。如果发生的异常包含在<code>catch</code>块中，异常会被传递到该<code>catch</code>块，这和传递一个参数的方法是一样。</p>
+<p>无论是否发生异常，<code>finally</code>代码块中的代码总会被执行。在<code>finally</code>代码块中，可以运行清理类型等收尾善后性质的语句。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">   <span class="comment">// 程序代码</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(异常类型<span class="number">1</span> 异常的变量名<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(异常类型<span class="number">2</span> 异常的变量名<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(异常类型<span class="number">3</span> 异常的变量名<span class="number">3</span>) &#123;</span><br><span class="line">  <span class="comment">// 程序代码</span></span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="抛出异常">抛出异常</h2>
+<p><code>throw</code>用于在程序运行过程中抛出异常，以供其他类进行捕获，进行异常处理。</p>
+<p><code>throws</code>关键字用于在方法声明中指定该方法可能抛出的异常。当方法内部抛出指定类型的异常时，该异常会被传递给调用该方法的代码，并在该代码中处理异常。</p>
+<p>例如，下面的代码中，当<code>readFile</code>方法内部发生<code>IOException</code>异常时，会将该异常传递给调用该方法的代码。在调用该方法的代码中，必须捕获或声明处理<code>IOException</code>异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readFile</span><span class="params">(String filePath)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">  <span class="comment">// 异常是由new BufferedReader()抛出的，代码别的地方不会抛出</span></span><br><span class="line">  <span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">FileReader</span>(filePath));</span><br><span class="line">  <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> reader.readLine();</span><br><span class="line">  <span class="keyword">while</span> (line != <span class="literal">null</span>) &#123;</span><br><span class="line">    System.out.println(line);</span><br><span class="line">    line = reader.readLine();</span><br><span class="line">  &#125;</span><br><span class="line">  reader.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个方法可以声明抛出多个异常，多个异常之间用逗号隔开。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">withdraw</span><span class="params">(<span class="type">double</span> amount)</span> <span class="keyword">throws</span> RemoteException, InsufficientFundsException&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义异常类">自定义异常类</h2>
+<p>一般地，用户自定义异常类都是<code>RuntimeException</code>的子类。</p>
+<ul>
+<li>自定义异常类通常需要编写几个重载的构造器。</li>
+<li>自定义异常需要提供全局常量：<code>serialVersionUID</code></li>
+<li>自定义的异常通过throw抛出。</li>
+<li>自定义异常最重要的是异常类的名字，当异常出现时，可以根据名字判断异常类型。</li>
+</ul>
+<p>用户自定义异常类<code>MyException</code>，用于描述数据取值范围错误信息。用户自己的异常类必须继承现有的异常类。</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404221924995.png" alt="MyException"></p>
+<h2 id="不同处理方法">不同处理方法</h2>
+<p>反射：处理了一种意外情况，根据软件需求，这种情况也需要报告给上层</p>
+<ul>
+<li>方法m被方法p调用</li>
+<li>方法m在运行过程中抛出异常e1</li>
+<li>方法p捕捉到e1</li>
+<li>经过处理后抛出另一个异常e2给其调用者</li>
+</ul>
+<p>屏蔽：处理了一种意外情况，根据软件需求，没必要让上层知道是否发生了这种意外</p>
+<ul>
+<li>方法m被方法p调用</li>
+<li>方法m在运行过程中抛出异常e1</li>
+<li>方法p捕捉到e1</li>
+<li>经过处理后不再抛出异常给其调用者</li>
+</ul>
+<p>如果期望不去“干扰”调用者的处理逻辑，即不必捕捉相应的异常，则应使用不可控异常（隐式处理）</p>
+<ul>
+<li>优点：不可控异常默认逐层“上报”，可以在合适位置集中捕捉和处理</li>
+<li>缺点：如果每一层都忘记捕捉处理，一旦抛出异常会导致程序崩溃</li>
+</ul>
+<p>如果要求调用者必须进行处理，应该使用可控异常（显式处理）</p>
+<ul>
+<li>优点：通过编译确保异常一定会得到处理</li>
+<li>缺点：分散的异常捕捉和处理，容易出现不一致</li>
+</ul>
+<h1>规格模式</h1>
+<p>规格模式（Specification Pattern）可以认为是组合模式的一种扩展。</p>
+<p>很多时候程序中的<strong>某些条件决定了业务逻辑</strong>，这些条件就可以抽离出来以某种关系（与、或、非）进行组合，从而灵活地对业务逻辑进行定制。</p>
+<p>另外，在查询、过滤等应用场合中，通过预定义多个条件，然后使用这些条件的组合来处理查询或过滤，而不是使用逻辑判断语句来处理，可以简化整个实现逻辑。</p>
+<p>这里的每个条件都是一个规格，多个规格（条件）通过串联的方式以某种逻辑关系形成一个组合式的规格。规格模式属于结构型设计模式。</p>
+<p>规格模式主要适用于以下应用场景：</p>
+<ol>
+<li>验证对象，检验对象本身是否满足某些业务要求或者是否已经为实现某个业务目标做好了准备</li>
+<li>从集合中选择符合特定业务规则的对象或对象子集</li>
+<li>指定在创建新对象的时候必须要满足某种业务要求。</li>
+</ol>
+<h2 id="规格模式">规格模式</h2>
+<p>规格模式主要包含6个角色：</p>
+<ol>
+<li>抽象规格书（Specification）：对规格书的抽象定义</li>
+<li>组合规格书（CompositeSpecification）：一般设计为抽象类，对规格书进行与或非操作，实现and()、or()、not()方法，在方法中关联子类，因为子类为固定类，所以父类可以进行关联</li>
+<li>与规格书（AndSpecification）：对规格书进行与操作，实现isSatisfiedBy()方法</li>
+<li>或规格书（OrSpecification）：对规格书进行或操作，实现isSatisfiedBy()方法</li>
+<li>非规格书（NotSpecification）：对规格书进行非操作，实现isSatisfiedBy()方法</li>
+<li>业务规格书（BizSpecification）：实现isSatisfiedBy()方法，对业务进行判断，一个类为一种判断方式，可进行扩展。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io">pigKiller</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io/2024/06/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit3-JML/">https://pigkillermaster.github.io/2024/06/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit3-JML/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://pigkillermaster.github.io" target="_blank">浮泛之舟</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OO%E8%A1%A5%E5%85%85/">OO补充</a><a class="post-meta__tags" href="/tags/JML/">JML</a></div><div class="post_share"><div class="social-share" data-image="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/06/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%90%86%E8%AE%BA-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="操作系统-理论-文件系统"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403252018445.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">操作系统-理论-文件系统</div></div></a></div><div class="next-post pull-right"><a href="/2024/06/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit4-UML/" title="面向对象-Unit4-UML"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">面向对象-Unit4-UML</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/12/30/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Pre/" title="面向对象-Pre"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-30</div><div class="title">面向对象-Pre</div></div></a></div><div><a href="/2024/06/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit4-UML/" title="面向对象-Unit4-UML"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-25</div><div class="title">面向对象-Unit4-UML</div></div></a></div><div><a href="/2024/04/02/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit1-%E9%80%92%E5%BD%92%E4%B8%8B%E9%99%8D/" title="面向对象-Unit1-递归下降"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-02</div><div class="title">面向对象-Unit1-递归下降</div></div></a></div><div><a href="/2024/04/02/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit2-Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="面向对象-Unit2-Java多线程"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-02</div><div class="title">面向对象-Unit2-Java多线程</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">JML基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text">注释结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="toc-number">1.2.</span> <span class="toc-text">关键词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JML%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">JML表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%AD%90%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">原子表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8F%E5%8C%96%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text">量化表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.3.3.</span> <span class="toc-text">集合表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.3.4.</span> <span class="toc-text">操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%90%E7%B1%BB%E5%9E%8B%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">子类型关系操作符&lt;:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%89%E4%BB%B7%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AC%A6-%E4%B8%8E"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">等价关系操作符&lt;&#x3D;&#x3D;&gt;与&lt;&#x3D;!&#x3D;&gt;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E6%93%8D%E4%BD%9C%E7%AC%A6-%E4%B8%8E"><span class="toc-number">1.3.4.3.</span> <span class="toc-text">推理操作符&#x3D;&#x3D;&gt;与&lt;&#x3D;&#x3D;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%BC%95%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.3.4.4.</span> <span class="toc-text">变量引用操作符</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E8%A7%84%E6%A0%BC"><span class="toc-number">1.4.</span> <span class="toc-text">方法规格</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6%EF%BC%9Arequires"><span class="toc-number">1.4.1.</span> <span class="toc-text">前置条件：requires</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E7%BD%AE%E6%9D%A1%E4%BB%B6%EF%BC%9Aensures"><span class="toc-number">1.4.2.</span> <span class="toc-text">后置条件：ensures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%AF%E4%BD%9C%E7%94%A8%E8%8C%83%E5%9B%B4%E9%99%90%E5%AE%9A%EF%BC%9Aassignable-modifiable"><span class="toc-number">1.4.3.</span> <span class="toc-text">副作用范围限定：assignable&#x2F;modifiable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%AF%E7%B2%B9%E6%80%A7%E8%AE%BF%E9%97%AE"><span class="toc-number">1.4.4.</span> <span class="toc-text">纯粹性访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E6%9C%BA%E5%88%B6"><span class="toc-number">1.4.5.</span> <span class="toc-text">区分机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#signals%E5%AD%90%E5%8F%A5"><span class="toc-number">1.4.5.1.</span> <span class="toc-text">signals子句</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%A7%84%E6%A0%BC"><span class="toc-number">1.5.</span> <span class="toc-text">类型规格</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%8F%98%E5%BC%8Finvariant"><span class="toc-number">1.5.1.</span> <span class="toc-text">不变式invariant</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E7%BA%A6%E6%9D%9Fconstraint"><span class="toc-number">1.5.2.</span> <span class="toc-text">状态变化约束constraint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%8E%E7%B1%BB%E5%9E%8B%E8%A7%84%E6%A0%BC%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.5.3.</span> <span class="toc-text">方法与类型规格的关系</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">Java异常处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8"><span class="toc-number">2.2.</span> <span class="toc-text">捕获异常</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8"><span class="toc-number">2.3.</span> <span class="toc-text">抛出异常</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB"><span class="toc-number">2.4.</span> <span class="toc-text">自定义异常类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-number">2.5.</span> <span class="toc-text">不同处理方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">规格模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%84%E6%A0%BC%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">规格模式</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By pigKiller</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">你终会看到，你的歌声和旗帜在飘扬</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script src="f12.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

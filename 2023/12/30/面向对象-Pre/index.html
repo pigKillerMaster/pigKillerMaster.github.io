@@ -1,0 +1,942 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><script>((function() {var callbacks = [],timeLimit = 50,open = false;setInterval(loop, 1);return {addListener: function(fn) {callbacks.push(fn);},cancleListenr: function(fn) {callbacks = callbacks.filter(function(v) {return v !== fn;});}}
+function loop() {var startTime = new Date();debugger;if (new Date() - startTime > timeLimit) {if (!open) {callbacks.forEach(function(fn) {fn.call(null);});}open = true;window.stop();alert('你真坏，请关闭控制台！');document.body.innerHTML = "";} else {open = false;}}})()).addListener(function() {window.location.reload();});</script><script>function toDevtools(){
+  let num = 0; 
+  let devtools = new Date();
+  devtools.toString = function() {
+    num++;
+    if (num > 1) {
+        alert('你真坏，请关闭控制台！')
+        window.location.href = "about:blank"
+        blast();
+    }
+  }
+  console.log('', devtools);
+}
+toDevtools();</script><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>面向对象-Pre | 浮泛之舟</title><meta name="author" content="pigKiller"><meta name="copyright" content="pigKiller"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lec1-入门与项目管理 课程简介  Java语言及其初步使用技巧 基础的层次化设计思维 讲练结合，每周一个小作业 使用OO平台，但略去互测 7次作业，逐步迭代 目标：一周以内开发200行有效代码的Java程序  快乐体验：8次课，7次丝滑的迭代作业  常见错误   什么是面向对象 面向对象：以对象为中心来构建程序逻辑的方法  一切皆对象 程序逻辑：数据及其关系、行为及其关系  用类这个概念来抽象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象-Pre">
+<meta property="og:url" content="https://pigkillermaster.github.io/2023/12/30/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Pre/index.html">
+<meta property="og:site_name" content="浮泛之舟">
+<meta property="og:description" content="Lec1-入门与项目管理 课程简介  Java语言及其初步使用技巧 基础的层次化设计思维 讲练结合，每周一个小作业 使用OO平台，但略去互测 7次作业，逐步迭代 目标：一周以内开发200行有效代码的Java程序  快乐体验：8次课，7次丝滑的迭代作业  常见错误   什么是面向对象 面向对象：以对象为中心来构建程序逻辑的方法  一切皆对象 程序逻辑：数据及其关系、行为及其关系  用类这个概念来抽象">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png">
+<meta property="article:published_time" content="2023-12-30T07:00:28.000Z">
+<meta property="article:modified_time" content="2024-06-25T07:07:00.576Z">
+<meta property="article:author" content="pigKiller">
+<meta property="article:tag" content="Pre">
+<meta property="article:tag" content="OO补充">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://pigkillermaster.github.io/2023/12/30/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Pre/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面向对象-Pre',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-06-25 15:07:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102227559.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png')"><nav id="nav"><span id="blog-info"><a href="/" title="浮泛之舟"><span class="site-name">浮泛之舟</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">面向对象-Pre</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-30T07:00:28.000Z" title="发表于 2023-12-30 15:00:28">2023-12-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-25T07:07:00.576Z" title="更新于 2024-06-25 15:07:00">2024-06-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">11.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>42分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="面向对象-Pre"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>Lec1-入门与项目管理</h1>
+<h2 id="课程简介">课程简介</h2>
+<ul>
+<li>Java语言及其初步使用技巧</li>
+<li>基础的层次化设计思维</li>
+<li>讲练结合，每周一个小作业</li>
+<li>使用OO平台，但略去互测</li>
+<li>7次作业，逐步迭代</li>
+<li>目标：一周以内开发200行<strong>有效代码</strong>的Java程序</li>
+</ul>
+<p>快乐体验：8次课，7次<strong>丝滑</strong>的迭代作业</p>
+<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309081407432.png" alt="image-20230908140729535" style="zoom: 33%;" />
+<h3 id="常见错误">常见错误</h3>
+<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309081515102.png" alt="image-20230908151546218" style="zoom:33%;" />
+<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309081518721.png" alt="image-20230908151828850" style="zoom:33%;" />
+<h2 id="什么是面向对象">什么是面向对象</h2>
+<p>面向对象：以<strong>对象为中心</strong>来构建程序逻辑的方法</p>
+<ul>
+<li>一切皆对象</li>
+<li>程序逻辑：<strong>数据及其关系、行为及其关系</strong></li>
+</ul>
+<p>用<strong>类</strong>这个概念来抽象化“对象”，<strong>一个类可示例化为任意数目的对象</strong></p>
+<ul>
+<li>类：数据和行为的综合体</li>
+<li>类关系：表征数据之间的关系或行为间关系</li>
+</ul>
+<p>提供了<strong>控制复杂性</strong>的重要机制</p>
+<blockquote>
+<p>C语言写结构体和函数是分离的，面向对象将其结合在一起</p>
+<p>将数据和行为都封装在一起了</p>
+</blockquote>
+<h3 id="三个基本特征">三个基本特征</h3>
+<ol>
+<li>
+<p>封装：让内部复杂性<strong>外部不可见</strong></p>
+<ul>
+<li>封装了数据和方法，通过<em>可见性</em>来控制外部对内部数据和方法的访问</li>
+<li>外部不用了解内部的情况，内部可进行改变而不影响外部</li>
+</ul>
+</li>
+<li>
+<p>继承：通过<strong>抽象层次</strong>来协同降低复杂性</p>
+<ul>
+<li>已有的东西不重复造轮子，相似的东西提炼出来</li>
+<li>一个类从另一个类中获得属性和方法
+<ul>
+<li>建立了<strong>上下层关系：子类和父类</strong></li>
+</ul>
+</li>
+<li>子类可<strong>复用</strong>父类的设计和实现，也可以进行<strong>扩展</strong>
+<ul>
+<li>可以<strong>增加</strong>新的属性和方法</li>
+<li>也可以<strong>重写</strong>父类已经实现的方法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>多态：通过多种形态来解耦复杂性</p>
+<ul>
+<li>针对同一个指令，一个类有多种响应状态
+<ul>
+<li>本质上是有多种同名方法</li>
+<li>要么在不同类实现，要不有不同的参数</li>
+</ul>
+</li>
+<li>针对同一个指令的多种处理逻辑，OO语言提供了<strong>根据对象和输入参数来匹配</strong>的方法：分派机制</li>
+</ul>
+</li>
+</ol>
+<h3 id="类class">类<code>class</code></h3>
+<p>编译和执行的基本单位：类（<code>class</code>）</p>
+<p>类由属性和方法组成</p>
+<ul>
+<li>属性：定义数据结构</li>
+<li>方法：定义对数据结构的操作函数</li>
+</ul>
+<p>每个类都有一种构造方法，用于实例化对象</p>
+<p>把结构体和操作函数封装在了一起</p>
+<h3 id="接口interface">接口<code>interface</code></h3>
+<p>接口（<code>interface</code>）和类处于同一层次</p>
+<ul>
+<li>接口中只有方法，没有属性</li>
+<li>接口中的方法没有实现体</li>
+</ul>
+<p>任何类都可以实现一个接口，即实现接口中所定义的所有方法</p>
+<ul>
+<li>一旦实现了一个接口，就可以使用该接口类型来引用对应的对象</li>
+</ul>
+<h3 id="关系">关系</h3>
+<p>类关系：继承、关联</p>
+<p>类和接口之间：实现、观念</p>
+<p>接口间：集成</p>
+<h3 id="访问">访问</h3>
+<p>访问权限：<code>public</code>,<code>protected</code>,<code>private</code></p>
+<p>访问：<code>obj.attr</code>,<code>obj.func()</code></p>
+<h2 id="关键词">关键词</h2>
+<h3 id="static">static</h3>
+<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309081502365.png" alt="image-20230908150254070" style="zoom:33%;" />
+<h3 id="this">this</h3>
+<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309081506406.png" alt="image-20230908150612514" style="zoom:33%;" />
+<h3 id="Object">Object</h3>
+<p>相当于万能指针</p>
+<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309081506054.png" alt="image-20230908150604286" style="zoom:33%;" />
+<h2 id="版本控制">版本控制</h2>
+<ul>
+<li>
+<p>多人协同开发：控制多人修改对项目的修改所带来的影响</p>
+<ul>
+<li>了解哪些改动，以及改动带来的影响</li>
+</ul>
+</li>
+<li>
+<p>版本管理工具建立不同的分支</p>
+<ul>
+<li>分支互不影响</li>
+</ul>
+</li>
+</ul>
+<p>使用 <code>gitlab</code>：基于文件提交十分繁琐，将项目文件提交到<code>gitlab</code>，评测机自动从<code>gitlab</code>拉取。</p>
+<h1>Lec2-编写类与单元测试</h1>
+<h2 id="Java程序的类">Java程序的类</h2>
+<p>类为编程单位，而不是C语言中的函数。规模控制、逻辑控制，形成层次化结构。</p>
+<p>类是一种自定义数据类型，包含<strong>数据和操作数据的方法</strong></p>
+<ul>
+<li>
+<p>相当于对结构体和操作结构体的函数的封装</p>
+</li>
+<li>
+<pre><code class="language-java">public class ClassName &#123;
+    //属性定义
+    //方法定义
+&#125;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 属性和方法再类中的位置是自由的，处于同一层次</span><br><span class="line"></span><br><span class="line">  - 方法中定义的变量是局部变量，不是类的属性</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 主类</span><br><span class="line"></span><br><span class="line">一个java程序只能有一个类拥有main方法，为程序入口，称为主类</span><br><span class="line"></span><br><span class="line">- ```java</span><br><span class="line">  public static void main(String[] args)&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+<li>
+<p>一般不设置属性</p>
+</li>
+<li>
+<p>常见流程</p>
+<ul>
+<li>构建业务类对象</li>
+<li>获取输入</li>
+<li>调用业务类对象处理获得的输入
+<ul>
+<li>把任务交给对象，再main中只做顶层处理</li>
+</ul>
+</li>
+<li>打印输出处理结果</li>
+</ul>
+</li>
+</ul>
+<h3 id="类成员的可见性">类成员的可见性</h3>
+<p>类方法中能否访问另一个对象或类中成员的规则</p>
+<ul>
+<li>public：<strong>任意外部对象</strong>都能访问</li>
+<li>protected：<strong>任意本类或子类</strong>对象都能访问</li>
+<li>private：只有<strong>本类对象</strong>才能访问</li>
+</ul>
+<h3 id="构造方法">构造方法</h3>
+<p>构造方法用来初始化对象属性，java默认为每个类“配”一个无参数的构造方法，所有属性都按照默认值来初始化。一旦用户自己定义了一个，原有的那个就失效。</p>
+<p>用来初始化类中的属性</p>
+<h3 id="重名的方法">重名的方法</h3>
+<p>java允许在一个类中定义多个重名的方法</p>
+<ul>
+<li>前提：在<strong>参数列表</strong>必须有差异：列表序列和个数
+<ul>
+<li>返回值不可作区分：某种程度上返回值是不重要的</li>
+</ul>
+</li>
+</ul>
+<p>面向对象重载：</p>
+<ul>
+<li>多个方法重名，说明具有相近的功能</li>
+<li>一个方法有多个相近但有差异的功能</li>
+<li>提供多个构造方法是常见的，用于不同的对象的初始化</li>
+</ul>
+<h3 id="创建对象">创建对象</h3>
+<p>设计好类后，就可以创建对象，有些全为private的类不一定能实例化：只能在类内部</p>
+<h2 id="对象引用与方法调用">对象引用与方法调用</h2>
+<p>使用类声明的一个变量，相当于一个指针，通过对象引用可以访问所引用对象的属性和方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object ba= <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;sss&quot;</span>);</span><br><span class="line">Object ca= <span class="keyword">new</span> <span class="title class_">bankAccount</span>(<span class="number">500</span>);</span><br><span class="line"><span class="comment">//Object 相当于万能类型</span></span><br></pre></td></tr></table></figure>
+<h3 id="方法调用的参数传递">方法调用的参数传递</h3>
+<p>java中除了基础类型，所有使用类所声明的变量都是引用，使用任意类型声明的数组变量也是引用</p>
+<p>参数调用时：</p>
+<ul>
+<li>基础类型直接传递值（拷贝）</li>
+<li>引用类型传递医用本身（地址）</li>
+<li>本质都是<strong>值传递</strong>，不过引用类拷贝地址</li>
+</ul>
+<h3 id="容器">容器</h3>
+<p>java提供了一套容器解决方案：管理数量不定且动态变化，有灵活的遍历和插入方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Adventurer</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Bottle&gt; bottleArray;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Integer, Bottle&gt; bottleMap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>容器中的元素实际上是对象</strong>（也就是说，容器其中的元素类型不能是int、char等这样的基本类型），一些常见的基本类型可以使用它的包装类。</p>
+<p>基本类型对应的包装类表如下：</p>
+<table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th>引用类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ArrayList"><code>ArrayList</code></h3>
+<p><code>ArrayList</code> 类是一个<strong>可以动态修改的数组</strong>，与普通数组的区别就是它是<strong>没有固定大小的限制</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ArrayList 类位于 java.util 包中，使用前需要引入它，语法格式如下：*/</span></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList; <span class="comment">// 引入 ArrayList 类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayListSample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sample</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">/* 1. 创建ArrayList */</span></span><br><span class="line">        <span class="comment">/* ArrayList&lt;类名ClassName&gt; 数组名ArrayName = new ArrayList&lt;&gt; */</span> </span><br><span class="line">        ArrayList&lt;Bottle&gt; bottles = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="type">Bottle</span> <span class="variable">bottle1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bottle</span>(<span class="comment">/*parameters*/</span>);</span><br><span class="line">        <span class="type">Bottle</span> <span class="variable">bottle2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bottle</span>(<span class="comment">/*parameters*/</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 2. 向ArrayList内加入一个元素(此外, 还可以向任意位置插入元素, 在add方法中新增参数即可) */</span></span><br><span class="line">        <span class="comment">/* 数组名ArrayName.add(元素名elementaryName) */</span></span><br><span class="line">        bottles.add(bottle1);</span><br><span class="line">        bottles.add(bottle2);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 3. 访问ArrayList中下标为i的元素 */</span></span><br><span class="line">        <span class="comment">/* 数组名ArrayName.get(i) */</span></span><br><span class="line">        <span class="type">Bottle</span> <span class="variable">bottle</span> <span class="operator">=</span> bottles.get(<span class="number">0</span>); <span class="comment">// == bottle1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 4. 判断元素是否在容器内 */</span></span><br><span class="line">        <span class="keyword">if</span> (bottles.contains(bottle)) &#123; <span class="comment">// true</span></span><br><span class="line">            System.out.println(<span class="string">&quot;We have such a bottle!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 5. ArrayList大小 */</span></span><br><span class="line">        <span class="comment">/* 数组名ArrayName.size() */</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> bottles.size();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 6. 遍历ArrayList中的所有元素 */</span></span><br><span class="line">        <span class="keyword">for</span> (Bottle item : bottles) &#123;</span><br><span class="line">            System.out.println(item.getName()); <span class="comment">// getName方法是Bottle类中用于获取其name属性的方法</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; bottles.size(); i++) &#123;</span><br><span class="line">            System.out.println(bottles.get(i).getName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 7. 删除一个元素 */</span></span><br><span class="line">        <span class="comment">/* 数组名ArrayName.remove(对象名) */</span></span><br><span class="line">        bottles.remove(bottle1); </span><br><span class="line">        <span class="comment">/* 数组名ArrayName.remove(i) */</span></span><br><span class="line">        bottles.remove(<span class="number">0</span>); <span class="comment">// 删除了bottle2</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="hashmap"><code>hashmap</code></h3>
+<p>是散列表，提供了<code>key-value</code>映射，<code>key</code>和<code>value</code>都是对象引用</p>
+<p><code>arraylist</code>中对象引用有序，<code>hashmap</code>无序，不会记录插入的顺序，通过<code>key</code>对象映射到相应的<code>value</code>对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* HashMap 类位于 java.util 包中，使用前需要引入它，语法格式如下：*/</span></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap; <span class="comment">// 引入 HashMap 类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashMapSample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sample</span> <span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 1. 创建HashMap */</span></span><br><span class="line">        <span class="comment">/* HashMap&lt;引用类型Key,引用类型Value&gt; 哈希表名mapName = new HashMap&lt;&gt; */</span> </span><br><span class="line">        HashMap&lt;Integer, Bottle&gt; bottles = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(); <span class="comment">// bottle&#x27;s id =&gt; bottle</span></span><br><span class="line"></span><br><span class="line">        <span class="type">Bottle</span> <span class="variable">bottle1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bottle</span>(<span class="comment">/*parameters*/</span>);</span><br><span class="line">        <span class="type">Bottle</span> <span class="variable">bottle2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bottle</span>(<span class="comment">/*parameters*/</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 2. 向HashMap内加入一个元素 */</span></span><br><span class="line">        <span class="comment">/* 数组名mapName.put(引用对象key,引用对象value) */</span></span><br><span class="line">        bottles.put(<span class="number">12345</span>,bottle1);</span><br><span class="line">        bottles.put(bottle2.getId(),bottle2);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 3. 访问HashMap中key值对应的value */</span></span><br><span class="line">        <span class="comment">/* 哈希表名mapName.get(key) */</span></span><br><span class="line">        <span class="type">Bottle</span> <span class="variable">bottle</span> <span class="operator">=</span> bottles.get(<span class="number">12345</span>); <span class="comment">// == bottle1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 4. 检查HashMap中是否存在指定的 key 对应的映射关系。 */</span></span><br><span class="line">        <span class="comment">/* mapName.containsKey(key) */</span></span><br><span class="line">        <span class="keyword">if</span> (bottles.containsKey(<span class="number">12345</span>)) &#123; <span class="comment">// true</span></span><br><span class="line">            System.out.println(<span class="string">&quot;We have such a bottle!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 5. 检查HashMap中是否存在指定的 value 对应的映射关系。*/</span></span><br><span class="line">        <span class="comment">/* mapName.containsValue(value) */</span></span><br><span class="line">        <span class="keyword">if</span> (bottles.containsValue(bottle2)) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;We have such a bottle!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 6. HashMap大小, 即键值对数目 */</span></span><br><span class="line">        <span class="comment">/* 数组名mapName.size() */</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> bottles.size();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 7. 遍历HashMap中的所有元素 */</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> key : bottles.keySet()) &#123; <span class="comment">// keySet可以获取HashMap容器中所有 key 组成的对象集合</span></span><br><span class="line">            System.out.println(<span class="string">&quot;bottle&#x27;s function is &quot;</span> + bottles.get(key).getName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Bottle value : bottles.values()) &#123; <span class="comment">// values可以获取HashMap容器中所有 value 组成的对象集合</span></span><br><span class="line">            System.out.println(<span class="string">&quot;bottle&#x27;s function is &quot;</span> + value.getName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 8. 删除一个映射关系 */</span></span><br><span class="line">        <span class="comment">/* mapName.remove(key) */</span></span><br><span class="line">        <span class="comment">// bottles.containsKey(12345) == true</span></span><br><span class="line">        bottles.remove(<span class="number">12345</span>); <span class="comment">// true</span></span><br><span class="line">        <span class="comment">// bottles.containsKey(12345) == false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 9. 删除一个键值对</span></span><br><span class="line"><span class="comment">        /* mapName.remove(key, value) 键值对能被删除的条件为：当且仅当HashMap存在该 key-value 键值*/</span></span><br><span class="line">        <span class="comment">// bottles.containsKey(bottle2.getid()) == true</span></span><br><span class="line">        bottles.remove(bottle2.getid(), bottle1); <span class="comment">// false</span></span><br><span class="line">        <span class="comment">// bottles.containsKey(bottle2.getid()) == true 此处仍然为真！</span></span><br><span class="line">        bottles.remove(bottle2.getid(), bottle2); <span class="comment">// true</span></span><br><span class="line">        <span class="comment">// bottles.containsKey(bottle2.getid()) == false; </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Java程序的单元测试">Java程序的单元测试</h2>
+<p>一个类在语法上必须完整，否则无法编译</p>
+<h3 id="单元测试">单元测试</h3>
+<p>测试的目的是发现bug，调式是定位和修复bug。原则上每个类都应该单元测试</p>
+<p>使用<code>junit</code>来进行测试：</p>
+<ol>
+<li>
+<p>在测试前，在test文件夹中生成测试文件并进行编写</p>
+</li>
+<li>
+<p>在test文件中，可以相对独立地运行测试代码中的一部分而不影响main主类中的数据</p>
+<ul>
+<li>
+<p>需要使用<code>assert</code>断言来判断是否运行得到了正确的运行结果</p>
+</li>
+<li>
+<p>相当于自己编写数据进行测试</p>
+</li>
+<li>
+<pre><code class="language-java">// 需要import对应的junit包
+import org.junit.Test;
+public class ChildTest &#123;
+
+    @Test
+    public void subMoney() &#123;
+        Child child = new Child(20);
+        child.subMoney(5);
+        assert (child.getMoney() == 15);
+    &#125;
+
+    @Test
+    public void addOneFruit() &#123;
+        Child child = new Child(20);
+        child.addOneFruit(&quot;apple&quot;);
+        assert (child.getAppleCount() == 1);
+
+        child.addOneFruit(&quot;banana&quot;);
+        assert (child.getBananaCount() == 1);
+    &#125;
+&#125;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### assert语句</span><br><span class="line"></span><br><span class="line">和C语言中的assert类似，对于`assert(condition)`，当条件为真时跳过，否则会报错并停止程序运行</span><br><span class="line"></span><br><span class="line">#### 测试的覆盖率</span><br><span class="line"></span><br><span class="line">在测试中，很重要的一个衡量标准就是覆盖率：究竟覆盖了多少代码的范围，究竟有没有测到真正可能出现bug的地方</span><br><span class="line"></span><br><span class="line">- 函数覆盖率：定义的函数中有多少被调用</span><br><span class="line">- 语句覆盖率：程序中的语句有多少被执行</span><br><span class="line">- 分支覆盖率：有多少控制结构的分支（例如if语句）被执行</span><br><span class="line">- 条件覆盖率：有多少布尔子表达式被测试为真值和假值</span><br><span class="line">- 行覆盖率：有多少行的源代码被测试过</span><br><span class="line">- 类覆盖率：有多少类被测试过</span><br><span class="line">- 方法覆盖率：这个类有多少方法被测试过</span><br><span class="line">- 行覆盖率：有多少行的源代码被测试过</span><br><span class="line"></span><br><span class="line"># Lec3-如何管理对象</span><br><span class="line"></span><br><span class="line">## 对象和引用</span><br><span class="line"></span><br><span class="line">引用：程序中声明的变量</span><br><span class="line"></span><br><span class="line">对象：程序通过new产生的**实例**</span><br><span class="line"></span><br><span class="line">- 堆内存中的一个空间，按照类的属性填充了相应的数据，包含**属性数据和指向类的指针**，指向类的指针用于找到对应的指针</span><br><span class="line"></span><br><span class="line">- 方法定义在类而不是对象中，调用类的方法时，从类中找到指向类的指针，调用其中的方法</span><br><span class="line"></span><br><span class="line">  - 使用不同的变量去引用一个对象时，不改变对象本身的数据</span><br><span class="line">  - ![image-20230922142044932](https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309221420283.png)</span><br><span class="line"></span><br><span class="line">- Java的对象引用相当于C的指针变量，指向一片内存</span><br><span class="line"></span><br><span class="line">  - Java通过new初始化对象空间，C通过malloc等分配指针指向的内存</span><br><span class="line"></span><br><span class="line">  - ```java</span><br><span class="line">    Adventurer adventurer = new Adventurer();	//Java</span><br><span class="line">    Adventurer *adventurer = (Adventurer *) malloc(sizeof(Adventurer));	//C</span><br></pre></td></tr></table></figure>
+
+
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<p>对象和引用的区别：</p>
+<ul>
+<li>对象有实际存在的内存空间，引用是一个标识符，指向对象所在的地址</li>
+<li>引用对象内容的唯一方式是通过一个对象引用去访问其方法或数据</li>
+<li>对象引用的内容改变可以随时通过变量赋值来实现</li>
+</ul>
+<h2 id="常见容器">常见容器</h2>
+<img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309221430012.png" alt="image-20230922143049773" style="zoom:33%;" />
+<h3 id="ArrayList和LinkedList"><code>ArrayList</code>和<code>LinkedList</code></h3>
+<ul>
+<li><code>ArrayList</code>相当于数组，<code>LinkedList</code>相当于链表，在使用方式上一致，在底层构建上有差异，因而在查询增删上有区别</li>
+<li>实际存储的不是对象本身，而是指向对象的指针
+<ul>
+<li>可以先得到查询对象的指针，再remove对象，接着按照指针继续访问对象</li>
+</ul>
+</li>
+</ul>
+<h3 id="HashMap"><code>HashMap</code></h3>
+<p>基于哈希表的键值对应关系，允许使用键来快速查找和访问值。</p>
+<p>没有固定的值，键不能重复</p>
+<h3 id="HashSet"><code>HashSet</code></h3>
+<ul>
+<li>
+<p>本质是只存了值的<code>HashMap</code></p>
+</li>
+<li>
+<p>保存了内部的互异性，无重复，可以实现自动去重的功能</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* HashSet 类位于 java.util 包中，使用前需要引入它，语法格式如下：*/</span></span><br><span class="line"><span class="keyword">import</span> java.util.HashSet; <span class="comment">// 引入 HashSet 类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSetSample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sample</span> <span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 1. 创建HashSet */</span></span><br><span class="line">        <span class="comment">/* HashMap&lt;引用类型&gt; &lt;setName&gt; = new HashSet&lt;&gt; */</span> </span><br><span class="line">        HashSet&lt;Bottle&gt; bottles = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(); </span><br><span class="line"></span><br><span class="line">        <span class="type">Bottle</span> <span class="variable">bottle1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bottle</span>(<span class="comment">/*parameters*/</span>);</span><br><span class="line">        <span class="type">Bottle</span> <span class="variable">bottle2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bottle</span>(<span class="comment">/*parameters*/</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 2. 向HashSet内加入一个元素 */</span></span><br><span class="line">        <span class="comment">/* 集合名&lt;setName&gt;.add(对象) */</span></span><br><span class="line">        bottles.add(bottle1);</span><br><span class="line">        bottles.add(bottle2);</span><br><span class="line">        bottles.add(bottle1); <span class="comment">// 重复添加的元素不会被加入HahsSet中</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 3. 检查HashSet中是否存在指定的元素 */</span></span><br><span class="line">        <span class="comment">/* setName.contains(obj) */</span></span><br><span class="line">        <span class="keyword">if</span> (bottles.contains(bottle1)) &#123; <span class="comment">// true</span></span><br><span class="line">            System.out.println(<span class="string">&quot;We have such a bottle!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 4. HashSet大小, 即元素个数 */</span></span><br><span class="line">        <span class="comment">/* setName.size() */</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> bottles.size();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 5. 遍历HashSet中的所有元素 */</span></span><br><span class="line">        <span class="keyword">for</span> (Bottle obj : bottles) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;bottle&#x27;s function is &quot;</span> + obj.getName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 6. 删除HashSet中的指定元素</span></span><br><span class="line"><span class="comment">        /* setName.remove(obj) */</span></span><br><span class="line">        bottles.remove(bottle2);       </span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h3 id="其他容器">其他容器</h3>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309221503450.png" alt="image-20230922150329252"></p>
+<h2 id="层次化管理对象">层次化管理对象</h2>
+<p>使用容器管理一组对象</p>
+<p>一个对象可以用内置容器来管理下一组对象</p>
+<h3 id="组合关系">组合关系</h3>
+<p>组合：由多个对象组合成一个更多的对象，整体和部分的关系。以对象引用作为属性变量，形成了对象之间的整体和部分结构</p>
+<h3 id="聚合关系">聚合关系</h3>
+<p>聚合：弱关联关系，以对象引用作为其成员变量，相应的对象引用可以是NULL</p>
+<h3 id="属性">属性</h3>
+<p>属性关系：</p>
+<ul>
+<li>
+<p>类的职责确认</p>
+</li>
+<li>
+<p>组合：顶层对象之间不会有共享对象，一个对象只会出现在一个容器中</p>
+</li>
+<li>
+<p>聚合：顶层对象之间会有共享对象，一个对象有可能在多个容器中</p>
+</li>
+<li>
+<blockquote>
+<p>容器只储存指针，不储存值</p>
+</blockquote>
+</li>
+</ul>
+<h1>Lec5-Java程序的bug与调试</h1>
+<h2 id="Java-的内存情况">Java 的内存情况</h2>
+<p>JVM 的内存划分为 5 个部分：虚拟机栈、堆区、元空间、本地方法栈、程序计数器。其中前三个比较重要，后两个和 JVM（java virtual machine）的运行调度有关。</p>
+<ul>
+<li>栈（stack）：<strong>栈</strong>中存放方法中的<strong>局部变量</strong>，方法的<strong>运行</strong>一定要在栈中进行。栈内存的数据用完就释放。 <em>这里简单称为栈，但实际上是 JVM 栈，Java 虚拟机栈</em></li>
+<li>堆（Heap）：<strong>堆</strong>是 Java 虚拟机中最大的一块内存区域，用于<strong>存储对象实例</strong>。通俗的理解，就是我们 <strong>new出来的</strong> 所有对象和数组，都是存放在堆中的。</li>
+<li>元空间(MetaSpace):虚拟机加载的类信息、常量、各类<strong>方法</strong>的信息。</li>
+</ul>
+<blockquote>
+<p><strong>jdk1.8</strong>之前元空间又作方法区(Method Area)，相比元空间，方法区额外存储 .class 二进制文件，虚拟机加载的静态变量等数据。</p>
+<p><strong>jdk1.8</strong>及之后，类的元信息被存储在元空间中。相比方法区，元空间使用与堆不相连的本地内存区域。所以，理论上不会出现永久代存在时的内存溢出问题。</p>
+</blockquote>
+<h3 id="具体实现">具体实现</h3>
+<ul>
+<li>首先，程序会将 <code>main</code> 方法压入调用栈中。</li>
+<li>在 <code>main</code> 方法中声明了一个局部变量 <code>Dog dog</code> ，该变量同样被放置在调用栈中。接下来，我们使用 <code>new</code> 关键字创建了一个小狗对象，并将其存储在堆中的一块内存空间中，然后将堆中对应的地址存储在调用栈中。这个堆中的内存用于存储小狗的属性，而堆中的成员方法只保存一个地址，指向元空间中实际内容的位置。</li>
+<li>同样的操作也适用于 <code>Person person = new Person(…)</code> , 创建一个 <code>person</code> 对象并将其地址存储在调用栈中。</li>
+<li>接下来，调用 <code>Person</code> 类的 <code>buy</code> 方法并将 <code>dog</code> 作为参数传入，实际传入的内容就是调用栈中<code>dog</code> 变量所存内容，即<code>dog</code>在堆中的地址。
+<ul>
+<li><code>buy</code> 方法被压入调用栈中。</li>
+<li>在 <code>buy</code> 方法中，首先调用了 <code>Dog</code> 类的 <code>getPrice()</code> 方法。</li>
+<li><code>getPrice()</code> 方法被压入调用栈中。</li>
+<li>通过 <code>dog</code> 在堆中的地址，找到对应的属性 <code>price</code> 并将其作为结果返回。</li>
+<li><code>getPrice()</code> 方法结束，弹栈。</li>
+<li>然后调用了 <code>Dog</code> 类的 <code>setBought()</code> 方法。</li>
+<li><code>setBought()</code> 方法被压入调用栈中。</li>
+<li>通过 <code>dog</code> 在堆中的地址，找到对应的成员方法，并在元空间中执行该方法对应的程序代码，即将 <code>dog</code> 在堆中的属性 <code>isBought</code> 修改为 <code>ture</code>。</li>
+<li><code>setBought()</code> 方法结束，弹栈。</li>
+<li>最后，将 <code>dog</code> 作为参数继续传递给 <code>Ming</code> 在堆中的属性 <code>pet</code>，即将 <code>dog</code> 在堆中的地址存储在 <code>pet</code> 中。</li>
+<li><code>buy</code> 方法结束，弹栈。</li>
+</ul>
+</li>
+<li>当 <code>main</code> 方法中的所有内容执行完毕，会从调用栈中弹出 <code>main</code> 方法，程序结束运行。</li>
+</ul>
+<h2 id="深克隆和浅克隆">深克隆和浅克隆</h2>
+<p>执行 <code>dog2 = dog1</code> 时，我们传递的给 dog2 的，是 dog1 在堆内存中的内存地址，所以 dog2 和 dog1 指向了相同的堆内存。通俗来讲，本质上 dog1 和 dog2 就是同一条狗。所以不论是修改哪条狗的参数，结果均是执行/修改 0x1234 这块内存的内容。</p>
+<blockquote>
+<p><strong>知识补充-基础数据类型&amp;引用类型的传递方式</strong>：基础数据类型为值传递，引用数据类型为引用传递。</p>
+<p>基础数据类型（int、boolean）在作为参数传递时，传递的是真实的数据，形参的改变，不影响实参。</p>
+<p>引用数据类型（类、数组、接口）作为参数传递时，传递的是堆内存中的地址，形参改变，实参也改变。</p>
+</blockquote>
+<p>而上述这种克隆过程，在 Java 术语中可以解释为，我们在程序中创建了一个 <strong>Dog 实例</strong> ，使用 <strong><code>dog1</code> 引用</strong> 了这个实例。之后声明的 <strong><code>dog2</code> 变量</strong> ，重新引用了 <code>dog1</code> 引用的实例。因此在整个程序运行过程中，仅有一个实例。故当我们使用这两个引用中任意一个引用来对其实例进行修改时，会在使用另一种引用访问该实例中体现出来。</p>
+<p>这种只克隆引用的克隆过程，称为 <em>浅克隆</em> (Shallow copy)。如果希望创造出一个“完整”的克隆，我们不仅要在编码时创建一个新的引用，还要创建一个新的实例，即，创建出另一块堆内存，使得二者互不干涉，互不影响。</p>
+<h2 id="常见bug">常见bug</h2>
+<h3 id="与equals">==与equals</h3>
+<p>当要求的是两个对象是同一个对象时，使用==是正确的。当要求的两个对象不必为同一个，只需要某些属性相等时（这些属性可以在 equal 是方法中自由定义）</p>
+<h3 id="迭代器删除">迭代器删除</h3>
+<p>遍历容器的过程中，可能用到的是 ArrayList的索引，当然也有同学使用的是 hashmap 这种没有“第几个”说法的容器，就可能会用到for增强循环：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Adventure adventure:adventure)</span><br></pre></td></tr></table></figure>
+<p>其实它的本质是用迭代器遍历</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Dog&gt;iterator= arrayList.iterator();</span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext())&#123;</span><br><span class="line">       Dog dog=iterator.next();</span><br><span class="line">       <span class="comment">//....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用ArrayList的删除，也就是容器本身的删除方法时，确实能修改容器的状态，但是它不能修改迭代器的状态。这导致迭代器的状态和当前 ArrayList 的状态不相同，而在每次 next() 的时候会判断这个状态是否相同，导致报错。</p>
+<p>应该使用迭代器本身提供的删除一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Dog&gt;iterator= arrayList.iterator();</span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext())&#123;</span><br><span class="line">       Dog dog=iterator.next();</span><br><span class="line">       iterator.remove();</span><br><span class="line">       System.out.println(dog.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>遇到删除的不使用 for 循环，而使用迭代器遍历，删除的时候使用迭代器的删除方法</li>
+<li>将删除和遍历分开，比如把要删除的对象用一个容器先存起来，遍历后统一删除。</li>
+</ul>
+<h1>Lec6-继承与接口的复用</h1>
+<h2 id="继承的概念">继承的概念</h2>
+<p>继承相当于在原先类上的扩展，如果几个类之间只有几处不同，大量的属性和方法可以共享，可以使用继承。</p>
+<p>在实际的开发中， 如果细化的类较多，会出现重复的属性定义和操作代码，无法统一管理各种细化类的实例化对象，在代码维护过程中容易出现修改不一致，难以debug</p>
+<ul>
+<li>继承是类之间的一种抽象层次关系</li>
+<li>继承让 子类将获得父类的属性和方法，实现 复用和扩展</li>
+<li>继承 可以把多个类中的重复内容提取出来形成父类，减少冗<br>
+余和增强可维护性</li>
+</ul>
+<h3 id="extends"><code>extends</code></h3>
+<p>利用<code>extends</code>关键字来定义继承关系</p>
+<ul>
+<li>子类可以访问<code>public</code>和<code>protected</code>成员，<code>private</code>无法被直接访问，调用父类的方法来进行访问修改</li>
+<li>父类可以概括子类：子类对象可以被父类对象所引用</li>
+</ul>
+<p>子类和父类之间有指针的关系，通过指针进行属性和方法的访问。如果子类中没有，则向上在父类中访问</p>
+<h3 id="super"><code>super</code></h3>
+<p>在子类中，使用<code>super. attribute</code>可以引用父类中定义的非私有属性</p>
+<p>如果子类 重写 了父类的某个方法，那么子类通过<code>super.methodName()</code>可以调用父类所实现的那个方法</p>
+<p><code>(this.) methodName()</code>调用的是子类实现的那个方法</p>
+<p>在子类构造方法中，一般使用<code>super(arguments)</code>来调用父类的构造方法，从而完成对父类所定义属性的初始化</p>
+<h3 id="重写方法">重写方法</h3>
+<p><code>@Override</code>注解可选的注解，用于标记方法是重写的父类方法。非强制，可提高代码的可读性和可维护性</p>
+<p>访问权限：子类方法的访问权限必须大于等于父类方法的访问权限</p>
+<ul>
+<li>如果父类方法为public，子类方法只能为public</li>
+<li>返回类型：子类方法的返回类型必须与父类方法的返回类型一致，或者是其子类型（协变返回类型）
+<ul>
+<li>若返回类型是基本类型，则只能相同</li>
+</ul>
+</li>
+<li>方法名和参数列表：<strong>子类方法的方法名和参数列表必须与父类方法完全相同</strong>
+<ul>
+<li>参数个数和参数顺序、参数类型</li>
+</ul>
+</li>
+</ul>
+<h2 id="继承的使用">继承的使用</h2>
+<h3 id="继承的优势">继承的优势</h3>
+<p>代码重用：子类无需复实现父类的属性和方法，提高了重用度</p>
+<p>扩展性：</p>
+<ul>
+<li>子类可以添加新的属性和方法实现自己独有的功能</li>
+<li>实现了对父类的增量式扩展（保持父类不变）</li>
+</ul>
+<p>继承层次：</p>
+<ul>
+<li>
+<p>形成抽象层次结构，任何子类对象都可以使用父类型来统一管理和引用</p>
+</li>
+<li>
+<p>实现了对各种变化的统一处理能力</p>
+</li>
+</ul>
+<h2 id="接口">接口</h2>
+<p>接口（ Interface ）是一种定义方法和常量的抽象类型，不提供方法实现</p>
+<p>接口统一并规范定义一组类的行为。一个接口可以由N个类实现，一个类可以实现N个接口</p>
+<h3 id="接口的实现">接口的实现</h3>
+<p>使用implements关键字</p>
+<p>抽象方法的声明不需要<code>public</code>或者 <code>private</code> 等关键字的修饰规定方法名，参数及返回类型即可</p>
+<p>接口也是一种类型，可以用 <code>a instanceof B</code> 判断对象 a 是否实现了接口 B ，即是否类型 B 的实例</p>
+<p>接口无法被实例化（用 new ）,只能被实现</p>
+<h3 id="接口和继承的区别">接口和继承的区别</h3>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202310201520973.png" alt="image-20231020152005887"></p>
+<p>装备 、三种药水瓶、食物和冒险者都有<code>price</code>（价格）属性，因而可以将它们都看作是价值体<code>Commodity</code>，且他们都有 <code>getPrice</code> 函数来对外表征自己的价值</p>
+<ul>
+<li>向上提炼</li>
+<li>Bottle Equipment Food 和 Adventurer 这四种价值体的数据内涵和业务功能差别很大
+<ul>
+<li>核心是围绕其价值（ price ）建立统一的对象管理手段</li>
+<li>把 Commodity定义为interface，让Bottle 、Equipment 、Food 和Adventurer实现Commodity接口</li>
+<li>三种具体的Bottle仍然继承自Bottle</li>
+<li>建立了实现<strong>行为抽象层次</strong></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202310201519502.png" alt="image-20231020151938387"></p>
+<h2 id="指导书相关">指导书相关</h2>
+<h3 id="继承中的转型">继承中的转型</h3>
+<h4 id="向上转型">向上转型</h4>
+<p>在建立了继承关系之后，可以使用<strong>父类型</strong>去引用通过<strong>子类型</strong>创建的对象。这里涉及两个重要的概念，对象与对象引用。一般而言，对象是一个类的实例化结果，对应内存中的一个数据结构。对象引用则是使用一个变量来指向内存中的这个数据结构（即对象）。</p>
+<p>如我们可以使用上面的 Dog 类来构造一个对象：<code>new Dog()</code> ，这条语句返回一个创建的对象。我们同时需要声明一个对象引用来指向返回的对象，否则可能就找不到这个对象了。所以，一般代码都会这么写：<code>Dog bernese = new Dog()</code> 。</p>
+<p>在建立了继承关系之后，我们也可以使用 Animal 类来声明一个对象引用，并指向类型为 Dog 的对象：<code>Animal pet = new Dog(...)</code>。从程序类型的角度，这个表达方式称为向上的类型转换，简称<strong>向上转型</strong> (up cast)。</p>
+<p>相关例子在继承中的方法调用给出，同学们可以仿照案例课下再做尝试</p>
+<h4 id="向下转型">向下转型</h4>
+<p>Java 语言提供了一个特殊的关键词 <code>instanceof</code> 用来判断一个对象引用所指向的对象的创建类型是否为特定的某个类，一般写为 <code>obj instanceof A</code>，其中 obj 为一个对象引用，A 为一个类型（类或接口），这个表达式的取值结果为布尔型，如果 obj 的创建类型为 A，则结果为 true，否则为 false。在这个表达式取值为 true 的情况下，可以使用<strong>向下转型</strong> (down cast) 来使用一个 A 类型的对象来引用obj： <code>A ao = (A)obj</code> 。注意，实际上 obj 所指向对象的创建类型永远不会发生变化，转型的只是对象引用类型。下面例子给出了相应的向下转型场景：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Animal pet;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">new</span> <span class="title class_">Random</span>().nextInt() &gt; <span class="number">0</span>) &#123; <span class="comment">// 随机一个整数</span></span><br><span class="line">            <span class="comment">// 若大于零 则生成一只伯恩山小狗</span></span><br><span class="line">            pet = <span class="keyword">new</span> <span class="title class_">Dog</span>(<span class="string">&quot;Bernese Mountain&quot;</span>, <span class="number">18000</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 若小于零 则声称一只缅因猫</span></span><br><span class="line">            pet = <span class="keyword">new</span> <span class="title class_">Cat</span>(<span class="string">&quot;Maine Coon&quot;</span>, <span class="number">8000</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 值得注意的是，</span></span><br><span class="line"><span class="comment">         * 在 `instanceof` 返回真的时候使用向下转型，才能保证向下转型的安全性，否则运行时会触发错误*/</span>    </span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (pet <span class="keyword">instanceof</span> Dog) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;this is a dog!&quot;</span>);</span><br><span class="line">            <span class="type">Dog</span> <span class="variable">bernese</span> <span class="operator">=</span> (Dog) pet;</span><br><span class="line">            bernese.information();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pet <span class="keyword">instanceof</span> Cat) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;this is a cat!&quot;</span>);</span><br><span class="line">            <span class="type">Cat</span> <span class="variable">maine</span> <span class="operator">=</span> (Cat) pet;</span><br><span class="line">            maine.information();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;this is an unknown species&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="接口-2">接口</h3>
+<p>如果说继承是一种类和类之间的共性抽取，那么接口可以认为是行为的规范标准。相较于继承是对类迭代属性，接口更多的是覆写方法。 我们仍然看回宠物商店，宠物店在管理宠物的过程中衍生了三个部门，一个是洗澡部，一个是干饭部，一个是购买处。</p>
+<p>我们观察这三个部门</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bath</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendIn</span><span class="params">(String origin)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;A pet is sent from &quot;</span> + origin);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendOut</span><span class="params">(String target)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Bathing department sends a pet to &quot;</span> + target);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation</span><span class="params">(Animal animal)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Bathing starts&quot;</span>);</span><br><span class="line">        animal.enhanceHealthCondition(<span class="number">30</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Bathing finishes&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Feed</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendIn</span><span class="params">(String origin)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;A pet is sent from &quot;</span> + origin);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendOut</span><span class="params">(String target)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Feeding department sends a pet to &quot;</span> + target);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation</span><span class="params">(Animal animal)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Feeding starts&quot;</span>);</span><br><span class="line">        animal.enhanceHealthCondition(<span class="number">10</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Feeding finishes&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Purchase</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendIn</span><span class="params">(String origin)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;A pet is sent from &quot;</span> + origin);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendOut</span><span class="params">(String target)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Purchasing department sends a pet to &quot;</span> + target);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation</span><span class="params">(Animal animal)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Negotiating price....&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (animal <span class="keyword">instanceof</span> Dog) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;A dog sells for &quot;</span> + animal.getPrice() + <span class="string">&quot;￥&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (animal <span class="keyword">instanceof</span> Cat) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;A cat sells for &quot;</span> + animal.getPrice() + <span class="string">&quot;￥&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现这三个工作部门的工作模式非常相近，都有统一的三个行为：接受宠物，处理宠物，将宠物置位。 就像我们对小猫和小狗进行的共性抽取，此时我们对他的行为模式规范进行提取。</p>
+<h4 id="接口的概念">接口的概念</h4>
+<p><strong>接口</strong> 是一系列方法的声明，是一些方法特征的集合，一个接口只有方法的特征没有方法的实现，因此这些方法可以在不同的地方被不同的类实现，而这些实现可以具有不同的行为（功能）。</p>
+<p>需要注意的是，接口提供了行为的抽象机制。在上面的例子中，Bath 、Feed 、Purchase 的共性在于其行为操作，因而使用接口是合适的。对于其他一些情况，多个类之间可能即有共性的行为，也有共性的数据属性，此时使用类建立抽象层次更加合适。</p>
+<h4 id="接口的格式">接口的格式</h4>
+<p>设置接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">NameOfInterface</span> &#123;</span><br><span class="line">   <span class="keyword">public</span> [返回值] nameOfFunction (args..);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>接口中的方法默认被<code>public static abstract</code>修饰，设置实现类</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span> <span class="keyword">implements</span> <span class="title class_">NameOfInterface</span> &#123;</span><br><span class="line">    <span class="comment">/* 属性们 */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* @Override</span></span><br><span class="line"><span class="comment">     * ... */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在本案中，我们根据<strong>Bath</strong> 、<strong>Feed</strong> 、<strong>Purchase</strong> 的共性操作，设置一个接口叫做 Department</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Department</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendIn</span><span class="params">(String origin)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendOut</span><span class="params">(String target)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation</span><span class="params">(Animal animal)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后声明<strong>Bath</strong> 、<strong>Feed</strong> 、<strong>Purchase</strong> 类来实现 (implements) 这个接口： 需要注意的是，当类实现接口的时候，类要实现接口中所有的方法。否则，类必须声明为抽象的类。 在实现接口的时候，也要注意一些规则：</p>
+<ol>
+<li>一个类可以同时实现多个接口。</li>
+<li>一个类只能继承一个类，但是能实现多个接口。</li>
+<li>一个接口能继承另一个接口，这和类之间的继承比较相似。</li>
+</ol>
+<p>接口提出应有的方法，由具体的类继承并进行实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bath</span> <span class="keyword">implements</span> <span class="title class_">Department</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendIn</span><span class="params">(String origin)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;A pet is sent from &quot;</span> + origin);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendOut</span><span class="params">(String target)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Bathing department sends a pet to &quot;</span> + target);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation</span><span class="params">(Animal animal)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Bathing starts&quot;</span>);</span><br><span class="line">        animal.enhanceHealthCondition(<span class="number">30</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Bathing finishes&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Feed</span> <span class="keyword">implements</span> <span class="title class_">Department</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendIn</span><span class="params">(String origin)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;A pet is sent from &quot;</span> + origin);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendOut</span><span class="params">(String target)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Feeding department sends a pet to &quot;</span> + target);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation</span><span class="params">(Animal animal)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Feeding starts&quot;</span>);</span><br><span class="line">        animal.enhanceHealthCondition(<span class="number">10</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Feeding finishes&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Purchase</span> <span class="keyword">implements</span> <span class="title class_">Department</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendIn</span><span class="params">(String origin)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;A pet is sent from &quot;</span> + origin);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendOut</span><span class="params">(String target)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Feeding department sends a pet to &quot;</span> + target);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation</span><span class="params">(Animal animal)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Negotiating price....&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (animal <span class="keyword">instanceof</span> Dog) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;A dog sells for &quot;</span> + animal.getPrice() + <span class="string">&quot;￥&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (animal <span class="keyword">instanceof</span> Cat) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;A cat sells for &quot;</span> + animal.getPrice() + <span class="string">&quot;￥&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="接口中的属性的访问">接口中的属性的访问</h4>
+<p>接口不能包含属性（即实例变量），但是在 Java 8 及之后的版本中，接口可以定义常量（使用<code>public static final</code>修饰符），其他类可以直接通过接口名访问这些常量。</p>
+<p>格式: <code>public static final 数据类型 常量名称 = 数据值;</code> 接口中的常量必须进行赋值，同时一经赋值便不可改变。这里可以被理解成，接口本身就是一个规格，一个模范，他的属性也必须是一个标准化的常量。</p>
+<h4 id="接口通过多态的形式实现实例化">接口通过多态的形式实现实例化</h4>
+<p>不能用接口类型来<strong>实例化</strong>一个对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//Department是一个接口，由接口传入对应的变量进行工作</span></span><br><span class="line">        <span class="type">Department</span> <span class="variable">bath</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bath</span>();</span><br><span class="line">        <span class="type">Department</span> <span class="variable">feed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Feed</span>();</span><br><span class="line">        <span class="type">Department</span> <span class="variable">purchase</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Purchase</span>();</span><br><span class="line"></span><br><span class="line">        <span class="type">Animal</span> <span class="variable">bernese</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Dog</span>(<span class="string">&quot;Bernese Mountain&quot;</span>, <span class="number">18000</span>);</span><br><span class="line">        bath.sendIn(<span class="string">&quot;Factory&quot;</span>);</span><br><span class="line">        bath.operation(bernese);</span><br><span class="line">        bath.sendOut(<span class="string">&quot;Feeding Department&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        feed.sendIn(<span class="string">&quot;Bathing Department&quot;</span>);</span><br><span class="line">        feed.operation(bernese);</span><br><span class="line">        feed.sendOut(<span class="string">&quot;Purchase Department&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        purchase.sendIn(<span class="string">&quot;Feeding Department&quot;</span>);</span><br><span class="line">        purchase.operation(bernese);</span><br><span class="line">        purchase.sendOut(<span class="string">&quot;Customer&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="实现接口类的管理">实现接口类的管理</h4>
+<p>对于宠物商店，需要集中管理者三个部门，即实现了<code>Department</code>接口的三个类。 当我们需要管理<strong>实现接口的类</strong>时，可以使接口作为泛型，由此达到容器存储时容器泛型的统一书写。</p>
+<p>我们举一个例子，每到月底，宠物商店都需要给这三个部门发钱…… 首先我们在<code>Department</code>接口中新增一个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getPaid</span><span class="params">(<span class="type">int</span> wage)</span>;</span><br></pre></td></tr></table></figure>
+<p>然后分别在实现接口的三个类中，重写发工资方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 剩下两个类同理 */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bath</span> <span class="keyword">implements</span> <span class="title class_">Department</span> &#123;</span><br><span class="line">    <span class="comment">/*...*/</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getPaid</span><span class="params">(<span class="type">int</span> wage)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Bathing department gets &quot;</span> + wage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后， PayDay！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Department</span> <span class="variable">bath</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bath</span>();</span><br><span class="line">        <span class="type">Department</span> <span class="variable">feed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Feed</span>();</span><br><span class="line">        <span class="type">Department</span> <span class="variable">purchase</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Purchase</span>();</span><br><span class="line"></span><br><span class="line">        HashMap&lt;String ,Department&gt; departments = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        departments.put(<span class="string">&quot;Bath&quot;</span>, bath);</span><br><span class="line">        departments.put(<span class="string">&quot;Feed&quot;</span>, feed);</span><br><span class="line">        departments.put(<span class="string">&quot;Purchase&quot;</span>, purchase);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Department department : departments.values()) &#123;</span><br><span class="line">            department.getPaid(<span class="keyword">new</span> <span class="title class_">Random</span>().nextInt(<span class="number">8000</span>,<span class="number">10000</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;        </span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Purchasing department gets 9245</span><br><span class="line">Bathing department gets 8865</span><br><span class="line">Feeding Department gets 9221</span><br></pre></td></tr></table></figure>
+<h1>Lec7-设计模式入门</h1>
+<p>封装 ：内部复杂性外部不可见</p>
+<ul>
+<li>状态和行为封装在类中，隐藏内部实现细节</li>
+<li>对象之间通过方法进行交互</li>
+</ul>
+<p>抽象 通过抽象层次来协同降低复杂性</p>
+<ul>
+<li>利用继承或接口实现机制，建立数据或行为抽象层次</li>
+<li>形成代码重用和层次化设计，避免冗余</li>
+</ul>
+<p>多态 ：通过多种形态来解 藕处理 行为 的内在复杂性</p>
+<ul>
+<li>按照处理行为的内在差异，设计为多个名字相同但处理逻辑不同的方法</li>
+<li>重载和重写</li>
+</ul>
+<h2 id="多态">多态</h2>
+<p>父类定义的共性行为可由子类根据自身的具体情况来定义</p>
+<h2 id="设计模式">设计模式</h2>
+<p>模式：针对某种具有一定特征的问题所形成的一般性解决方案</p>
+<ul>
+<li>可以适用于多种不同的具体应用，关键是识别其中的问题特征</li>
+</ul>
+<p>模式组成</p>
+<ul>
+<li>名称</li>
+<li>动机，问题及其特征</li>
+<li>解决方案</li>
+<li>参与者和协作者</li>
+<li>效果</li>
+<li>实现</li>
+</ul>
+<h3 id="单例模式">单例模式</h3>
+<p><strong>单例模式</strong>是确保一个类只有一个实例，而且自行实例化并向整个系统提供这个实例。</p>
+<blockquote>
+<p><strong>知识回顾-实例</strong> 实例指的是通过使用类创建的具体对象。它占用内存并持有对象的数据和方法。实例是真正存在的，可以执行各种操作和访问其属性。</p>
+</blockquote>
+<h4 id="1-如何保证有且仅有一个实例？">1.如何保证有且仅有一个实例？</h4>
+<p>该类的<strong>构造方法一定是 <code>private</code> 的</strong>，即不可以被外界进行实例化。且这个实例是属于<strong>当前类的静态成员变量</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="comment">// 注意static</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注意private</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">(<span class="comment">/*parameters*/</span>)</span> &#123;</span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+<h4 id="2-如何向整个系统提供这个实例？">2.如何向整个系统提供这个实例？</h4>
+<p>该类应提供一个静态方法，能够向外界/系统提供当前类的实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span>  &#123;</span><br><span class="line">	<span class="keyword">return</span> singleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-在什么时机进行该类单例的实例化？">3.在什么时机进行该类单例的实例化？</h4>
+<ul>
+<li>饿汉式：在类加载时就进行实例化</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">singleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>(<span class="comment">/* paramters */</span>);</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+<ul>
+<li>懒汉式：在第一次使用时进行实例化</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 如果是第一次使用：</span></span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="literal">null</span>) &#123;</span><br><span class="line">            singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>(<span class="comment">/* paramters */</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>事实上，<code>getInstance()</code> 方法还需要注意多线程的同步问题</p>
+</blockquote>
+<h3 id="策略模式">策略模式</h3>
+<p>顶层归纳类的共性行为职责，允许每个类采取不同的实现策略</p>
+<ul>
+<li>类有确定的行为职责，其实现与其所管理的数据紧密相关（独立性）</li>
+<li>一组类的行为职责在概念上相同或相似，只是实现有差异</li>
+<li>把差异实现为策略（独立的类），上层类通过聚合来引用策略</li>
+<li>Client code 看不到策略差异，能够进行统一管理</li>
+</ul>
+<p>优点</p>
+<ul>
+<li>对策略进行封装 ，且相互独立</li>
+<li>可扩展性好，增加新的实现策略不影响 client code 和已有实现 策略</li>
+</ul>
+<h3 id="观察者模式">观察者模式</h3>
+<p>当一个对象的状态发生改变时（发生了所关注的事件），所有依赖于它的对象都将得到通知</p>
+<p>寻找变化，封装和抽象化处理</p>
+<ul>
+<li>不同类型 的观察者对象：有一系列对象需要在状态发生变化时获得通知
+<ul>
+<li>这些对象往往属于不同的类</li>
+</ul>
+</li>
+<li>不同的通知接口： 不同的类有不同的接口/方法来获得通知</li>
+<li>不同的通知方式 谁来确定使用那种通知方式</li>
+</ul>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202310271457933.png" alt="image-20231027145748795"></p>
+<p>高可扩展性</p>
+<ul>
+<li>Observer 与 Subject 之间松耦合</li>
+<li>添加新的 Observer 类不影响 Subject 类的业务逻辑</li>
+<li>多种通知方式，应由 Observer 实现类来选择</li>
+<li>通知方式需要通信机制的支撑</li>
+<li>进一步把变化抽象为事件</li>
+</ul>
+<p>面向事件进行通知的业务场景</p>
+<ul>
+<li>用户和客服不期望收到快递到达中转站的通知，而配送员需要</li>
+<li>根据 Event 与 Observer 之间的映射表，来动态确定需要实际被通知的<br>
+observer 对象 hashmap</li>
+</ul>
+<p>事件处理需要的信息</p>
+<ul>
+<li>不同的事件、不同的观察者需要有不同的信息来处理相应的状态变化（即通知）</li>
+<li>快递发出事件：承运商、包裹 ID 、始发地等</li>
+<li>快递到达事件：包裹 ID 、存放地点、取件码等</li>
+<li>可用 Strategy 模式来对这些信息进行封装，通过 update 方法进行传递</li>
+</ul>
+<h4 id="观察者模式解析">观察者模式解析</h4>
+<p>观察者–多</p>
+<p>被观察者–1</p>
+<p>我们举一个例子，同学们经常在B站看up主们发的视频，当我们关注的up主更新视频时，我们会收到他的更新通知……</p>
+<h5 id="1-创建up主和用户接口">1.创建up主和用户接口</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Uploader</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addFollower</span><span class="params">(User follower)</span>; <span class="comment">// 增加关注</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">notifyFollowers</span><span class="params">()</span>; <span class="comment">// 通知所有关注用户</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">watch</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-实现up主和用户接口">2.实现up主和用户接口</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Up</span> <span class="keyword">implements</span> <span class="title class_">Uploader</span> &#123;</span><br><span class="line">    <span class="comment">// 管理观众们</span></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;User&gt; followers = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">// 更新状态 TRUE - 更新了 :) FALSE - 没更新 :(</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> updatingStatus;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addFollower</span><span class="params">(User follower)</span> &#123;</span><br><span class="line">        followers.add(follower);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">notifyFollowers</span><span class="params">()</span> &#123;</span><br><span class="line">        followers.forEach(follower -&gt; follower.watch(<span class="built_in">this</span>));</span><br><span class="line">        <span class="comment">/* &lt;==&gt;</span></span><br><span class="line"><span class="comment">        for (User follower : followers) &#123;</span></span><br><span class="line"><span class="comment">            follower.watch(this);</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Follower</span> <span class="keyword">implements</span> <span class="title class_">User</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Follower</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">watch</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(name + <span class="string">&quot; is watching &quot;</span> + up.name + <span class="string">&quot;&#x27;s channel&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-被观察者状态改变-→-通知观察者！">3.被观察者状态改变 → 通知观察者！</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Uploader</span> <span class="variable">classmateHe</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Up</span>(<span class="string">&quot;何同学&quot;</span>);</span><br><span class="line">        classmateHe.addFollower(<span class="keyword">new</span> <span class="title class_">Follower</span>(<span class="string">&quot;AAA&quot;</span>));</span><br><span class="line">        classmateHe.addFollower(<span class="keyword">new</span> <span class="title class_">Follower</span>(<span class="string">&quot;BBB&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 何同学更新了！</span></span><br><span class="line">        classmateHe.notifyFollowers();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">AAA is watching 何同学<span class="string">&#x27;s channel</span></span><br><span class="line"><span class="string">BBB is watching 何同学&#x27;</span>s channel</span><br></pre></td></tr></table></figure>
+<h3 id="工厂模式">工厂模式</h3>
+<p>工厂方法模式 (Factory Method Pattern) 又称为工厂模式，也叫虚拟构造器 (Virtual Constructor) 模式或者多态工厂 (Polymorphic Factory) 模式，它属于类创建型模式。</p>
+<p>用于创建对象的模式，提供了灵活而具有扩展性的解决方案</p>
+<ul>
+<li>如果对象创建只是简单 new XXX(…) XXX(…)，需要这个模式吗</li>
+<li>将复杂的对象创建工作隐藏起来 ，仅暴露接 口供客户使用</li>
+<li>在不同情况下需要创建不同类型的对象（但 client code 不关心具体使用哪些类型来创建）</li>
+<li>需要为对象创建准备复杂的内容</li>
+</ul>
+<h4 id="简单工厂模式">简单工厂模式</h4>
+<p>简单工厂模式 (Simple Factory Pattern)：又称为静态工厂方法 (Static Factory Method) 模式，它属于类创建型模式。 在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义了一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。</p>
+<h5 id="1-产品和其共同的父类">1. 产品和其共同的父类</h5>
+<p>这个父类通常都是 <strong>抽象类</strong> ，就像我们在生产一个手机的时候，他不能只是一个手机，他一定是iPhone、Samsung、华为、小米……其中的一种。</p>
+<blockquote>
+<p><strong>知识补充-抽象类</strong> 抽象类可以被理解成一个可以<strong>包含普通方法和成员变量的接口</strong>，在被子类继承时可以选择性的<em>Override</em>抽象类的方法。 深入内容同学们可以课下自行了解。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> price;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Product</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">information</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="built_in">this</span>.price);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProductA</span> <span class="keyword">extends</span> <span class="title class_">Product</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ProductA</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(price);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;AAAA!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProductB</span> <span class="keyword">extends</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ProductB</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(price);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;BBBB&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-定义工厂来负责创建其他类的实例">2.定义工厂来负责创建其他类的实例</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Factory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Product <span class="title function_">create</span><span class="params">(String type)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (type.equalsIgnoreCase(<span class="string">&quot;A&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ProductA</span>(<span class="number">100</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equalsIgnoreCase(<span class="string">&quot;B&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ProductB</span>(<span class="number">200</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Wrong kind!&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-生产产品">3.生产产品</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Product</span> <span class="variable">productA</span> <span class="operator">=</span> Factory.create(<span class="string">&quot;A&quot;</span>);</span><br><span class="line">        <span class="type">Product</span> <span class="variable">productB</span> <span class="operator">=</span> Factory.create(<span class="string">&quot;B&quot;</span>);</span><br><span class="line">        <span class="type">Product</span> <span class="variable">productC</span> <span class="operator">=</span> Factory.create(<span class="string">&quot;C&quot;</span>);</span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="工厂模式-2">工厂模式</h4>
+<p>工厂模式（Factory Pattern）中，我们定义<strong>一个用于创建对象的接口，让子类决定实例化哪个类</strong>。工厂方法使一个类的实例化延迟到其子类。</p>
+<p>工厂模式和我们之前介绍过的简单工厂模式都<strong>属于面向对象设计方法中的创建型模式，它们的目标都是解决对象的创建过程</strong>。他们都用于创建对象，将对象的实例化与客户端代码分离。 但二者仍然有不同之处。</p>
+<p>首先，二者的抽象程度不同：</p>
+<ul>
+<li>工厂模式更抽象，它通过定义一个抽象工厂接口和多个<strong>实现工厂子类</strong>来生产不同类型的产品；</li>
+<li>而简单工厂模式是由一个具体的工厂类负责创建所有的产品对象。</li>
+</ul>
+<p>此外，二者在扩展性上也展示出不同特点。当新增一种产品时，工厂模式只需新增一个对应的工厂子类即可，而简单工厂模式在新增产品时需要修改原有的工厂类，这就违反了开闭原则。</p>
+<blockquote>
+<p><strong>知识补充-*开闭原则*</strong> 开闭原则(Open-Closed Principle, OCP)是指一个软件实体如类、模块和函数应该对扩展开放, 对修改关闭。通俗解释就是，添加一个新的功能，应该通过在已有代码(模块、类、方法)的基础上进行扩展来实现，而不是修改已有代码。 深入内容同学们可以课下自行了解。</p>
+</blockquote>
+<p>最后，就是工厂被调用的方式不同：工厂模式<strong>调用工厂接口</strong>来创建具体的产品对象；而简单工厂模式<strong>直接调用工厂类的静态方法</strong>，并传入一个参数来指定创建的具体产品类型。</p>
+<p>通俗来讲，就是<strong>简单工厂模式是用一个厂生产多个产品，而工厂模式则是多个厂生产不同的产品</strong>。</p>
+<h5 id="1-定义一个用于创建对象的接口">1.定义一个用于创建对象的接口</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Factory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> Product <span class="title function_">creat</span><span class="params">(<span class="type">int</span> price)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-让子类决定实例化哪个类">2.让子类决定实例化哪个类</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FactoryA</span> <span class="keyword">implements</span> <span class="title class_">Factory</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Product <span class="title function_">creat</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ProductA</span>(price);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FactoryB</span> <span class="keyword">implements</span> <span class="title class_">Factory</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Product <span class="title function_">creat</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ProductB</span>(price);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Factory</span> <span class="variable">factoryA</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FactoryA</span>();</span><br><span class="line">        <span class="type">Factory</span> <span class="variable">factoryB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FactoryB</span>();</span><br><span class="line">        factoryA.creat(<span class="number">100</span>).use();</span><br><span class="line">        factoryB.creat(<span class="number">200</span>).use();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="抽象工厂模式">抽象工厂模式</h4>
+<p>抽象工厂模式(Abstract Factory Pattern)：<strong>提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类</strong>。抽象工厂模式又称为Kit模式，它是一种对象创建型模式。</p>
+<p>如果说工厂模式只能构建同一品类/等级的产品，例如手机（iPhone HUAWEI Samsung…）。那么抽象工厂模式则支持了多种品类，例如手机、笔记本电脑、电视……它打破了工厂和产品一对一的关系，他满足一个具体的工厂类可以生产多个大类的产品</p>
+<h5 id="1-产品类">1. 产品类</h5>
+<p>手机类产品：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Phone</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> price;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Phone</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">iPhone</span> <span class="keyword">extends</span> <span class="title class_">Phone</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">iPhone</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(price);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;APPLE iPhone!!!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Honor</span> <span class="keyword">extends</span> <span class="title class_">Phone</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Honor</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(price);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;HUAWEI Honor!!!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>笔记本电脑类产品：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Laptop</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Laptop</span><span class="params">(<span class="type">int</span> size)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.size = size;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">iMac</span> <span class="keyword">extends</span> <span class="title class_">Laptop</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">iMac</span><span class="params">(<span class="type">int</span> size)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(size);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;APPLE iMac!!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MateBook</span> <span class="keyword">extends</span> <span class="title class_">Laptop</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MateBook</span><span class="params">(<span class="type">int</span> size)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(size);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;HUAWEI MateBook!!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-工厂类">2. 工厂类</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Factory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> Phone <span class="title function_">creatPhone</span><span class="params">(<span class="type">int</span> price)</span>;</span><br><span class="line">    <span class="keyword">public</span> Laptop <span class="title function_">creatLaptop</span><span class="params">(<span class="type">int</span> size)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BJFactory</span> <span class="keyword">implements</span> <span class="title class_">Factory</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Phone <span class="title function_">creatPhone</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Honor</span>(price);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Laptop <span class="title function_">creatLaptop</span><span class="params">(<span class="type">int</span> size)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MateBook</span>(size);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LAFactory</span> <span class="keyword">implements</span> <span class="title class_">Factory</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Phone <span class="title function_">creatPhone</span><span class="params">(<span class="type">int</span> price)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">iPhone</span>(price);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Laptop <span class="title function_">creatLaptop</span><span class="params">(<span class="type">int</span> size)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">iMac</span>(size);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-客户端调取">3. 客户端调取</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Factory</span> <span class="variable">Beijing</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BJFactory</span>();</span><br><span class="line">        <span class="type">Factory</span> <span class="variable">LosAngeles</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LAFactory</span>();</span><br><span class="line">        Beijing.creatPhone(<span class="number">8000</span>).use();</span><br><span class="line">        LosAngeles.creatPhone(<span class="number">11000</span>).use();</span><br><span class="line">        Beijing.creatLaptop(<span class="number">15</span>).use();</span><br><span class="line">        LosAngeles.creatLaptop(<span class="number">13</span>).use();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HUAWEI Honor!!!</span><br><span class="line">APPLE iPhone!!!</span><br><span class="line">HUAWEI MateBook!!</span><br><span class="line">APPLE iMac!!</span><br></pre></td></tr></table></figure>
+<h1>Lec8-代码风格与代码重构</h1>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io">pigKiller</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io/2023/12/30/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Pre/">https://pigkillermaster.github.io/2023/12/30/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Pre/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://pigkillermaster.github.io" target="_blank">浮泛之舟</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Pre/">Pre</a><a class="post-meta__tags" href="/tags/OO%E8%A1%A5%E5%85%85/">OO补充</a></div><div class="post_share"><div class="social-share" data-image="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/10/23/%E8%AE%A1%E7%BB%84-%E5%AE%9E%E9%AA%8C-P2/" title="计组-实验-P2"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307251641570.jpg" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">计组-实验-P2</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/10/%E8%AE%A1%E7%BB%84-%E7%90%86%E8%AE%BA-MIPS%E5%A4%84%E7%90%86%E5%99%A8%E8%AE%BE%E8%AE%A1/" title="计组-理论-MIPS处理器设计"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307251641571.jpg" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计组-理论-MIPS处理器设计</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/06/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit4-UML/" title="面向对象-Unit4-UML"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-25</div><div class="title">面向对象-Unit4-UML</div></div></a></div><div><a href="/2024/04/02/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit1-%E9%80%92%E5%BD%92%E4%B8%8B%E9%99%8D/" title="面向对象-Unit1-递归下降"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-02</div><div class="title">面向对象-Unit1-递归下降</div></div></a></div><div><a href="/2024/04/02/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit2-Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="面向对象-Unit2-Java多线程"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-02</div><div class="title">面向对象-Unit2-Java多线程</div></div></a></div><div><a href="/2024/06/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-Unit3-JML/" title="面向对象-Unit3-JML"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202404022351911.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-25</div><div class="title">面向对象-Unit3-JML</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Lec1-入门与项目管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">课程简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF"><span class="toc-number">1.1.1.</span> <span class="toc-text">常见错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.2.</span> <span class="toc-text">什么是面向对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E4%B8%AA%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81"><span class="toc-number">1.2.1.</span> <span class="toc-text">三个基本特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BBclass"><span class="toc-number">1.2.2.</span> <span class="toc-text">类class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3interface"><span class="toc-number">1.2.3.</span> <span class="toc-text">接口interface</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB"><span class="toc-number">1.2.4.</span> <span class="toc-text">关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE"><span class="toc-number">1.2.5.</span> <span class="toc-text">访问</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="toc-number">1.3.</span> <span class="toc-text">关键词</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#static"><span class="toc-number">1.3.1.</span> <span class="toc-text">static</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#this"><span class="toc-number">1.3.2.</span> <span class="toc-text">this</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object"><span class="toc-number">1.3.3.</span> <span class="toc-text">Object</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="toc-number">1.4.</span> <span class="toc-text">版本控制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">Lec2-编写类与单元测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%B1%BB"><span class="toc-number">2.1.</span> <span class="toc-text">Java程序的类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E6%88%90%E5%91%98%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="toc-number">2.1.1.</span> <span class="toc-text">类成员的可见性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="toc-number">2.1.2.</span> <span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%90%8D%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">2.1.3.</span> <span class="toc-text">重名的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.1.4.</span> <span class="toc-text">创建对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8%E4%B8%8E%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8"><span class="toc-number">2.2.</span> <span class="toc-text">对象引用与方法调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%9A%84%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="toc-number">2.2.1.</span> <span class="toc-text">方法调用的参数传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8"><span class="toc-number">2.2.2.</span> <span class="toc-text">容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ArrayList"><span class="toc-number">2.2.3.</span> <span class="toc-text">ArrayList</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hashmap"><span class="toc-number">2.2.4.</span> <span class="toc-text">hashmap</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-number">2.3.</span> <span class="toc-text">Java程序的单元测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-number">2.3.1.</span> <span class="toc-text">单元测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%AE%B9%E5%99%A8"><span class="toc-number">2.4.</span> <span class="toc-text">常见容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ArrayList%E5%92%8CLinkedList"><span class="toc-number">2.4.1.</span> <span class="toc-text">ArrayList和LinkedList</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashMap"><span class="toc-number">2.4.2.</span> <span class="toc-text">HashMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashSet"><span class="toc-number">2.4.3.</span> <span class="toc-text">HashSet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%AE%B9%E5%99%A8"><span class="toc-number">2.4.4.</span> <span class="toc-text">其他容器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%82%E6%AC%A1%E5%8C%96%E7%AE%A1%E7%90%86%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.5.</span> <span class="toc-text">层次化管理对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E5%85%B3%E7%B3%BB"><span class="toc-number">2.5.1.</span> <span class="toc-text">组合关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E5%85%B3%E7%B3%BB"><span class="toc-number">2.5.2.</span> <span class="toc-text">聚合关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7"><span class="toc-number">2.5.3.</span> <span class="toc-text">属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">Lec5-Java程序的bug与调试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-%E7%9A%84%E5%86%85%E5%AD%98%E6%83%85%E5%86%B5"><span class="toc-number">3.1.</span> <span class="toc-text">Java 的内存情况</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.1.1.</span> <span class="toc-text">具体实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E5%85%8B%E9%9A%86%E5%92%8C%E6%B5%85%E5%85%8B%E9%9A%86"><span class="toc-number">3.2.</span> <span class="toc-text">深克隆和浅克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81bug"><span class="toc-number">3.3.</span> <span class="toc-text">常见bug</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8Eequals"><span class="toc-number">3.3.1.</span> <span class="toc-text">&#x3D;&#x3D;与equals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%88%A0%E9%99%A4"><span class="toc-number">3.3.2.</span> <span class="toc-text">迭代器删除</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">Lec6-继承与接口的复用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">4.1.</span> <span class="toc-text">继承的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#extends"><span class="toc-number">4.1.1.</span> <span class="toc-text">extends</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#super"><span class="toc-number">4.1.2.</span> <span class="toc-text">super</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%86%99%E6%96%B9%E6%B3%95"><span class="toc-number">4.1.3.</span> <span class="toc-text">重写方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">4.2.</span> <span class="toc-text">继承的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">4.2.1.</span> <span class="toc-text">继承的优势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-number">4.3.</span> <span class="toc-text">接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.3.1.</span> <span class="toc-text">接口的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E5%92%8C%E7%BB%A7%E6%89%BF%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.3.2.</span> <span class="toc-text">接口和继承的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E5%AF%BC%E4%B9%A6%E7%9B%B8%E5%85%B3"><span class="toc-number">4.4.</span> <span class="toc-text">指导书相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E4%B8%AD%E7%9A%84%E8%BD%AC%E5%9E%8B"><span class="toc-number">4.4.1.</span> <span class="toc-text">继承中的转型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B"><span class="toc-number">4.4.1.1.</span> <span class="toc-text">向上转型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E4%B8%8B%E8%BD%AC%E5%9E%8B"><span class="toc-number">4.4.1.2.</span> <span class="toc-text">向下转型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3-2"><span class="toc-number">4.4.2.</span> <span class="toc-text">接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">4.4.2.1.</span> <span class="toc-text">接口的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-number">4.4.2.2.</span> <span class="toc-text">接口的格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7%E7%9A%84%E8%AE%BF%E9%97%AE"><span class="toc-number">4.4.2.3.</span> <span class="toc-text">接口中的属性的访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E9%80%9A%E8%BF%87%E5%A4%9A%E6%80%81%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="toc-number">4.4.2.4.</span> <span class="toc-text">接口通过多态的形式实现实例化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3%E7%B1%BB%E7%9A%84%E7%AE%A1%E7%90%86"><span class="toc-number">4.4.2.5.</span> <span class="toc-text">实现接口类的管理</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">Lec7-设计模式入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">5.1.</span> <span class="toc-text">多态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.2.</span> <span class="toc-text">设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.2.1.</span> <span class="toc-text">单例模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%9C%89%E4%B8%94%E4%BB%85%E6%9C%89%E4%B8%80%E4%B8%AA%E5%AE%9E%E4%BE%8B%EF%BC%9F"><span class="toc-number">5.2.1.1.</span> <span class="toc-text">1.如何保证有且仅有一个实例？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%A6%82%E4%BD%95%E5%90%91%E6%95%B4%E4%B8%AA%E7%B3%BB%E7%BB%9F%E6%8F%90%E4%BE%9B%E8%BF%99%E4%B8%AA%E5%AE%9E%E4%BE%8B%EF%BC%9F"><span class="toc-number">5.2.1.2.</span> <span class="toc-text">2.如何向整个系统提供这个实例？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%9C%A8%E4%BB%80%E4%B9%88%E6%97%B6%E6%9C%BA%E8%BF%9B%E8%A1%8C%E8%AF%A5%E7%B1%BB%E5%8D%95%E4%BE%8B%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96%EF%BC%9F"><span class="toc-number">5.2.1.3.</span> <span class="toc-text">3.在什么时机进行该类单例的实例化？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.2.2.</span> <span class="toc-text">策略模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.2.3.</span> <span class="toc-text">观察者模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E6%9E%90"><span class="toc-number">5.2.3.1.</span> <span class="toc-text">观察者模式解析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BAup%E4%B8%BB%E5%92%8C%E7%94%A8%E6%88%B7%E6%8E%A5%E5%8F%A3"><span class="toc-number">5.2.3.1.1.</span> <span class="toc-text">1.创建up主和用户接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E5%AE%9E%E7%8E%B0up%E4%B8%BB%E5%92%8C%E7%94%A8%E6%88%B7%E6%8E%A5%E5%8F%A3"><span class="toc-number">5.2.3.1.2.</span> <span class="toc-text">2.实现up主和用户接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E8%A2%AB%E8%A7%82%E5%AF%9F%E8%80%85%E7%8A%B6%E6%80%81%E6%94%B9%E5%8F%98-%E2%86%92-%E9%80%9A%E7%9F%A5%E8%A7%82%E5%AF%9F%E8%80%85%EF%BC%81"><span class="toc-number">5.2.3.1.3.</span> <span class="toc-text">3.被观察者状态改变 → 通知观察者！</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.2.4.</span> <span class="toc-text">工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.2.4.1.</span> <span class="toc-text">简单工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E4%BA%A7%E5%93%81%E5%92%8C%E5%85%B6%E5%85%B1%E5%90%8C%E7%9A%84%E7%88%B6%E7%B1%BB"><span class="toc-number">5.2.4.1.1.</span> <span class="toc-text">1. 产品和其共同的父类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89%E5%B7%A5%E5%8E%82%E6%9D%A5%E8%B4%9F%E8%B4%A3%E5%88%9B%E5%BB%BA%E5%85%B6%E4%BB%96%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-number">5.2.4.1.2.</span> <span class="toc-text">2.定义工厂来负责创建其他类的实例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E7%94%9F%E4%BA%A7%E4%BA%A7%E5%93%81"><span class="toc-number">5.2.4.1.3.</span> <span class="toc-text">3.生产产品</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-2"><span class="toc-number">5.2.4.2.</span> <span class="toc-text">工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E7%94%A8%E4%BA%8E%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%A5%E5%8F%A3"><span class="toc-number">5.2.4.2.1.</span> <span class="toc-text">1.定义一个用于创建对象的接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E8%AE%A9%E5%AD%90%E7%B1%BB%E5%86%B3%E5%AE%9A%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%93%AA%E4%B8%AA%E7%B1%BB"><span class="toc-number">5.2.4.2.2.</span> <span class="toc-text">2.让子类决定实例化哪个类</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.2.4.3.</span> <span class="toc-text">抽象工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E4%BA%A7%E5%93%81%E7%B1%BB"><span class="toc-number">5.2.4.3.1.</span> <span class="toc-text">1. 产品类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E5%B7%A5%E5%8E%82%E7%B1%BB"><span class="toc-number">5.2.4.3.2.</span> <span class="toc-text">2. 工厂类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B0%83%E5%8F%96"><span class="toc-number">5.2.4.3.3.</span> <span class="toc-text">3. 客户端调取</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">Lec8-代码风格与代码重构</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By pigKiller</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">你终会看到，你的歌声和旗帜在飘扬</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script src="f12.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
