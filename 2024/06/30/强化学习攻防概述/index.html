@@ -1,0 +1,361 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><script>((function() {var callbacks = [],timeLimit = 50,open = false;setInterval(loop, 1);return {addListener: function(fn) {callbacks.push(fn);},cancleListenr: function(fn) {callbacks = callbacks.filter(function(v) {return v !== fn;});}}
+function loop() {var startTime = new Date();debugger;if (new Date() - startTime > timeLimit) {if (!open) {callbacks.forEach(function(fn) {fn.call(null);});}open = true;window.stop();alert('你真坏，请关闭控制台！');document.body.innerHTML = "";} else {open = false;}}})()).addListener(function() {window.location.reload();});</script><script>function toDevtools(){
+  let num = 0; 
+  let devtools = new Date();
+  devtools.toString = function() {
+    num++;
+    if (num > 1) {
+        alert('你真坏，请关闭控制台！')
+        window.location.href = "about:blank"
+        blast();
+    }
+  }
+  console.log('', devtools);
+}
+toDevtools();</script><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>强化学习攻防概述 | 浮泛之舟</title><meta name="author" content="pigKiller"><meta name="copyright" content="pigKiller"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="深度强化学习 不同于传统机器学习的单步预测任务, 深度强化学习系统利用多步决策完成特定任务, 且连续决策之间具有高度相关性 强化学习 强化学习指的是一种智能体在环境中探索，以达成最大化特定目标的学习范式。 强化学习中最重要的两个要素分别为环境与智能体：  智能体基于环境中的状态进行探索，给出动作 智能体的动作将对环境的状态产生改变,并产生探索的奖励  强化学习可以使用马尔可夫决策过程进行建模 其数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强化学习攻防概述">
+<meta property="og:url" content="https://pigkillermaster.github.io/2024/06/30/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%94%BB%E9%98%B2%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="浮泛之舟">
+<meta property="og:description" content="深度强化学习 不同于传统机器学习的单步预测任务, 深度强化学习系统利用多步决策完成特定任务, 且连续决策之间具有高度相关性 强化学习 强化学习指的是一种智能体在环境中探索，以达成最大化特定目标的学习范式。 强化学习中最重要的两个要素分别为环境与智能体：  智能体基于环境中的状态进行探索，给出动作 智能体的动作将对环境的状态产生改变,并产生探索的奖励  强化学习可以使用马尔可夫决策过程进行建模 其数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202406300003546.jpg">
+<meta property="article:published_time" content="2024-06-29T16:01:41.000Z">
+<meta property="article:modified_time" content="2024-06-29T16:03:58.091Z">
+<meta property="article:author" content="pigKiller">
+<meta property="article:tag" content="DRL">
+<meta property="article:tag" content="论文">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202406300003546.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://pigkillermaster.github.io/2024/06/30/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%94%BB%E9%98%B2%E6%A6%82%E8%BF%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '强化学习攻防概述',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-06-30 00:03:58'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102227559.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">49</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202406300003546.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="浮泛之舟"><span class="site-name">浮泛之舟</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">强化学习攻防概述</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-29T16:01:41.000Z" title="发表于 2024-06-30 00:01:41">2024-06-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-29T16:03:58.091Z" title="更新于 2024-06-30 00:03:58">2024-06-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">深度强化学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/%E6%94%BB%E9%98%B2/">攻防</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="强化学习攻防概述"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>深度强化学习</h1>
+<p>不同于传统机器学习的单步预测任务, 深度强化学习系统利用多步决策完成特定任务, 且连续决策之间具有高度相关性</p>
+<h2 id="强化学习">强化学习</h2>
+<p>强化学习指的是一种智能体在环境中探索，以达成最大化特定目标的学习范式。</p>
+<p>强化学习中最重要的两个要素分别为环境与智能体：</p>
+<ol>
+<li>智能体基于环境中的状态进行探索，给出动作</li>
+<li>智能体的动作将对环境的状态产生改变,并产生探索的奖励</li>
+</ol>
+<p>强化学习可以使用马尔可夫决策过程进行建模</p>
+<p>其数学形式表示：</p>
+<ol>
+<li>环境的状态</li>
+<li>环境的状态转移函数：使用马尔可夫的转台转移概率进行表述</li>
+<li>智能体在与环境交互过程中获得的奖励</li>
+<li>目标衰减因子：与环境的交互越复杂（时间/空间），获得的奖励越少</li>
+</ol>
+<p>智能体与环境进行交互，通过多次尝试（epoch）尝试得到最大的奖励</p>
+<h2 id="基于值函数的DRL">基于值函数的DRL</h2>
+<p>主要通过深度神经网络逼近目标动作价值函数, 表示到达某种状态或执行某种动作得到的累积回报</p>
+<h2 id="基于策略梯度的DRL">基于策略梯度的DRL</h2>
+<p>将策略参数化，利用深度神经网络逼近策略</p>
+<p>沿着策略梯度方向来调整动作，最终找到最优策略</p>
+<h1>强化学习的攻击分类</h1>
+<p>对抗样本：在训练的样本中加入特定的、人类无法分别的噪声，能对训练效果产生显著影响。</p>
+<p>在强化学习领域。对抗样本使得强化学习智能体产生最差的长期奖励</p>
+<p>对强化学习的攻击方式有：</p>
+<ol>
+<li>基于状态S：扰动智能体观测获改变观测结果，使得做出的决策<strong>收获最小的目标函数</strong></li>
+<li>基于奖励R：干扰与环境交互的奖励函数，从而影响全局决策</li>
+<li>基于动作A：
+<ol>
+<li>直接对智能体的动作进行干扰</li>
+<li>训练对其他智能体有干扰的智能体</li>
+</ol>
+</li>
+</ol>
+<h2 id="基于状态S">基于状态S</h2>
+<p>通过干扰观测值s，改变智能体的决策<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi><mo stretchy="false">(</mo><mi>s</mi><mi mathvariant="normal">∣</mi><mi>a</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\pi(s)=p(s|a)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mord">∣</span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span></p>
+<p>决策函数为：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>min</mi><mo>⁡</mo></mrow><mi>θ</mi></msub><msub><mi>G</mi><mi>t</mi></msub><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mi mathvariant="normal">∞</mi></msubsup><msup><mi>γ</mi><mi>k</mi></msup><msub><mi>R</mi><mrow><mi>t</mi><mo>+</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\min_{\theta} G_t = \sum_{k=0}^{\infty} \gamma ^k R_{t+k+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mop"><span class="mop">min</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1488em;vertical-align:-0.2997em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8043em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>是使用最多的攻击方式。</p>
+<h3 id="基于观测">基于观测</h3>
+<p>攻击者直接修改智能体的观测结果，尽管在真实情景中可能难以达到该效果。</p>
+<p>强化学习的攻击是否成功应该通过最终奖励而不是动作改变的百分比来反映。</p>
+<ul>
+<li>
+<p>策略化时间攻击：基于强化学习概率给出的动作策略，在特定的、危害性zui’da</p>
+</li>
+<li>
+<p>诱导攻击：将智能体诱导到某一特定位置，再进行攻击</p>
+</li>
+<li>
+<p>模型窥探攻击：不需要知道智能体的全部信息，只需要知道部分模型的动作和奖励函数即可进行攻击</p>
+</li>
+<li>
+<p>基于黑盒的对抗攻击算法：逆向利用决策的马尔可夫过程，使用DDPG算法来求解影响最大的对抗策略</p>
+</li>
+<li>
+<p><strong>对抗Transformer网络ATN</strong>：固定智能体策略网络，在智能体的观测前加入ATN模块</p>
+<p>ATN模块也需要进行训练，<strong>可以视作一个新的强化学习智能体</strong>，当作环境中的一部分进行训练。</p>
+</li>
+<li>
+<p><strong>FGSM攻击</strong>：在深度学习模型梯度变化最大的方向添加扰动，导致模型输出错误结果</p>
+</li>
+</ul>
+<p>基于FGSM的强化学习攻击方法具有较强的攻 击迁移能力</p>
+<h3 id="基于环境">基于环境</h3>
+<p>直接修改观测结果可能难以达到，通过修改环境实现效果。</p>
+<p>在真实场景中，攻击者往往不能获得被攻击模型的参数、结构等信息，也不能轻易扰动模型的奖励、动作等内部数据。</p>
+<p>环境攻击是直接修改智能体的训练环境, 主要通过对环境动态模型的修改以及在环境中加入阻碍物(并非在智能体的传感器上添加噪声)的方式来实现攻击</p>
+<h2 id="基于奖励R">基于奖励R</h2>
+<p>对智能体的回报奖励进行干扰，使得训练过程出现偏差。</p>
+<h2 id="基于动作A">基于动作A</h2>
+<p>动作既是上一次策略网络的输出，也会影响到下一次网络自身的输入。</p>
+<p>动作的扰动会带来时序层面的影响。</p>
+<ol>
+<li>可以通过直接扰动智能体策略输出动作的概率来进行攻击；</li>
+<li>可以引入另一个智能体，使其具备对抗性策略并<strong>做出攻击性动作</strong>，造成原智能体回报大幅下降</li>
+</ol>
+<h3 id="基于动作概率">基于动作概率</h3>
+<ol>
+<li>目光短浅：只考虑对当前状态造成的回报影响最大</li>
+<li>目光长远：连续劳动多个时间点的动作，考虑对整体的奖励回报最大</li>
+</ol>
+<p>在理论推导中，会使用代理回报奖励替代回报奖励，以解决数学上不可导的问题。</p>
+<h3 id="基于对抗策略">基于对抗策略</h3>
+<p>训练<strong>一个具有对抗策略的强化学习智能体</strong>，做出对抗攻击性行为</p>
+<h1>面向深度学习的对抗攻防技术</h1>
+<h2 id="基于对抗训练的防御">基于对抗训练的防御</h2>
+<p>可以视作求解一个最小-最大优化问题：</p>
+<ul>
+<li>攻击者希望生成最具有攻击性的扰动，从而最小化被攻击者的总目标<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">G_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+<li>防御者希望<strong>最具鲁棒性</strong>的模型，从而最大化自身的总目标</li>
+</ul>
+<p>若攻击者和被攻击者均为强化学习算法，则均需要不断适应对方的策略，对方防御的开销极高，往往无法收敛。</p>
+<h2 id="基于对抗检测的防御">基于对抗检测的防御</h2>
+<p>对抗检测：<strong>通过训练额外的模型</strong>对输入样本进行检测，将对抗样本直接丢弃，只保留正常干净的样本。</p>
+<p>不改变智能体原有的策略，一旦面对未曾在训练中出现的对抗攻击方法，则难以有效检测出对抗样本，防御能力较弱。</p>
+<p>只是具有了识别对抗样本的功能，强化学习本身不具有对抗鲁棒性。</p>
+<h2 id="基于可证明鲁棒性的防御">基于可证明鲁棒性的防御</h2>
+<p>形式化地推导给出防御方法的鲁棒性下界</p>
+<h2 id="基于鲁棒学习的防御">基于鲁棒学习的防御</h2>
+<p>强化学习中的回报奖励在动态环境中存在不确定性，甚至可能遭受人为恶意对抗扰动。</p>
+<p>面对来自训练阶段或者 测试阶段时的攻击方法时提高其自身鲁棒性的学习机制</p>
+<p>应用<strong>与攻击算法适配的特殊方法</strong>来进行防御。</p>
+<h1>从对抗攻击到DRL机理理解与模型增强</h1>
+<h2 id="脆弱性分析">脆弱性分析</h2>
+<p>对抗训练策略的扰动更聚焦于低频信息，这说明对抗训练模型更关注低频区域的信息。</p>
+<h2 id="对抗增智">对抗增智</h2>
+<p>通过攻防对抗，两个智能体一次固定参数和训练，最终达到一个纳什均衡</p>
+<p>利用生成对抗网络GAN来训练一个更具鲁棒性的模型。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io">pigKiller</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io/2024/06/30/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%94%BB%E9%98%B2%E6%A6%82%E8%BF%B0/">https://pigkillermaster.github.io/2024/06/30/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%94%BB%E9%98%B2%E6%A6%82%E8%BF%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://pigkillermaster.github.io" target="_blank">浮泛之舟</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/DRL/">DRL</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a></div><div class="post_share"><div class="social-share" data-image="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202406300003546.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/06/25/%E7%A4%BE%E4%BC%9A%E8%AE%A1%E7%AE%97-%E5%88%A9%E7%94%A8%E5%85%83%E8%83%9E%E8%87%AA%E5%8A%A8%E6%9C%BA%E6%A8%A1%E6%8B%9F%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E4%BC%A0%E9%80%92/" title="社会计算-利用元胞自动机模拟复杂网络中的信息传递"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202403252015327.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">社会计算-利用元胞自动机模拟复杂网络中的信息传递</div></div></a></div><div class="next-post pull-right"><a href="/2024/06/30/%E7%AE%80%E8%A6%81%E9%BE%99%E8%8A%AF%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84/" title="简要龙芯体系架构"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202405102211647.jpg" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">简要龙芯体系架构</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">深度强化学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.1.</span> <span class="toc-text">强化学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%80%BC%E5%87%BD%E6%95%B0%E7%9A%84DRL"><span class="toc-number">1.2.</span> <span class="toc-text">基于值函数的DRL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E7%9A%84DRL"><span class="toc-number">1.3.</span> <span class="toc-text">基于策略梯度的DRL</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">强化学习的攻击分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%8A%B6%E6%80%81S"><span class="toc-number">2.1.</span> <span class="toc-text">基于状态S</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E8%A7%82%E6%B5%8B"><span class="toc-number">2.1.1.</span> <span class="toc-text">基于观测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.2.</span> <span class="toc-text">基于环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%A5%96%E5%8A%B1R"><span class="toc-number">2.2.</span> <span class="toc-text">基于奖励R</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8A%A8%E4%BD%9CA"><span class="toc-number">2.3.</span> <span class="toc-text">基于动作A</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8A%A8%E4%BD%9C%E6%A6%82%E7%8E%87"><span class="toc-number">2.3.1.</span> <span class="toc-text">基于动作概率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%B9%E6%8A%97%E7%AD%96%E7%95%A5"><span class="toc-number">2.3.2.</span> <span class="toc-text">基于对抗策略</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">面向深度学习的对抗攻防技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83%E7%9A%84%E9%98%B2%E5%BE%A1"><span class="toc-number">3.1.</span> <span class="toc-text">基于对抗训练的防御</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%B9%E6%8A%97%E6%A3%80%E6%B5%8B%E7%9A%84%E9%98%B2%E5%BE%A1"><span class="toc-number">3.2.</span> <span class="toc-text">基于对抗检测的防御</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8F%AF%E8%AF%81%E6%98%8E%E9%B2%81%E6%A3%92%E6%80%A7%E7%9A%84%E9%98%B2%E5%BE%A1"><span class="toc-number">3.3.</span> <span class="toc-text">基于可证明鲁棒性的防御</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E9%B2%81%E6%A3%92%E5%AD%A6%E4%B9%A0%E7%9A%84%E9%98%B2%E5%BE%A1"><span class="toc-number">3.4.</span> <span class="toc-text">基于鲁棒学习的防御</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">从对抗攻击到DRL机理理解与模型增强</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%86%E5%BC%B1%E6%80%A7%E5%88%86%E6%9E%90"><span class="toc-number">4.1.</span> <span class="toc-text">脆弱性分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E6%8A%97%E5%A2%9E%E6%99%BA"><span class="toc-number">4.2.</span> <span class="toc-text">对抗增智</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By pigKiller</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">你终会看到，你的歌声和旗帜在飘扬</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script src="f12.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

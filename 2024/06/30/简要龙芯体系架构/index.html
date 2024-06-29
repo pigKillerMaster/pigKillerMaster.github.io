@@ -1,0 +1,754 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><script>((function() {var callbacks = [],timeLimit = 50,open = false;setInterval(loop, 1);return {addListener: function(fn) {callbacks.push(fn);},cancleListenr: function(fn) {callbacks = callbacks.filter(function(v) {return v !== fn;});}}
+function loop() {var startTime = new Date();debugger;if (new Date() - startTime > timeLimit) {if (!open) {callbacks.forEach(function(fn) {fn.call(null);});}open = true;window.stop();alert('你真坏，请关闭控制台！');document.body.innerHTML = "";} else {open = false;}}})()).addListener(function() {window.location.reload();});</script><script>function toDevtools(){
+  let num = 0; 
+  let devtools = new Date();
+  devtools.toString = function() {
+    num++;
+    if (num > 1) {
+        alert('你真坏，请关闭控制台！')
+        window.location.href = "about:blank"
+        blast();
+    }
+  }
+  console.log('', devtools);
+}
+toDevtools();</script><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>简要龙芯体系架构 | 浮泛之舟</title><meta name="author" content="pigKiller"><meta name="copyright" content="pigKiller"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="引言 概述 LoongArch为RISC的指令集架构，绝大多数指令只含有两个源操作数和一个目的操作数。 分为32位和64位两个版本。LA64应用级向下兼容LA32：采用LA32 架构的应用软件的二进制可以直接运行在兼容LA64 架构的机器上并获得相同的运行结果，但也只局限于应用软件，系统软件如OS内核不一定可以。 龙芯架构：  基础指令  非特权指令集：定义了常用的整数和浮点运算 特权指令集">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简要龙芯体系架构">
+<meta property="og:url" content="https://pigkillermaster.github.io/2024/06/30/%E7%AE%80%E8%A6%81%E9%BE%99%E8%8A%AF%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="浮泛之舟">
+<meta property="og:description" content="引言 概述 LoongArch为RISC的指令集架构，绝大多数指令只含有两个源操作数和一个目的操作数。 分为32位和64位两个版本。LA64应用级向下兼容LA32：采用LA32 架构的应用软件的二进制可以直接运行在兼容LA64 架构的机器上并获得相同的运行结果，但也只局限于应用软件，系统软件如OS内核不一定可以。 龙芯架构：  基础指令  非特权指令集：定义了常用的整数和浮点运算 特权指令集">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202405102211647.jpg">
+<meta property="article:published_time" content="2024-06-29T16:02:14.000Z">
+<meta property="article:modified_time" content="2024-06-29T16:04:46.067Z">
+<meta property="article:author" content="pigKiller">
+<meta property="article:tag" content="龙芯杯">
+<meta property="article:tag" content="龙芯体系架构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202405102211647.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://pigkillermaster.github.io/2024/06/30/%E7%AE%80%E8%A6%81%E9%BE%99%E8%8A%AF%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '简要龙芯体系架构',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-06-30 00:04:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202307102227559.png" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">49</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202405102211647.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="浮泛之舟"><span class="site-name">浮泛之舟</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-categories"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">简要龙芯体系架构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-29T16:02:14.000Z" title="发表于 2024-06-30 00:02:14">2024-06-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-29T16:04:46.067Z" title="更新于 2024-06-30 00:04:46">2024-06-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E8%B6%85%E6%A0%87%E9%87%8F%E5%A4%84%E7%90%86%E5%99%A8/">超标量处理器</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>23分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="简要龙芯体系架构"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>引言</h1>
+<h2 id="概述">概述</h2>
+<p>LoongArch为RISC的指令集架构，绝大多数指令只含有两个源操作数和一个目的操作数。</p>
+<p>分为32位和64位两个版本。LA64<strong>应用级</strong>向下兼容LA32：采用LA32 架构的应用软件的二进制可以直接运行在兼容LA64 架构的机器上并获得相同的运行结果，但也只局限于<strong>应用软件</strong>，系统软件如OS内核不一定可以。</p>
+<p>龙芯架构：</p>
+<ul>
+<li>基础指令
+<ul>
+<li>非特权指令集：定义了常用的整数和浮点运算</li>
+<li>特权指令集</li>
+</ul>
+</li>
+<li>扩展部分
+<ul>
+<li>二进制翻译扩展LBT</li>
+<li>虚拟化扩展LVZ</li>
+<li>向量扩展LSX</li>
+<li>高级向量扩展LASX</li>
+</ul>
+</li>
+</ul>
+<h2 id="指令编码格式">指令编码格式</h2>
+<p>龙芯架构32位精简版中的所有指令均采用<strong>32位固定长度</strong>，且指令的地址都要求4字节边界对齐。不对其时发生地址异常。</p>
+<p>指令编码的风格是：</p>
+<ul>
+<li>所有寄存器操作数域都从第0比特开始从低到高依次摆放</li>
+<li>操作码都是从第31 比特开始从高到低依次摆放。</li>
+<li>如果指令中包含有立即数操作数，那么立即数域位于寄存器域和操作码域之间，根据不同指令类型有不同的长度。</li>
+</ul>
+<p>具体来说，包含9种典型的指令编码格式</p>
+<ul>
+<li>3种不含立即数的编码格式2R、3R、4R</li>
+<li>6种含立即数的编码格式2RI8、2RI12、2RI14、2RI16、1RI21、I26</li>
+</ul>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202405072359662.png" alt="龙芯架构32位精简版典型指令编码格式"></p>
+<h2 id="汇编助记格式">汇编助记格式</h2>
+<p>特殊区分：</p>
+<ol>
+<li>通过指令名的<strong>前缀字母来区分整数和浮点数指令</strong>。所有非<strong>向量浮点数指令</strong>的指令名以字母“F”开头</li>
+<li>通过指令名中**“.XX”形式的后缀<strong>来指示</strong>指令的操作对象**
+<ul>
+<li>操作对象是整数类型的，指令名后缀为<code>.B</code>、<code>.H</code>、<code>.W</code>、<code>.BU</code>、<code>.HU</code>、<code>.WU</code>分别表示该指令操作的数据类型是有符号字节、有符号半字、有符号字、无符号字节、无符号半字、无符号字。</li>
+<li>当操作数是有符号数还是无符号数不影响运算结果时，指令名中携带的后缀均不带U，但此时并不限制操作对象只能是有符号数。</li>
+<li>对于操作对象是浮点数类型的，或者更具体来说是那些指令名以“F”开头的指令，其指令名后缀为<code>.H</code>、<code>.S</code>、<code>.D</code>、<code>.W</code>、<code>.WU</code>分别表示该指令操作的数据类型是半精度浮点数、单精度浮点数、双精度浮点数、有符号字、无符号字。</li>
+</ul>
+</li>
+</ol>
+<p>当源操作数和目的操作数数据格式一致时，指令名只有一个后缀。</p>
+<p>当不一致时，将有两个后缀，<strong>从左到右分别表示目的操作数、源操作数</strong>的数据格式。</p>
+<p>寄存器操作数用<code>rN</code>代表通用寄存器，用<code>fN</code>代表浮点寄存器。</p>
+<h2 id="控制状态寄存器">控制状态寄存器</h2>
+<p>控制状态寄存器CSR：控制指令的执行行为</p>
+<p>每个CSR通常包含若干个域，使用<code>CSR.%%%%.####</code>来代表名为<code>%%%%</code>的控制状态寄存器中的<code>####</code>域</p>
+<h1>基础整数指令</h1>
+<h2 id="基础整数格式">基础整数格式</h2>
+<h3 id="数据类型">数据类型</h3>
+<p>字长为32位</p>
+<p>采用小尾端的存储方式，数据格式采用补码形式</p>
+<h3 id="寄存器">寄存器</h3>
+<p>基础整数指令涉及的寄存器包括通用寄存器GR和程序计数器PC。</p>
+<h4 id="通用寄存器">通用寄存器</h4>
+<p>通用寄存器共有32哥，记为<code>r0~r31</code>，寄存器的位宽为32位</p>
+<p><code>r0</code>寄存器始终为0。</p>
+<p>BL指令中的目的寄存器一定是r1：r1固定作为存放函数调用返回地址的寄存器。</p>
+<h4 id="PC">PC</h4>
+<p>PC只有1个，记录着当前指令的地址。</p>
+<p>PC 寄存器<strong>不能被指令直接修改</strong>，它只能<strong>被转移指令、例外陷入和例外返回指令间接修改</strong>。</p>
+<h3 id="特权等级">特权等级</h3>
+<p>个运行特权等级PLV，分别是PLV0 和PLV3。</p>
+<p><strong>应用软件</strong>应运行在PLV3 这个非特权的等级上，与运行在PLV0级上的<strong>操作系统等系统软件</strong>隔离开。</p>
+<h3 id="例外和中断">例外和中断</h3>
+<p>与MIPS大体相同。较为特殊的是将异常称为例外，中断还是中断。</p>
+<ul>
+<li><strong>系统调用</strong>例外SYS：执行SYSCALL指令将确定地立刻触发系统调用例外</li>
+<li><strong>断点</strong>例外BRK：执行BREAK 指令将确定地立刻触发断点例外</li>
+<li><strong>指令不存在</strong>例外INE：所执行的指令编码在架构中未定义，或者架构规范定义在当前上下文中该指令<br>
+视作不存在，那么将立刻触发指令不存在例外</li>
+<li>特权指令错例外IPE：权限错误：<strong>应用软件中执行一条特权指令</strong>将确定地立刻触发指令特权等级错例外</li>
+<li><strong>地址错</strong>例外ADEF：当程序有功能错误导致取指出现了非法的情况，即取指地址不是4 字节边界对齐，<br>
+此时将触发取指地址错例外</li>
+</ul>
+<h3 id="地址空间">地址空间</h3>
+<p>按字节寻址</p>
+<p>应用软件可使用的地址空间为：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>∼</mo><msup><mn>2</mn><mn>31</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \sim 2^{31}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">31</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></p>
+<h3 id="访存形式">访存形式</h3>
+<p>分为两种：</p>
+<ul>
+<li>
+<p>一致可缓存CC</p>
+<p>访问的对象既可以是最终存储对象也可以是处理器中维护有缓存一致性的缓存。</p>
+<p>通常采用这种访问类型访问内存以获得高性能。</p>
+</li>
+<li>
+<p>强序非缓存SUC</p>
+<p>只能直接访问最终存储对象</p>
+</li>
+</ul>
+<p>==访存类型与虚拟地址绑定，通过页表项中的MAT域决定。==</p>
+<p>强序非缓存访问满足顺序一致性：所有访问<strong>严格按照程序中的次序执行</strong>（==TODO：对于乱序的情况？==），且当前访存操作彻底完成前，不能开始执行下一个访存操作。</p>
+<h4 id="Cache一致性维护">Cache一致性维护</h4>
+<p>某个处理器核的指令Cache与<strong>其它处理器核内的Cache或缓存一致输入输出主设备</strong>之间的缓存一致性由<strong>硬件维护</strong>。</p>
+<p>处理器核内部指令Cache与数据Cache 之间的缓存一致性维护<strong>由软件维护</strong>。</p>
+<ul>
+<li>对于自修改代码，软件需要通过<strong>Cache维护指令</strong>来保证同一个核内部指令Cache与数据Cache之间的缓存一致性。</li>
+<li>并且，由于流水线结构和推测取指行为的存在，软件仍需要<strong>使用IBAR指令来确保取指一定能够看到store指令的执行效果</strong>。</li>
+<li>在采用软件维护同一核内指令Cache与数据Cache之间的缓存一致性时，code 等于8和9的CACOP指令（即Hit Invalidate I-Cache 和Hit Invalidate and Writeback D-Cache）由特权指令降级为用户态指令。</li>
+</ul>
+<h3 id="存储一致性">存储一致性</h3>
+<p>采用弱一致性WC模型。</p>
+<p>在弱一致性模型中，<strong>同步操作和普通访存需要区分开来</strong>，程序员必须<strong>用架构所定义的同步操作</strong>把对于写共享单元的访问保护起来，以保证多个处理器核对于写共享单元的访问是互斥的。对访存事件发生次序做如下限制：</p>
+<p>同步操作的执行满足顺序一致性条件。</p>
+<p>即同步操作<strong>在所有处理器核中都严格按照其在程序中出现的次序执行</strong>，且在当前同步操作彻底完成之前不能开始执行下一个同步操作。</p>
+<ol>
+<li>在任一普通访存操作允许被执行之前，所有<strong>在同一处理器核中</strong>先于这一访存操作的同步操作都已经完成；</li>
+<li>在任一同步操作允许被执行之前，所有在<strong>同一处理机中</strong>先于这一同步操作的普通访存操作都已完成。</li>
+</ol>
+<p>能够产生同步操作的指令有DBAR、IBAR 以及LL-SC 指令对。</p>
+<h2 id="基础整数指令">基础整数指令</h2>
+<p>常规指令略，关注一些特殊指令。</p>
+<p>不包含特权指令，特权指令见下一章。</p>
+<h3 id="PRELD">PRELD</h3>
+<p>访存：<code>preld hint, rj, si12</code></p>
+<p>从内存中预取一个Cache行的数据进入Cache中。</p>
+<ul>
+<li>访存的地址为rj寄存器内容加上立即数</li>
+<li>hint提示处理器预取的类型以及取回的数据填入哪一Cache，共有32个可选值
+<ul>
+<li>0：load 预取至一级数据Cache</li>
+<li>8：store 预取至一级数据Cache</li>
+<li>其余未定义，当作nop处理</li>
+</ul>
+</li>
+</ul>
+<p>如果访问的Cache表象不是cached，那么该指令不能产生访存动作，视同NOP指令处理。</p>
+<p><strong>该指令不会产生异常</strong></p>
+<h3 id="原子访存指令">原子访存指令</h3>
+<ul>
+<li><code>ll.w rd, rj, si14</code></li>
+<li><code>sc.w rd, rj, si14</code></li>
+</ul>
+<p>实现原子的“读-修改-写”访存操作序列</p>
+<p>访存操作序列原子性的维护机制是：</p>
+<ul>
+<li>LL.W执行时记录下访问地址并置上标记LLbit为1</li>
+<li>SC.W指令执行时会查看LLbit，<strong>仅当LLbit 为1时才真正产生写动作，否则不写</strong>。</li>
+</ul>
+<p>当软件需要一定成功完成一个原子的“读-修改-写”访存操作序列时，<strong>需要构建一个循环来反复执行LL-SC指令对直至SC成功完成。</strong></p>
+<p>为了构建这个循环，<code>SC.&#123;W/D&#125;</code>指令会将其执行成功与否的标志（也可以简单理解为SC指令执行时所看到的LLbit 值）<strong>写入到通用寄存器rd中返回</strong>。</p>
+<p>在配对的LL-SC执行期间，下列事件会让LLbit清0：</p>
+<ul>
+<li>执行了ERTN 指令且执行时CSR.LLBCTL中的KLO 位不等于1；</li>
+<li>其它处理器核或Cache Coherent I/O master对该LLbit对应的地址所在的Cache行执行完成了一个<br>
+store 操作</li>
+</ul>
+<p>如果LL-SC指令对<strong>访问地址的存储访问属性不是Cached，那么执行结果不确定。</strong></p>
+<h3 id="栅障指令">栅障指令</h3>
+<p>栅障指令（Barrier Instruction）是一种在并行计算中使用的同步机制，用于确保在多线程或多核处理器上执行的多个线程在某个点上达到一致的状态。这种指令通常用于处理线程之间的数据依赖问题，确保在执行后续操作之前，所有线程都完成了之前的操作。</p>
+<p>当一个线程执行到栅障指令时，它会<strong>等待直到所有其他线程也到达这个点</strong>，然后所有线程才会继续执行栅障之后的代码。这可以确保数据的一致性和程序的正确性。</p>
+<ul>
+<li>
+<p><code>dbar hint</code>：用于完成load/store 访存操作之间的栅障功能</p>
+<p>其携带的立即数hint用于指示该栅障的同步对象和同步程度。hint值为0是默认必须实现的，其指示一个完全功能的同步栅障。</p>
+<p>只有等到之前所有load/store访存操作彻底执行完毕后，<code>DBAR 0</code>指令才能开始执行；且只有<code>DBAR 0</code>执行完成执行后，其后所有load/store访存操作才能开始执行。</p>
+</li>
+<li>
+<p><code>ibar hint</code>：完成单个处理器核内部store 操作与取指操作之间的同步</p>
+<p>其携带的立即数hint用于指示该栅障的同步对象和同步程度。hint值为0是默认必须实现的。</p>
+<p>它能够确保<code>IBAR 0</code>指令之后的取指一定能够观察到<code>IBAR 0</code>指令之前所有store 操作的执行效果。</p>
+</li>
+</ul>
+<h3 id="RDCNTV-L-H-W-RDCNTID"><code>RDCNTV&#123;L/H&#125;.W,  RDCNTID</code></h3>
+<p>读写时钟Counter中的相应值：</p>
+<ul>
+<li><code>rdcntvl.w rd</code>：读取Counter的<code>[31:0]</code>位写入通用寄存器rd 中</li>
+<li><code>rdcntvh.w rd</code>：读取Counter的<code>[63:32]</code>位</li>
+<li><code>rdcntid rj</code>：将相应信息写入rj中</li>
+</ul>
+<h1>基础浮点指令</h1>
+<p>略</p>
+<h1>特权资源架构概述</h1>
+<p>处理器核分为2 个特权等级PLV，分别是PLV0和PLV3。</p>
+<p>处理器核当前处于哪个特权等级由CSR.CRMD中PLV域的值唯一确定。</p>
+<ul>
+<li>PLV0 是具有最高权限的特权等级，也是<strong>唯一可以使用特权指令并访问所有特权资源</strong>的特权等级</li>
+<li>PLV3 这个特权等级<strong>不能执行特权指令访问特权资源</strong></li>
+</ul>
+<h2 id="特权指令">特权指令</h2>
+<p>所有特权指令仅在PLV0 特权等级下才能访问。但是可以在PLV3特权等级下执行Hit类CACOP指令。</p>
+<h3 id="CSR访问指令">CSR访问指令</h3>
+<p>用于软件访问CSR，所有CSR均为32位。</p>
+<ul>
+<li><code>csrrd rd, csr_num</code>：将指定CSR的值写入到通用寄存器rd中</li>
+<li><code>csrwr rd, csr_num</code>：将通用寄存器rd中的旧值写入到指定CSR中，同时将指定CSR的旧值更新到通用寄存器rd中</li>
+<li><code>csrxchg rd, rj, csr_num</code>：根据通用寄存器rj中存放的<strong>写掩码信息</strong>，将通用寄存器rd中的旧值写入到指定CSR中写掩码为1的那些比特，CSR中的其余比特保持不变，同时将该CSR 的旧值更新到通用寄存器rd中。</li>
+</ul>
+<p>所有CSR寄存器采用独立的寻址空间。</p>
+<p>CSR的寻址单位是一个CSR寄存器，即0号CSR的csr_num是0，1号CSR 的csr_num是1，以此类推。</p>
+<h3 id="Cache维护指令">Cache维护指令</h3>
+<p><code>cacop code, rj, si12</code>：主要用于Cache的初始化以及Cache一致性维护</p>
+<p>访问的虚拟地址为rj中存储的值加上立即数。</p>
+<p>访问哪个Cache以及进行何种Cache操作由指令中5比特的code决定。</p>
+<p>code[2:0]指示操作的Cache对象：</p>
+<ul>
+<li>code[2:0]=0表示操作一级私有指令Cache</li>
+<li>code[2:0]=1表示操作一级私有数据Cache</li>
+<li>code[2:0]=2 表示操作二级共享混合Cache。</li>
+</ul>
+<p>code[4:3]指示操作类型：</p>
+<ul>
+<li>
+<p>code[4:3]=0 表示用于Cache 初始化，将<strong>指定Cache行</strong>的tag置为全0。</p>
+<p>假设被访问的Cache有<code>1&lt;&lt;Way</code>路，每一路有<code>1&lt;&lt;Index</code>个Cache 行，每个Cache 行大小为<code>1&lt;&lt;Offset</code>个字节，那么采用地址直接索引方式意味着，操作该Cache 的第<code>VA[Way-1:0]</code>路的第<code>VA[Index+Offset-1:Offset]</code>个Cache 行</p>
+</li>
+<li>
+<p>code[4:3]=1表示采用地址直接索引方式维护Cache一致性（Index Invalidate / Invalidate and Writeback）</p>
+<ul>
+<li>维护一致性的操作是<strong>对指定的Cache进行无效并写回的操作</strong>。</li>
+<li>如果被操作的是指令Cache，那么仅需要进行无效操作，并不需要将Cache行中的数据写回。<strong>写回的数据进入到哪一级存储中由具体实现的Cache层次及各级间的包含或互斥关系决定</strong>。</li>
+<li>对于数据Cache 或混合Cache，由具体实现决定是否仅在Cache行数据为脏时才将其写回</li>
+</ul>
+</li>
+<li>
+<p>code[4:3]=2表示采用查询索引方式维护Cache 一致性（Hit Invalidate / Invalidate and Writeback）</p>
+<ul>
+<li>查询索引方式，是将CACOP指令的VA视作一个普通load指令去访问待操作的Cache，如果命中则对命中的Cache 行进行操作，否则不做任何操作</li>
+<li>查询过程可能涉及虚实地址转换，这种情况下CACOP指令可能触发TLB相关的例外</li>
+<li>由于CACOP指令操作的对象是Cache行，所以这种情况下并不需要考虑地址对齐与否</li>
+</ul>
+</li>
+<li>
+<p>code[4:3]=3 属于实现自定义的Cache 操作，架构规范中不予明确的功能定义。</p>
+</li>
+</ul>
+<h3 id="TLB维护指令">TLB维护指令</h3>
+<ul>
+<li>
+<p><code>tlbsrch</code>：使用<code>CSR.ASID</code>和<code>CSR.TLBEHI</code>的信息去查询TLB</p>
+<ul>
+<li>如果有命中项，那么将命中项的索引值写入到<code>CSR.TLBIDX</code>的Index域，同时将<code>CSR.TLBIDX</code>的NE位置为0</li>
+<li>如果没有命中项，那么将<code>CSR.TLBIDX</code>的NE位置为1。</li>
+</ul>
+</li>
+<li>
+<p><code>tlbrd</code>：将<code>CSR.TLBIDX</code>的Index域的值作为索引值去读取TLB中的指定项。</p>
+<ul>
+<li>如果指定位置处是一个有效TLB项，那么将该TLB 项的页表信息写入到<code>CSR.TLBEHI</code>、<code>CSR.TLBELO0</code>、<code>CSR.TLBELO1</code>和<code>CSR.TLBIDX.PS</code>中，且将<code>CSR.TLBIDX</code>的NE位置为0；</li>
+<li>如果指定位置处是一个无效TLB项，需将<code>CSR.TLBIDX</code>的NE位置为1，且将<code>CSR.ASID.ASID</code>、<code>CSR.TLBEHI</code>、<code>CSR.TLBELO0</code>、<code>CSR.TLBELO1</code>和<code>CSR.TLBIDX.PS</code>全置为0。</li>
+</ul>
+</li>
+<li>
+<p><code>tlbwr</code>：将TLB相关CSR中所存放的页表项信息写入到TLB的指定项</p>
+<ul>
+<li>被填入的页表项信息来自于<code>CSR.TLBEHI</code>、<code>CSR.TLBELO0</code>、<code>CSR.TLBELO1</code>和<code>CSR.TLBIDX.PS</code></li>
+<li>执行TLBWR 时，页表项写入TLB的位置是由<code>CSR.TLBIDX</code>的Index域的值指定的。</li>
+<li>若此时<code>CSR.ESTAT.Ecode=0x3F</code>，即处于<strong>TLB重填例外处理过程中</strong>，那么TLB 中总是填入一个有效项（即TLB项的E位为1）。</li>
+<li>否则的话，就需要看<code>CSR.TLBIDX.NE</code>位的值。此时如果<code>CSR.TLBIDX.NE=1</code>，那么TLB中会被填入一个无效TLB项；仅当<code>CSR.TLBIDX.NE=0</code>时，TLB 中才会被填入一个有效TLB项。</li>
+</ul>
+</li>
+<li>
+<p><code>tlbfill</code>：将TLB相关CSR中所存放的页表项信息填入到TLB中</p>
+<ul>
+<li>被填入的页表项信息来自于<code>CSR.TLBEHI</code>、<code>CSR.TLBELO0</code>、<code>CSR.TLBELO1</code>和<code>CSR.TLBIDX.PS</code></li>
+<li>执行TLBFILL时，页表项被填入到TLB的哪一项，是<strong>由硬件随机选择的</strong>。</li>
+<li>若此时<code>CSR.ESTAT.Ecode=0x3F</code>，即处于TLB重填例外处理过程中，那么TLB中总是填入一个有效项（即TLB 项的E位为1）。</li>
+<li>否则的话，就需要看<code>CSR.TLBIDX.NE</code>位的值。此时如果<code>CSR.TLBIDX.NE=1</code>，那么TLB中会被填入一个无效TLB项；仅当<code>CSR.TLBIDX.NE=0</code>时，TLB中才会被填入一个有效TLB项。</li>
+</ul>
+</li>
+<li>
+<p><code>invtlb op, rj, rk</code>：无效TLB中的内容，以维持TLB与内存之间页表数据的一致性。</p>
+<ul>
+<li>
+<p>rj的[9:0]位存放无效操作所需的ASID信息，其余比特必须填0。当不需要rj时，应设置为r0</p>
+</li>
+<li>
+<p>rk中用于存放无效操作所需的虚拟地址信息。当不需要rk时，应设置为r0</p>
+</li>
+<li>
+<p>op：未在表中出现的op 将触发保留指令例外</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202406292302073.png" alt="op"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="ERTN">ERTN</h3>
+<p><code>ertn</code>：从例外处理返回</p>
+<ul>
+<li>将例外对应的PPLV、PIE等信息更新至<code>CSR.CRMD</code>中，同时跳转到例外所对应的ERA处开始取指。</li>
+<li>例外对应的PPLV、PIE信息来自<code>于CSR.PRMD</code>，例外对应的ERA来自于<code>CSR.ERA</code>。</li>
+</ul>
+<p>执行ERTN指令时，如果<code>CSR.LLBCTL</code>中的KLO位不等于1，则将LLbit置0，否则LLbit不修改。</p>
+<h3 id="IDLE">IDLE</h3>
+<p><code>idle level</code>：IDLE指令执行完毕后，处理器核将停止取指进入等待状态，直至其被中断唤醒或被复位。从停止状态被中断唤醒后，处理器核执行的第一条指令是IDLE 之后的那一条指令。</p>
+<h1>存储管理</h1>
+<p>内存物理地址空间范围是：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>∼</mo><msup><mn>2</mn><mrow><mi>P</mi><mi>A</mi><mi>L</mi><mi>E</mi><mi>N</mi></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \sim 2^{PALEN}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9247em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span><span class="mord mathnormal mtight">A</span><span class="mord mathnormal mtight">L</span><span class="mord mathnormal mtight" style="margin-right:0.10903em;">EN</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>。</p>
+<p>PALEN理论上是一个不超过36的正整数，由实现决定其具体的值，通常为32。</p>
+<h2 id="地址映射">地址映射</h2>
+<p>MMU支持两种虚实地址翻译模式：直接地址翻译模式和映射地址翻译模式。</p>
+<ul>
+<li>
+<p>当<code>CSR.CRMD</code>的DA=1且PG=0时，处理器核的MMU处于直接地址翻译模式。</p>
+<p>物理地址默认直接等于虚拟地址的<code>[PALEN-1:0]</code>位（不足补0），除非具体实现中采用了其它优先级更高的虚实地址翻译规则。</p>
+</li>
+<li>
+<p>当<code>CSR.CRMD</code>的DA=0且PG=1时，处理器核的MMU处于映射地址翻译模式。</p>
+<p>具体又分为直接映射地址翻译模式和页表映射地址翻译模式两种。</p>
+<p>翻译地址时将优先看其能否按照直接映射模式进行翻译，无法进行后再按照<strong>页表映射模式</strong>进行翻译。</p>
+</li>
+</ul>
+<p>直接翻译模式：直接映射配置窗口共设置有两个，<strong>可同时用于取指和load/store操作</strong>。</p>
+<ul>
+<li>系统软件通过配置<code>CSR.DMW0~CSR.DMW1</code>寄存器来分别设置两个直接映射配置窗口。每个窗口除了地址范围信息外，还可以配置该窗口在哪些特权等级下可用，以及虚地址落在该窗口上的访存操作的存储访问类型。</li>
+<li>每一个直接映射配置窗口可以配置一个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>29</mn></msup></mrow><annotation encoding="application/x-tex">2^{29}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">29</span></span></span></span></span></span></span></span></span></span></span></span>字节固定大小的虚拟地址空间。当虚地址命中某个有效的直接映射配置窗口时，其物理地址直接等于虚地址的[28:0]位拼接上该映射窗口所配置的物理地址高位。</li>
+<li>命中的判断方式是：虚地址的最高3位。即[31:29]位，与配置窗口寄存器中的[31:29]相等，且当前特权等级在该配置窗口中被允许。</li>
+</ul>
+<h2 id="存储访问类型">存储访问类型</h2>
+<p>支持两种存储访问类型，分别是：一致可缓存CC和强序非缓存SUC。</p>
+<ul>
+<li>
+<p>当处理器核MMU处于直接地址翻译模式时，所有取指的存储访问类型由<code>CSR.CRMD.DATF</code>决定，所有load/store操作的存储访问类型由<code>CSR.CRMD.DATM</code>域决定。</p>
+</li>
+<li>
+<p>当处理器核MMU 处于映射地址翻译模式时，存储访问类型的确定分为两种情况，其存储访问类型由页表项中的MAT域决定。</p>
+<ul>
+<li>
+<p>0：强序非缓存</p>
+</li>
+<li>
+<p>1：一致可缓存</p>
+</li>
+<li>
+<p>2/3：保留</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="页表映射存储管理">页表映射存储管理</h2>
+<p>映射地址翻译模式下，除了落在直接映射配置窗口中的地址之外，其余所有合法地址都必须通过页表映射完成虚实地址转换。</p>
+<h3 id="TLB的规格">TLB的规格</h3>
+<p>TLB 采用全相联查找表的组织形式。</p>
+<p>每一个TLB 表项包含两个部分：比较部分和物理转换部分。</p>
+<p><img src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202406292315702.png" alt="TLB表项格式"></p>
+<p>比较部分：</p>
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>长度/bit</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存在位E</td>
+<td>1</td>
+<td>为1表示所在TLB 表项非空，可以参与查找匹配</td>
+</tr>
+<tr>
+<td>地址空间标识ASID</td>
+<td>10</td>
+<td>用于区分<strong>不同进程中的同样的虚地址</strong>，避免进程切换时清空整个TLB 所带来的性能损失</td>
+</tr>
+<tr>
+<td>全局标志位G</td>
+<td>1</td>
+<td>当该位为1时，查找时<strong>不进行ASID是否一致性的检查</strong>。<br>当操作系统需要<strong>在所有进程间共享同一虚拟地址</strong>时，可以设置TLB页表项中的G位置为1</td>
+</tr>
+<tr>
+<td>页大小PS</td>
+<td>6</td>
+<td>仅在MTLB 中出现。用于指定该页表项中存放的页大小。数值是页大小的2的幂指数。<br>龙芯架构32 位精简版只支持4KB和4M 两种页大小</td>
+</tr>
+<tr>
+<td>虚双页号VPPN</td>
+<td>VALEN-13</td>
+<td>在龙芯架构32 位精简版中，每一个页表项存放了<strong>相邻的一对奇偶相邻页表信息</strong>，故即虚页号的最低位不需要存放在TLB 中。<br>查找TLB 时在根据被查找虚页号的最低位决定是选择奇数号页还是偶数号页的物理转换信息。</td>
+</tr>
+</tbody>
+</table>
+<p>物理转换部分：</p>
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>长度/bit</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有效位V</td>
+<td>1</td>
+<td>为1表明该页表项是有效的且被访问过的</td>
+</tr>
+<tr>
+<td>脏位D</td>
+<td>1</td>
+<td>为1表示该页表项所对应的地址范围内已有脏数据</td>
+</tr>
+<tr>
+<td>存储访问类型MAT</td>
+<td>2</td>
+<td>控制落在该页表项所在地址空间上访存操作的存储访问类型</td>
+</tr>
+<tr>
+<td>特权等级PLV</td>
+<td>2</td>
+<td>该页表项对应的特权等级。该页表项可以被任何特权等级不低于PLV的程序访问</td>
+</tr>
+<tr>
+<td>物理页号PPN</td>
+<td>VALEN-12</td>
+<td>当页大小大于4KB的时候，TLB中所存放的PPN 的[PS-1:12]位可以是任意值。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="基于TLB的地址转换过程">基于TLB的地址转换过程</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"># va: 待查找虚地址</span><br><span class="line"># mem_type: 访存操作类型，FETCH 是取指操作，LOAD 是load 操作，STORE 是store 操作</span><br><span class="line"># plv：当前特权等级，即CSR.CRMD.PLV 的值</span><br><span class="line"># pa: 转换后的物理地址</span><br><span class="line"># mat: 转换后得到的存储访问类型</span><br><span class="line"># VALEN: 虚地址的有效位数</span><br><span class="line"># PALEN: 物理地址的有效位数</span><br><span class="line"># TLB[]: TLB[N]表示TLB 的第N 项</span><br><span class="line"># TLB_ENTRIES: TLB 的项数</span><br><span class="line"></span><br><span class="line"># 查找TLB</span><br><span class="line">tlb_found = 0</span><br><span class="line">for i in range(TLB_ENTRIES) :</span><br><span class="line">    if (TLB[i].E==1) and</span><br><span class="line">    ((TLB[i].G==1) or (TLB[i].ASID==CSR.ASID.ASID)) and</span><br><span class="line">    (TLB[i].VPPN[VALEN-1: TLB[i].PS+1]==va[VALEN-1: TLB[i].PS+1]) :</span><br><span class="line">    if (tlb_found==0) :</span><br><span class="line">        tlb_found = 1</span><br><span class="line">        found_ps = TLB[i].PS</span><br><span class="line">        if (va[found_ps]==0) :</span><br><span class="line">            found_v = TLB[i].V0</span><br><span class="line">            found_d = TLB[i].D0</span><br><span class="line">            found_mat = TLB[i].MAT0</span><br><span class="line">            found_plv = TLB[i].PLV0</span><br><span class="line">            found_ppn = TLB[i].PPN0</span><br><span class="line">        else :</span><br><span class="line">            found_v = TLB[i].V1</span><br><span class="line">            found_d = TLB[i].D1</span><br><span class="line">            found_mat = TLB[i].MAT1</span><br><span class="line">            found_plv = TLB[i].PLV1</span><br><span class="line">            found_ppn = TLB[i].PPN1</span><br><span class="line">    else:</span><br><span class="line">    #出现多项命中，处理器运行结果不确定</span><br><span class="line">    </span><br><span class="line">if (tlb_found==0) :</span><br><span class="line">	SignalException(TLBR) #报TLB 重填例外</span><br><span class="line">if (found_v==0) :</span><br><span class="line">	case mem_type :</span><br><span class="line">		FETCH : SignalException(PIF) #报取指操作页无效例外</span><br><span class="line">		LOAD : SignalException(PIL) #报load 操作页无效例外</span><br><span class="line">        STORE : SignalException(PIS) #报store 操作页无效例外</span><br><span class="line">elif (plv &gt; found_plv) :</span><br><span class="line">	SignalException(PPI) #报页特权等级不合规例外</span><br><span class="line">elif (mem_type==STORE) and (found_d==0)) : #禁止写允许检查功能未开启</span><br><span class="line">	SignalException(PME) #报页修改例外</span><br><span class="line">else :</span><br><span class="line">    pa = &#123;found_ppn[PALEN-13:found_ps-12], va[found_ps-1:0]&#125;</span><br><span class="line">    mat = found_mat</span><br></pre></td></tr></table></figure>
+<h3 id="TLB相关的异常">TLB相关的异常</h3>
+<p>略，见手册</p>
+<h1>异常与中断</h1>
+<h2 id="中断">中断</h2>
+<h3 id="中断基本情况">中断基本情况</h3>
+<p>中断采用线中断的形式。每个处理器核内部可记录12 个线中断，分别是：</p>
+<ul>
+<li>1个核间中断IPI</li>
+<li>1 个定时器中断TI</li>
+<li>8 个硬中断HWI0~HWI7</li>
+<li>2 个软中断SWI0~SWI1</li>
+</ul>
+<p>所有的线中断都是电平中断，且都是高电平有效。</p>
+<p>核间中断的中断输入来自于核外的中断控制器，其被处理器核采样记录在<code>CSR.ESTAT.IS[12]</code>位。</p>
+<ul>
+<li>定时器中断的中断源来自于核内的恒定频率定时器。当恒定频率定时器倒计时至全0值时，该中断被<br>
+置起。<a target="_blank" rel="noopener" href="http://xn--CSR-u68du2yhwdba05mm5hc9hjolz8sb1a74uoa4649by3itn4bcyzb4vmv6ikwy.ESTAT.IS">置起后的定时器中断被处理器核采样记录在CSR.ESTAT.IS</a>[11]位。清除定时器中断需要通过软件向<br>
+CSR.TICLR 寄存器的TI 位写1 来完成。</li>
+<li>硬中断的中断源来自于处理器核外部，其直接来源通常是核外的中断控制器。8个硬中断<code>HWI[7:0]</code>被处<br>
+理器核采样记录在<code>CSR.ESTAT.IS[9:2]</code>位。</li>
+<li>软中断的中断源来自于处理器核内部，软件通过CSR指令对<code>CSR.ESTAT.IS[1:0]</code>写1则置起软中断，写<br>
+0则清除软中断。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://xn--CSR-u68dp42bghv.ESTAT.IS">中断在CSR.ESTAT.IS</a> 域中记录的位置的索引值也被称为中断号。SWI0 的中断号等于0，SWI1 的中断号等于1，IPI 的中断号等于12。<strong>中断号越大优先级越高</strong>。</p>
+<h3 id="中断处理过程">中断处理过程</h3>
+<p>各中断源发来的中断信号被处理器采样至<code>CSR.ESTAT.IS</code>域中，这些信息与软件配置在<code>CSR.ECFG.LIE</code>域中的局部中断使能信息按位与，得到一个多位中断向量<code>int_vec</code>。</p>
+<p>当<code>CSR.CRMD.IE=1</code>且<code>int_vec</code>不为全0时，处理器认为有需要响应的中断，于是从执行的指令流中挑选出一条指令，将其标记上一种特殊的例外——中断例外。</p>
+<h2 id="例外">例外</h2>
+<p>其实就是异常。</p>
+<h3 id="例外入口">例外入口</h3>
+<p>TLB 重填例外的入口来自于<code>CSR.TLBRENTRY</code></p>
+<p>除上述例外之外的所有普通例外入口相同，来自于<code>CSR.EENTRY</code>。此时需要软件通过CSR.ESTA 中的Ecode、IS 域的信息来判断具体的例外类型。</p>
+<h3 id="例外优先级">例外优先级</h3>
+<ol>
+<li>
+<p>中断的优先级高于例外</p>
+</li>
+<li>
+<p>对于例外：</p>
+<ol>
+<li>
+<p>取指阶段检测出的优先级最高</p>
+<ol>
+<li>取指地址错例外优先级最高</li>
+<li>取指TLB 相关例外优先级次之</li>
+</ol>
+</li>
+<li>
+<p>译码阶段检测出的优先级次之</p>
+<p>可检测出的例外彼此互斥，故无需考虑其间的优先级</p>
+</li>
+<li>
+<p>执行阶段检测出的优先级再次之</p>
+<p>仅访存指令或同时触发多种例外：要求地址对齐的访存指令因地址不对齐而产生的地址对齐错例外ALE &gt; TLB相关的例外</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="例外处理过程">例外处理过程</h3>
+<p>当触发例外时，处理器硬件会进行如下操作：</p>
+<ol>
+<li>将<code>CSR.CRMD</code>的PLV、IE分别存到<code>CSR.PRMD</code>的PPLV、PIE中，然后将<code>CSR.CRMD</code>的PLV置为0，IE置为0；</li>
+<li>将触发例外指令的PC值记录到<code>CSR.ERA</code>中；</li>
+<li>跳转到例外入口处取指。</li>
+</ol>
+<p>当软件执行ERTN 指令从例外执行返回时，处理器硬件会完成如下操作：</p>
+<ol>
+<li>将<code>CSR.PRMD</code>中的PPLV、PIE值恢复到<code>CSR.CRMD</code>的PLV、IE中</li>
+<li>跳转到CSR.ERA 所记录的地址处取指。</li>
+</ol>
+<h2 id="复位">复位</h2>
+<p>复位将重新处理器核中的所有逻辑，将电路置于确定的状态。</p>
+<p><strong>复位后第一条指令的PC是<code>0x1C000000</code></strong>。由于复位撤销后MMU一定处于直接地址翻译模式，所以复位后所取的第一条指令的物理地址也是<code>0x1C000000</code>。</p>
+<p>复位撤销后，处于确定状态的寄存器内容有：</p>
+<ul>
+<li><code>CSR.CRMD</code>的PLV=0，IE=0，DA=1，PG=0，DATF=0，DATM=0；</li>
+<li><code>CSR.EUEN</code>的FPUen为0；</li>
+<li><code>CSR.ECFG</code>中的LIE 为0；</li>
+<li><code>CSR.ESTAT中IS[1:0]</code>均为0；</li>
+<li><code>CSR.TCFG</code>的En=0；</li>
+<li><code>CSR.LLBCTL</code>的KLO=0；</li>
+<li>所有实现的<code>CSR.DMW</code>中的PLV0、PLV3 均为0；</li>
+</ul>
+<p>除了上述指定的内容外，复位撤销后，处理器中其它软件可见的寄存器的值都是不确定的，软件在使用前都要将其状态置于确定状态。</p>
+<p>TLB 和Cache 在复位期间是否进行硬件复位由实现决定，若未实现则需要进行软件复位。</p>
+<h1>控制状态寄存器</h1>
+<p>见手册</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io">pigKiller</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://pigkillermaster.github.io/2024/06/30/%E7%AE%80%E8%A6%81%E9%BE%99%E8%8A%AF%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84/">https://pigkillermaster.github.io/2024/06/30/%E7%AE%80%E8%A6%81%E9%BE%99%E8%8A%AF%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://pigkillermaster.github.io" target="_blank">浮泛之舟</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%BE%99%E8%8A%AF%E6%9D%AF/">龙芯杯</a><a class="post-meta__tags" href="/tags/%E9%BE%99%E8%8A%AF%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84/">龙芯体系架构</a></div><div class="post_share"><div class="social-share" data-image="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202405102211647.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2024/06/30/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%94%BB%E9%98%B2%E6%A6%82%E8%BF%B0/" title="强化学习攻防概述"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202406300003546.jpg" onerror="onerror=null;src='https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202309212200810.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">强化学习攻防概述</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/05/10/%E3%80%8A%E8%B6%85%E6%A0%87%E9%87%8F%E5%A4%84%E7%90%86%E5%99%A8%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="《超标量处理器》读书笔记"><img class="cover" src="https://pigkiller-011955-1319328397.cos.ap-beijing.myqcloud.com/img/202405102211647.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-10</div><div class="title">《超标量处理器》读书笔记</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">指令编码格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E5%8A%A9%E8%AE%B0%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">汇编助记格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">控制状态寄存器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">基础整数指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%95%B4%E6%95%B0%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">基础整数格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.1.1.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">2.1.2.</span> <span class="toc-text">寄存器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">通用寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PC"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">PC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%9D%83%E7%AD%89%E7%BA%A7"><span class="toc-number">2.1.3.</span> <span class="toc-text">特权等级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%A4%96%E5%92%8C%E4%B8%AD%E6%96%AD"><span class="toc-number">2.1.4.</span> <span class="toc-text">例外和中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4"><span class="toc-number">2.1.5.</span> <span class="toc-text">地址空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E5%AD%98%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.1.6.</span> <span class="toc-text">访存形式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache%E4%B8%80%E8%87%B4%E6%80%A7%E7%BB%B4%E6%8A%A4"><span class="toc-number">2.1.6.1.</span> <span class="toc-text">Cache一致性维护</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-number">2.1.7.</span> <span class="toc-text">存储一致性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%95%B4%E6%95%B0%E6%8C%87%E4%BB%A4"><span class="toc-number">2.2.</span> <span class="toc-text">基础整数指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PRELD"><span class="toc-number">2.2.1.</span> <span class="toc-text">PRELD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%AD%90%E8%AE%BF%E5%AD%98%E6%8C%87%E4%BB%A4"><span class="toc-number">2.2.2.</span> <span class="toc-text">原子访存指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%85%E9%9A%9C%E6%8C%87%E4%BB%A4"><span class="toc-number">2.2.3.</span> <span class="toc-text">栅障指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RDCNTV-L-H-W-RDCNTID"><span class="toc-number">2.2.4.</span> <span class="toc-text">RDCNTV{L&#x2F;H}.W,  RDCNTID</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">基础浮点指令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">特权资源架构概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%9D%83%E6%8C%87%E4%BB%A4"><span class="toc-number">4.1.</span> <span class="toc-text">特权指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSR%E8%AE%BF%E9%97%AE%E6%8C%87%E4%BB%A4"><span class="toc-number">4.1.1.</span> <span class="toc-text">CSR访问指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E7%BB%B4%E6%8A%A4%E6%8C%87%E4%BB%A4"><span class="toc-number">4.1.2.</span> <span class="toc-text">Cache维护指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB%E7%BB%B4%E6%8A%A4%E6%8C%87%E4%BB%A4"><span class="toc-number">4.1.3.</span> <span class="toc-text">TLB维护指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ERTN"><span class="toc-number">4.1.4.</span> <span class="toc-text">ERTN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDLE"><span class="toc-number">4.1.5.</span> <span class="toc-text">IDLE</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">存储管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84"><span class="toc-number">5.1.</span> <span class="toc-text">地址映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">5.2.</span> <span class="toc-text">存储访问类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8%E6%98%A0%E5%B0%84%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-number">5.3.</span> <span class="toc-text">页表映射存储管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB%E7%9A%84%E8%A7%84%E6%A0%BC"><span class="toc-number">5.3.1.</span> <span class="toc-text">TLB的规格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8ETLB%E7%9A%84%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="toc-number">5.3.2.</span> <span class="toc-text">基于TLB的地址转换过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="toc-number">5.3.3.</span> <span class="toc-text">TLB相关的异常</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">异常与中断</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD"><span class="toc-number">6.1.</span> <span class="toc-text">中断</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%9F%BA%E6%9C%AC%E6%83%85%E5%86%B5"><span class="toc-number">6.1.1.</span> <span class="toc-text">中断基本情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="toc-number">6.1.2.</span> <span class="toc-text">中断处理过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%A4%96"><span class="toc-number">6.2.</span> <span class="toc-text">例外</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%A4%96%E5%85%A5%E5%8F%A3"><span class="toc-number">6.2.1.</span> <span class="toc-text">例外入口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%A4%96%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">6.2.2.</span> <span class="toc-text">例外优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%A4%96%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="toc-number">6.2.3.</span> <span class="toc-text">例外处理过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E4%BD%8D"><span class="toc-number">6.3.</span> <span class="toc-text">复位</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">控制状态寄存器</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By pigKiller</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">你终会看到，你的歌声和旗帜在飘扬</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script src="f12.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
